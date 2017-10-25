@@ -1,120 +1,101 @@
 <!DOCTYPE html>
 <html>
-  
-  <head>
-    <title>相册-杭电天协</title>
-    <link rel="shortcut icon" href="__PUBLIC__/Album-Main/icon/favicon.ico" />
-    <link rel="Bookmark" href="__PUBLIC__/Album-Main/icon/favicon.ico" />
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <!--[if lte IE 8]>
-      <script src="__PUBLIC__/Album-Main/js/ie/html5shiv.js"></script>
-    <![endif]-->
-    <link rel="stylesheet" href="__PUBLIC__/Album-Main/css/main.css" />
-    <!--[if lte IE 9]>
-      <link rel="stylesheet" href="__PUBLIC__/Album-Main/css/ie9.css" />
-    <![endif]-->
-    <!--[if lte IE 8]>
-      <link rel="stylesheet" href="__PUBLIC__/Album-Main/css/ie8.css" />
-    <![endif]--></head>
-  
-  <body>
-    <!-- Wrapper -->
-    <div id="wrapper">
-      <!-- Header -->
-      <header id="header">
-        <div class="inner">
-          <!-- Logo -->
-          <a href="index.html" class="logo">
-            <span class="symbol">
-              <img src="__PUBLIC__/Album-Main/icon/favicon.ico" alt="" /></span>
-            <span class="title">Album-HDUAAA</span></a>
-          <!-- Nav -->
-          <nav>
-            <ul>
-              <li>
-                <a href="#menu">Menu</a></li>
-            </ul>
-          </nav>
-        </div>
-      </header>
-      <!-- Menu -->
-      <nav id="menu">
-        <h2>站点导航</h2>
-        <ul>
-          <li>
-            <a href="http://www.hduaaa.club">天协首页</a></li>
-          <li>
-            <a href="http://blog.hduaaa.club">访问博客</a></li>
-          <li>
-            <a href="http://bbs.hduaaa.club">访问论坛</a></li>
-          <li>
-            <a href="http://album.hduaaa.club">访问相册</a></li>
-          <li>
-            <a href="https://mail.hduaaa.club">邮件系统</a></li>
-        </ul>
-      </nav>
-      <!-- Main -->
-      <div id="main">
-        <div class="inner">
-          <header>
-            <h1>相册-杭电天协
-              <br /></h1>
-            <p>让我们用图片记录美好的社团生活。</p>
-            <h2>Designed by
-              <a href="http://www.dingnaiwen.xyz">ChristianSwift</a>.</h2></header>
-          <section class="tiles">
-            <article class="style2">
-              <span class="image">
-                <img src="http://static.hduaaa.club/album/images/pic01.jpg" alt="" /></span>
-              <a href="sub-album/01/index.html">
-                <h2>2016天荒坪</h2>
-                <div class="content">
-                  <p>2016天荒坪活动相册</p>
-                </div>
-              </a>
-            </article>
-            <article class="style6">
-              <span class="image">
-                <img src="http://static.hduaaa.club/album/images/pic02.jpg" alt="" /></span>
-              <a href="sub-album/02/index.html">
-                <h2>星空&middot;经典</h2>
-                <div class="content">
-                  <p>杭电人眼里的星与夜</p>
-                </div>
-              </a>
-            </article>
-            <article class="style7">
-              <span class="image">
-                <img src="http://static.hduaaa.club/album/images/pic03.jpg" alt="" /></span>
-              <a href="sub-album/03/index.html">
-                <h2>2017浙西天池天文竞赛</h2>
-                <div class="content">
-                  <p>就算是比赛也要离星星更近一点！</p>
-                </div>
-              </a>
-            </article>
-          </section>
-        </div>
-      </div>
-      <!-- Footer -->
-      <footer id="footer">
-        <div class="inner">
-          <ul class="copyright">
-            <li>&copy; 2017 <a href="http://www.hduaaa.club">HDUAAA</a>. All rights reserved</li>
-            <li>Design:<a href="http://www.dingnaiwen.xyz">ChristianSwift</a></li>
-          </ul>
-        </div>
-      </footer>
-    </div>
-    <!-- Scripts -->
-    <script src="__PUBLIC__/Album-Main/js/jquery.min.js"></script>
-    <script src="__PUBLIC__/Album-Main/js/skel.min.js"></script>
-    <script src="__PUBLIC__/Album-Main/js/util.js"></script>
-    <!--[if lte IE 8]>
-      <script src="__PUBLIC__/Album-Main/js/ie/respond.min.js"></script>
-    <![endif]-->
-    <script src="__PUBLIC__/Album-Main/js/main.js"></script>
-  </body>
+	<head>
+		<title>{$myalbum_name}</title>
+		<link rel="shortcut icon" href="__PUBLIC__/Album-Main/icon/favicon.ico" />
+		<link rel="Bookmark" href="__PUBLIC__/Album-Main/icon/favicon.ico" />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]>
+					  <script src="__PUBLIC__/Album-Main/js/ie/html5shiv.js"></script>
+					<![endif]-->
+		<link rel="stylesheet" href="__PUBLIC__/Album-Main/css/main.css" />
+		<!--[if lte IE 9]>
+					  <link rel="stylesheet" href="__PUBLIC__/Album-Main/css/ie9.css" />
+					<![endif]-->
+		<!--[if lte IE 8]>
+					  <link rel="stylesheet" href="__PUBLIC__/Album-Main/css/ie8.css" />
+					<![endif]-->
+	</head>
 
+	<body>
+		<!-- Wrapper -->
+		<div id="wrapper"> 
+			<!-- Header -->
+			<header id="header">
+				<div class="inner"> 
+					<!-- Logo --> 
+					<a href="index.html" class="logo">
+						<span class="symbol"><img src="__PUBLIC__/Album-Main/icon/favicon.ico" alt="" /></span>
+						<span class="title">{$myalbum_nickname}</span>
+					</a> 
+					<!-- Nav -->
+					<nav>
+						<ul>
+							<li><a href="#menu">Menu</a></li>
+						</ul>
+					</nav>
+				</div>
+			</header>
+			<!-- Menu -->
+			<nav id="menu">
+				<h2>站点导航</h2>
+				<ul>
+				<foreach name="navibar" item="vo">
+					<li><a href="{$navibar.link}">{$navibar.name}</a></li>
+				</foreach>
+				</ul>
+			</nav>
+			<!-- Main -->
+			<div id="main">
+				<div class="inner">
+					<header>
+						<h1>{$myalbum_name}<br/></h1>
+						<p>让我们用图片记录美好的社团生活。</p>
+						<h2>Designed by <a href="http://www.dingnaiwen.xyz">ChristianSwift</a>.</h2>
+					</header>
+					<section class="tiles">
+						<article class="style2"> <span class="image"> <img src="http://static.hduaaa.club/album/images/pic01.jpg" alt="" /></span> <a href="sub-album/01/index.html">
+							<h2>2016天荒坪</h2>
+							<div class="content">
+								<p>2016天荒坪活动相册</p>
+							</div>
+							</a>
+						</article>
+						<article class="style6"> <span class="image"> <img src="http://static.hduaaa.club/album/images/pic02.jpg" alt="" /></span> <a href="sub-album/02/index.html">
+							<h2>星空&middot;经典</h2>
+							<div class="content">
+								<p>杭电人眼里的星与夜</p>
+							</div>
+							</a>
+						</article>
+						<article class="style7"> <span class="image"> <img src="http://static.hduaaa.club/album/images/pic03.jpg" alt="" /></span> <a href="sub-album/03/index.html">
+							<h2>2017浙西天池天文竞赛</h2>
+							<div class="content">
+								<p>就算是比赛也要离星星更近一点！</p>
+							</div>
+							</a> 
+						</article>
+					</section>
+				</div>
+			</div>
+			<!-- Footer -->
+			<footer id="footer">
+				<div class="inner">
+					<ul class="copyright">
+						<li>&copy; <?php echo date('Y');?> {$myalbum_copyright} All rights reserved</li>
+						<li>Design by :{$myalbum_author}</li>
+					</ul>
+				</div>
+			</footer>
+		</div>
+		<!-- Scripts --> 
+		<script src="__PUBLIC__/Album-Main/js/jquery.min.js"></script> 
+		<script src="__PUBLIC__/Album-Main/js/skel.min.js"></script> 
+		<script src="__PUBLIC__/Album-Main/js/util.js"></script> 
+		<!--[if lte IE 8]>
+				  <script src="__PUBLIC__/Album-Main/js/ie/respond.min.js"></script>
+				<![endif]--> 
+		<script src="__PUBLIC__/Album-Main/js/main.js"></script>
+	</body>
 </html>

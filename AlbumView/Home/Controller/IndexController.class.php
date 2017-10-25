@@ -3,14 +3,20 @@ namespace Home\Controller;
 use Think\Controller;
 class IndexController extends Controller {
   	public function index(){
-      	$this->assign('myalbum_name',C('myalbum_name'));
-      	$this->assign('myalbum_introduction',C('myalbum_introduction'));
-      	$this->assign('myalbum_twitter',C('myalbum_twitter'));
-      	$this->assign('myalbum_facebook',C('myalbum_facebook'));
-      	$this->assign('myalbum_github',C('myalbum_github'));
-      	$this->assign('myalbum_author',C('myalbum_author'));
-      	$this->assign('myalbum_bgm',C('myalbum_bgm'));
-      	$this->assign('myalbum_copyright',C('myalbum_copyright'));
-    	$this->display();
+		$basicinfo = M('myalbum_basicinfo');
+		$basicinfo = $basicinfo->select();
+		$basicinfo = $basicinfo[0];
+      	$this -> assign('myalbum_name',$basicinfo[myalbum_name]);
+		$this -> assign('myalbum_nickname',$basicinfo[myalbum_nickname]);
+      	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
+      	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
+    	$this -> display();
+		//var_dump($info);;用于输出测试
+		
+		$navibar = M('myalbum_navi');
+		$navibar = $navibar->select();
+		//$navibar = $navibar[0];
+		$this -> assign('navibar',$navibar);
+		var_dump($navibar);
     }
 }
