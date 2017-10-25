@@ -10,13 +10,13 @@ class IndexController extends Controller {
 		$this -> assign('myalbum_nickname',$basicinfo[myalbum_nickname]);
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
-    	$this -> display();
+		$this -> assign('myalbum_thisyear',date('Y'));
+
 		//var_dump($info);;用于输出测试
 		
 		$navibar = M('myalbum_navi');
-		$navibar = $navibar->select();
-		//$navibar = $navibar[0];
-		$this -> assign('navibar',$navibar);
-		var_dump($navibar);
+		$this->navibar = $navibar->select();
+
+		$this -> display();
     }
 }

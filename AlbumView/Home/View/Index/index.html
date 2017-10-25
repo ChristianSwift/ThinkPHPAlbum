@@ -38,14 +38,14 @@
 				</div>
 			</header>
 			<!-- Menu -->
-			<nav id="menu">
-				<h2>站点导航</h2>
-				<ul>
-				<foreach name="navibar" item="vo">
-					<li><a href="{$navibar.link}">{$navibar.name}</a></li>
-				</foreach>
-				</ul>
-			</nav>
+<nav id="menu">
+						<h2>站点导航</h2>
+						<ul>
+						<volist name="navibar" id="id">
+							<li><a href="{$id.link}"></a>{$id.navi}</li>
+						</volist>
+						</ul>
+					</nav>
 			<!-- Main -->
 			<div id="main">
 				<div class="inner">
@@ -83,7 +83,7 @@
 			<footer id="footer">
 				<div class="inner">
 					<ul class="copyright">
-						<li>&copy; <?php echo date('Y');?> {$myalbum_copyright} All rights reserved</li>
+						<li>&copy; {$myalbum_thisyear} {$myalbum_copyright} All rights reserved</li>
 						<li>Design by :{$myalbum_author}</li>
 					</ul>
 				</div>
