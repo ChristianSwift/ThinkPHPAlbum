@@ -1,10 +1,54 @@
-<!doctype html>
+<!DOCTYPE HTML>
 <html>
-<head>
-<meta charset="utf-8">
-<title>无标题文档</title>
-</head>
+	<head>
+		<title>相册-{$cover_name}</title>
+		<meta charset="utf-8" />
+		<link rel="shortcut icon" href="../../__PUBLIC__/Album-Sub/icon/favicon.ico">
+		<link rel="Bookmark" href="../../__PUBLIC__/Album-Sub/icon/favicon.ico">
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<!--[if lte IE 8]><script src="__PUBLIC__/Album-Sub/js/ie/html5shiv.js"></script><![endif]-->
+		<link rel="stylesheet" href="__PUBLIC__/Album-Sub/css/main.css" />
+		<!--[if lte IE 8]><link rel="stylesheet" href="__PUBLIC__/Album-Sub/css/ie8.css" /><![endif]-->
+		<!--[if lte IE 9]><link rel="stylesheet" href="__PUBLIC__/Album-Sub/css/ie9.css" /><![endif]-->
+		<noscript>
+			<link rel="stylesheet" href="__PUBLIC__/Album-Sub/css/noscript.css" />
+		</noscript>
+	</head>
+	<body class="is-loading-0 is-loading-1 is-loading-2">
+		<!-- Main -->
+		<div id="main"> 
+			<!-- Header -->
+			<header id="header">
+				<h1><a href="index">相册-{$cover_name}</a></h1>
+				<p>{$cover_inst}</p>
+			</header>
 
-<body>
-</body>
+			<!-- Thumbnail -->
+			<section id="thumbnails">
+				<foreach name="content" item="vo">
+					<article>
+						<a class="thumbnail" href="{$vo.preimg}" data-position="left center">
+							<img src="{$vo.bigimg}" alt="" />
+						</a>
+						<h2>{$vo.name}</h2>
+						<p>{$vo.inst}</p>
+					</article>
+				</foreach>
+			</section>
+
+			<!-- Footer -->
+			<footer id="footer">
+				<ul class="copyright">
+					<li>&copy; {$myalbum_thisyear} {$myalbum_copyright} All rights reserved</li>
+					<li>Design: {$myalbum_author}</li>
+				</ul>
+			</footer>
+		</div>
+
+		<!-- Scripts --> 
+		<script src="__PUBLIC__/Album-Sub/js/jquery.min.js"></script> 
+		<script src="__PUBLIC__/Album-Sub/js/skel.min.js"></script> 
+		<!--[if lte IE 8]><script src="__PUBLIC__/Album-Sub/js/ie/respond.min.js"></script><![endif]--> 
+		<script src="__PUBLIC__/Album-Sub/js/main.js"></script>
+	</body>
 </html>

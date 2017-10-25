@@ -25,7 +25,7 @@
 			<header id="header">
 				<div class="inner"> 
 					<!-- Logo --> 
-					<a href="index.html" class="logo">
+					<a href="__ROOT__" class="logo">
 						<span class="symbol"><img src="__PUBLIC__/Album-Main/icon/favicon.ico" alt="" /></span>
 						<span class="title">{$myalbum_nickname}</span>
 					</a> 
@@ -54,7 +54,7 @@
 						<foreach name="cover" item="vo">
 							<article class="style{$vo.style}">
 								<span class="image"><img src="{$vo.coveraddr}" alt=""/></span>
-								<a href="{$vo.coveraddr}">
+								<a href="__ROOT__/?c=sub&cid={$vo.cid}">
 									<h2>{$vo.name}</h2>
 									<div class="content">
 										<p>{$vo.inst}</p>
@@ -70,7 +70,7 @@
 				<div class="inner">
 					<ul class="copyright">
 						<li>&copy; {$myalbum_thisyear} {$myalbum_copyright} All rights reserved</li>
-						<li>Design by :{$myalbum_author}</li>
+						<li>Design by : {$myalbum_author}</li>
 					</ul>
 				</div>
 			</footer>
