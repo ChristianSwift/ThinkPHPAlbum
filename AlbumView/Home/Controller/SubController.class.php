@@ -21,15 +21,14 @@ class SubController extends Controller {
 		$this -> assign('myalbum_thisyear',date('Y'));
 		//查询数据库中相册封面部分
 		$cover = M('myalbum_cover');
-		$cover = $cover->where('cid=$cid')->select($cid);
+		$cover = $cover->where("cid='%d'",array($cid))->select();
 		$cover = $cover[0];
 		$this -> assign('cover_name',$cover[name]);
 		$this -> assign('cover_inst',$cover[inst]);
 		//查询数据库中当前相册的所有内容
 		$content = M('myalbum_photo');
-		$content = $content->where('cid=$cid')->select($cid);
+		$content = $content->where("cid='%d'",array($cid))->select();
 		$this -> assign('content',$content);
-		//$this -> content = M('myalbum_photo') -> getByCid($cid);
 		//var_dump($content);
 		$this -> display();
 		}
