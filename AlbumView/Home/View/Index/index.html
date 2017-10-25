@@ -41,9 +41,9 @@
 <nav id="menu">
 						<h2>站点导航</h2>
 						<ul>
-						<volist name="navibar" id="id">
-							<li><a href="{$id.link}"></a>{$id.navi}</li>
-						</volist>
+							<foreach name="navibar" item="vo">
+							<li><a href="{$vo.link}">{$vo.navi}</a></li>
+							</foreach>
 						</ul>
 					</nav>
 			<!-- Main -->

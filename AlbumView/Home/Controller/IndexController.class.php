@@ -13,9 +13,7 @@ class IndexController extends Controller {
 		$this -> assign('myalbum_thisyear',date('Y'));
 
 		//var_dump($info);;用于输出测试
-		
-		$navibar = M('myalbum_navi');
-		$this->navibar = $navibar->select();
+		$this -> navibar = M('myalbum_navi') -> select();
 
 		$this -> display();
     }
