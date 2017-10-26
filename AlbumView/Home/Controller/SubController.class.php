@@ -13,8 +13,10 @@ class SubController extends Controller {
 		$basicinfo = M('myalbum_basicinfo');
 		$basicinfo = $basicinfo->select();
 		$basicinfo = $basicinfo[0];
-      	$this -> assign('myalbum_name',$basicinfo[myalbum_name]);
+		$this -> assign('myalbum_name',$basicinfo[myalbum_name]);
 		$this -> assign('myalbum_nickname',$basicinfo[myalbum_nickname]);
+		$this -> assign('myalbum_icon',$basicinfo[myalbum_icon]);
+		$this -> assign('myalbum_logo',$basicinfo[myalbum_logo]);
 		$this -> assign('myalbum_saying',$basicinfo[myalbum_saying]);
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);

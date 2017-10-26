@@ -2728,30 +2728,45 @@
 					.tiles article > a .content > :last-child {
 						margin-bottom: 0;
 					}
+						.tiles article.style0 > .image:before {
+							background-color: #CBCBCB;
+						}
 
-			.tiles article.style1 > .image:before {
-				background-color: #f2849e;
-			}
+						.tiles article.style1 > .image:before {
+							background-color: #F39E96;
+						}
 
-			.tiles article.style2 > .image:before {
-				background-color: #7ecaf6;
-			}
+						.tiles article.style2 > .image:before {
+							background-color: #F6BA87;
+						}
 
-			.tiles article.style3 > .image:before {
-				background-color: #7bd0c1;
-			}
+						.tiles article.style3 > .image:before {
+							background-color: #F7DF7D;
+						}
 
-			.tiles article.style4 > .image:before {
-				background-color: #c75b9b;
-			}
+						.tiles article.style4 > .image:before {
+							background-color: #8AD3A9;
+						}
 
-			.tiles article.style5 > .image:before {
-				background-color: #ae85ca;
-			}
+						.tiles article.style5 > .image:before {
+							background-color: #9BD6CB;
+						}
 
-			.tiles article.style6 > .image:before {
-				background-color: #8499e7;
-			}
+						.tiles article.style6 > .image:before {
+							background-color: #8BDAD9;
+						}
+
+						.tiles article.style7 > .image:before {
+							background-color: #C19AD4;
+						}
+
+						.tiles article.style8 > .image:before {
+							background-color: #FD96BA;
+						}
+
+						.tiles article.style9 > .image:before {
+							background-color: #757575;
+						}
 
 			body:not(.is-touch) .tiles article:hover > .image {
 				-moz-transform: scale(1.1);
