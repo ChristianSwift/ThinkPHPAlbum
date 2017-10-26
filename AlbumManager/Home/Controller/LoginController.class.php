@@ -1,8 +1,10 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class IndexController extends Controller {
+class LoginController extends Controller {
   	public function index(){
+		$username = $_POST['username'];
+		$password = $_POST['encrypted'];
 		//查询网站基础内容
 		$basicinfo = M('myalbum_basicinfo');
 		$basicinfo = $basicinfo->select();
@@ -13,11 +15,16 @@ class IndexController extends Controller {
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
-		//var_dump($info);;用于输出测试
-		//查询数据库中页面导航部分
-		$this -> navibar = M('myalbum_navi') -> select();
-		//查询数据库中相册封面部分
-		$this -> cover = M('myalbum_cover') -> select();
+		//查询数据库中用户信息
+		$users -> M('myalbum_users');
+		$users -> $users->where("username='%d'",array($username))->select('password');
+		if(){
+			
+		}
+		else{
+			
+		}
 		$this -> display();
+		
     }
 }
