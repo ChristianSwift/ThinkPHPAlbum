@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class IndexController extends Controller {
+class IndexController extends WebAuthorityController {
   	public function index(){
 		//查询网站基础内容
 		$basicinfo = M('myalbum_basicinfo');
