@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>后台管理-用户登录</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="__PUBLIC__/iviewui/css/iview.css" />
+        <script src="__PUBLIC__/vue.js/vue.min.js"></script>
+        <script src="__PUBLIC__/iviewui/js/iview.min.js"></script>
+        <style>
+            #inhalt { 
+                position:absolute; 
+                height: 250px; 
+                width: 400px; 
+                margin: -100px 0px 0px -200px; 
+                top: 50%; 
+                left: 50%; 
+                text-align: left; 
+                padding: 0px; 
+                background-color: #f5f5f5; 
+                border: 1px dotted #000000; 
+                overflow: auto; 
+            } 
+            p, h1 { 
+                margin: 0px; 
+                padding: 10px; 
+            } 
+            h1 { 
+                font-size: 11px; 
+                text-transform:uppercase; 
+                text-align: center; 
+                color: #8B4513; 
+                background-color: #87CEFA; 
+            } 
+            a { 
+                color: #ff66cc; 
+                font-size: 11px; 
+                background-color:transparent; 
+                text-decoration: none; 
+            } 
+        </style>
+    </head>
+    <body>
+        <div id="inhalt">
+            <h1>后台管理-登录</h1>
+            <br />
+            <center>
+                <form class="ivu-form ivu-form-label-right ivu-form-inline">
+                    <div class="ivu-form-item ivu-form-item-required">
+                        <div class="ivu-form-item-content">
+                            <div class="ivu-input-wrapper ivu-input-type ivu-input-group ivu-input-group-with-prepend">
+                                <div class="ivu-input-group-prepend">
+                                    <i class="ivu-icon ivu-icon-ios-person-outline"></i>
+                                </div>
+                                <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i>
+                                <input autocomplete="off" type="text" placeholder="键入用户帐号" class="ivu-input">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="ivu-form-item ivu-form-item-required">
+                        <div class="ivu-form-item-content">
+                            <div class="ivu-input-wrapper ivu-input-type ivu-input-group ivu-input-group-with-prepend">
+                                <div class="ivu-input-group-prepend">
+                                    <i class="ivu-icon ivu-icon-ios-locked-outline"></i>
+                                </div>
+                                <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i>
+                                <input autocomplete="off" type="password" placeholder="键入帐号密码" class="ivu-input">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="ivu-form-item">
+                        <div class="ivu-form-item-content">
+                            <button type="button" class="ivu-btn ivu-btn-primary">
+                                <span>登录</span>
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </center>
+        </div>
+    </body>
+</html>
