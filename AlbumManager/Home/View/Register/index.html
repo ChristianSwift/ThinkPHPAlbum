@@ -6,9 +6,11 @@
 		<link rel="Bookmark" href="{$myalbum_icon}" />
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="__PUBLIC__/iviewui/css/iview.css" />
-        <script src="__PUBLIC__/vue.js/vue.min.js"></script>
-        <script src="__PUBLIC__/iviewui/js/iview.min.js"></script>
+        <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/iview.css" />
+        <script src="__PUBLIC__/Album-Admin/js/vue.min.js"></script>
+        <script src="__PUBLIC__/Album-Admin/js/iview.min.js"></script>
+        <script src="__PUBLIC__/Album-Admin/js/md5.js"></script>
+        <script src="__PUBLIC__/Album-Admin/js/app.js"></script>
         <style>
             #inhalt { 
                 position: absolute; 
@@ -52,6 +54,18 @@
 		<![endif]-->
     </head>
     <body>
+        <div id="msgbox" class="ivu-message" style="top: 24px;">
+            <!--<div class="ivu-message-notice move-up-leave-active move-up-leave-to" style="height: 50px;">
+                <div class="ivu-message-notice-content">
+                    <div class="ivu-message-notice-content-text">
+                        <div class="ivu-message-custom-content ivu-message-error">
+                            <i class="ivu-icon ivu-icon-close-circled"></i>
+                            <span>用户名、密码或邮箱地址不能为空，请重试。</span>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
         <div id="inhalt">
             <h1>后台管理-注册</h1>
             <br />
@@ -64,7 +78,7 @@
                                     <i class="ivu-icon ivu-icon-ios-person-outline"></i>
                                 </div>
                                 <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i>
-                                <input autocomplete="off" type="text" placeholder="键入用户帐号" class="ivu-input">
+                                <input id="user" autocomplete="off" type="text" placeholder="键入用户帐号" class="ivu-input">
                             </div>
                         </div>
                     </div>
@@ -76,7 +90,7 @@
                                     <i class="ivu-icon ivu-icon-ios-locked-outline"></i>
                                 </div>
                                 <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i>
-                                <input autocomplete="off" type="password" placeholder="键入帐号密码" class="ivu-input">
+                                <input id="pswd" autocomplete="off" type="password" placeholder="键入帐号密码" class="ivu-input">
                             </div>
                         </div>
                     </div>
@@ -88,14 +102,14 @@
                                     <i class="ivu-icon ivu-icon-email"></i>
                                 </div>
                                 <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i>
-                                <input autocomplete="off" type="text" placeholder="键入邮箱地址" class="ivu-input">
+                                <input id="mail" autocomplete="off" type="text" placeholder="键入邮箱地址" class="ivu-input">
                             </div>
                         </div>
                     </div>
                     <br />
                     <div class="ivu-form-item">
                         <div class="ivu-form-item-content">
-                            <button type="button" class="ivu-btn ivu-btn-success">
+                            <button type="button" class="ivu-btn ivu-btn-success" onclick="postreg()">
                                 <span>注册</span>
                             </button>
                             <button type="button" class="ivu-btn ivu-btn-primary" onclick="location.href='./admin.php?c=Login'">

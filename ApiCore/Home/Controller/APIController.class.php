@@ -2,7 +2,7 @@
 namespace Home\Controller;
 use Think\Controller;
 class APIController extends Controller {
-  	private function checkPerm() {
+  	function checkPerm() {
     	if(!isset($_COOKIE['myalbum_token']) || $_COOKIE['myalbum_token'] == '') {
 			$arr = array(
 				'code'	=>	403,
@@ -12,13 +12,14 @@ class APIController extends Controller {
           	self::api($arr);
 		}
 	}
-	private function api($data = null) {
+	function api($data = null) {
 		if($data == null) {
 			$arr = array(
 				'code'	=>	500,
-				'message'	=>	'',
+				'message'	=>	'接口输出失败，数据返回处于null状态。',
 				'requestId'	=>	date('YmdHis',time())
 			);
+			$this->ajaxReturn($arr, 'xml');
 		}
 		$this->ajaxReturn($data, 'xml');
 	}
