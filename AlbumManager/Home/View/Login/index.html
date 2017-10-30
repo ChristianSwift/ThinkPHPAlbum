@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 	<head>
         <title>{$myalbum_name}-用户登录</title>
@@ -10,6 +10,7 @@
         <script src="__PUBLIC__/Album-Admin/js/vue.min.js"></script>
         <script src="__PUBLIC__/Album-Admin/js/iview.min.js"></script>
         <script src="__PUBLIC__/Album-Admin/js/md5.js"></script>
+        <script src="__PUBLIC__/Album-Admin/js/app.js"></script>
         <style>
             #inhalt { 
                 position: absolute; 
@@ -65,7 +66,7 @@
                                     <i class="ivu-icon ivu-icon-ios-person-outline"></i>
                                 </div>
                                 <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i>
-                                <input autocomplete="off" type="text" placeholder="键入用户帐号" class="ivu-input">
+                                <input id="user" autocomplete="off" type="text" placeholder="键入用户帐号" class="ivu-input">
                             </div>
                         </div>
                     </div>
@@ -77,14 +78,14 @@
                                     <i class="ivu-icon ivu-icon-ios-locked-outline"></i>
                                 </div>
                                 <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i>
-                                <input autocomplete="off" type="password" placeholder="键入帐号密码" class="ivu-input">
+                                <input id="pswd" autocomplete="off" type="password" placeholder="键入帐号密码" class="ivu-input">
                             </div>
                         </div>
                     </div>
                     <br />
                     <div class="ivu-form-item">
                         <div class="ivu-form-item-content">
-                            <button type="button" class="ivu-btn ivu-btn-primary">
+                            <button type="button" class="ivu-btn ivu-btn-primary" onclick="postlogin()">
                                 <span>登录</span>
                             </button>
                             <button type="button" class="ivu-btn ivu-btn-success" onclick="location.href='./admin.php?c=Register'">

@@ -1,5 +1,41 @@
 function postlogin() {
-    //TODO
+    if (document.getElementById('user').value == '' || document.getElementById('pswd').value == '') {
+        showError('登录失败，用户名和密码不能为空。请检查并补全后再次尝试！');
+        return false;
+    }
+    var user = document.getElementById('user').value;
+    var pswd = document.getElementById('pswd').value;
+    ajax({
+        method: 'POST',
+        url: './api.php?c=index&a=login',
+        data: {
+            user: user,
+            pswd: MD5(pswd)
+        },
+        isXML: true,
+        success: function (response) {
+            var authcode = response.getElementsByTagName("code")[0].firstChild.nodeValue;
+            var message = response.getElementsByTagName("message")[0].firstChild.nodeValue;
+            if (authcode === 200) {
+                //服务器返回注册成功
+                alert("用户登录成功！");
+                location.href = "./admin.php";
+                return true;
+            }
+            else {
+                //注册被服务器拒绝
+                log("登录发生异常，但远程服务器正确的响应了本次请求。错误代码：" + authcode + "，错误详情：" + message + "。此信息仅供技术人员鉴定系统运行状态！");
+                alert("登录失败！错误原因：" + message);
+                return authcode;
+            }
+        },
+        failure: function (state) {
+            log("登录发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！");
+            alert("远程服务器处于忙碌状态，网络请求异常。");
+            return false;
+            //ajax异常回调
+        }
+    });
 }
 
 function postreg() {
@@ -9,26 +45,36 @@ function postreg() {
     }
     var user = document.getElementById('user').value;
     var pswd = document.getElementById('pswd').value;
+    var mail = document.getElementById('mail').value;
     ajax({
         method: 'POST',
         url: './api.php?c=index&a=register',
         data: {
-            usr: user,
-            pws: pswd
+            user: user,
+            pswd: MD5(pswd),
+            mail: mail
         },
         isXML: true,
         success: function (response) {
-            var authcode = response.getElementsByTagName("status")[0].firstChild.nodeValue;
+            var authcode = response.getElementsByTagName("code")[0].firstChild.nodeValue;
+            var message = response.getElementsByTagName("message")[0].firstChild.nodeValue;
             if (authcode === 200) {
-                //登录成功
+                //服务器返回注册成功
+                alert("用户注册成功！");
+                location.href = "./admin.php?c=Login";
                 return true;
             }
             else {
-                //发生错误
+                //注册被服务器拒绝
+                log("注册发生异常，但远程服务器正确的响应了本次请求。错误代码：" + authcode + "，错误详情：" + message + "。此信息仅供技术人员鉴定系统运行状态！");
+                alert("注册失败！错误原因：" + message);
                 return authcode;
             }
         },
         failure: function (state) {
+            log("注册发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！");
+            alert("远程服务器处于忙碌状态，网络请求异常。");
+            return false;
             //ajax异常回调
         }
     });
@@ -87,6 +133,13 @@ function ajax(opt) {
 }
 
 function showError(message_str) {
+    /*
     var msg_string = '<div class="ivu-message-notice move-up-leave-active move-up-leave-to" style="height: 50px;"><div class="ivu-message-notice-content"><div class="ivu-message-notice-content-text"><div class="ivu-message-custom-content ivu-message-error"><i class="ivu-icon ivu-icon-close-circled"></i><span>' + message_str + '</span></div></div></div></div>';
     document.getElementById('msgbox').innerHTML = msg_string;
+    */
+    alert(message_str);
+}
+
+function log(logstr) {
+    console.log(logstr);
 }
