@@ -6,7 +6,7 @@ class SubController extends Controller {
 		//获取传参
 		$cid=$_GET['cid'];
 		if($cid == ''){
-			header("location:index");  
+			$this->error('传入参数错误，请勿非法调用！！！',__ROOT__.'/index.php', 3);
 		}
 		else{
 		//查询网站基础内容
