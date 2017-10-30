@@ -3,8 +3,8 @@ namespace Home\Controller;
 use Think\Controller;
 class LoginController extends Controller {
   	public function index(){
-		$username = $_POST['username'];
-		$password = $_POST['encrypted'];
+		//$username = $_POST['username'];
+		//$password = $_POST['encrypted'];
 		//查询网站基础内容
 		$basicinfo = M('myalbum_basicinfo');
 		$basicinfo = $basicinfo->select();
@@ -16,14 +16,14 @@ class LoginController extends Controller {
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
 		//查询数据库中用户信息
-		$users -> M('myalbum_users');
+		/*$users -> M('myalbum_users');
 		$users -> $users->where("username='%d'",array($username))->select('password');
 		if($password == $users[password]){
 			$this->success('登录成功！正在进入后台管理系统。',__ROOT__.'/admin.php',1);
 		}
 		else{
 			$this->error('用户名或者密码错误，请检查！',__ROOT__.'/admin.php',1);
-		}
+		}*/
 		$this -> display();
     }
 }
