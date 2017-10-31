@@ -82,6 +82,40 @@ function postreg() {
     });
 }
 
+function logout() {
+    ajax({
+        url: "./api.php?c=index&a=logout",
+        type: 'GET',
+        data: {
+            token: Math.random()
+        },
+        dataType: "xml",
+        async: false,
+        success: function (response, xml) {
+            console.log(response);
+            var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+            var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
+            if (authcode == 200) {
+                //服务器返回注册成功
+                alert("注销成功！");
+                location.href = "./admin.php?c=Login";
+                return true;
+            }
+            else {
+                //注册被服务器拒绝
+                log("注销发生异常，但远程服务器正确的响应了本次请求。错误代码：" + authcode + "，错误详情：" + message + "。此信息仅供技术人员鉴定系统运行状态！");
+                alert("注销失败！错误原因：" + message);
+                return authcode;
+            }
+        },
+        fail: function (status) {
+            log("注销发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：" + status);
+            alert("远程服务器处于忙碌状态，网络请求异常。");
+            return false;
+        }
+    });
+}
+
 /* 封装ajax函数
  * @param {string}opt.type http连接的方式，包括POST和GET两种方式
  * @param {string}opt.url 发送请求的url

@@ -13,7 +13,6 @@ class IndexController extends WebAuthorityController {
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
-
 		$this -> display();
     }
 }
