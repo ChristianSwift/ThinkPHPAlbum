@@ -85,7 +85,7 @@ function postreg() {
 function logout() {
     ajax({
         url: "./api.php?c=index&a=logout",
-        type: 'GET',
+        type: 'POST',
         data: {
             token: Math.random()
         },

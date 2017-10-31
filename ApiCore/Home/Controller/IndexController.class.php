@@ -2,6 +2,10 @@
 namespace Home\Controller;
 use Think\Controller;
 class IndexController extends APIController {
+
+	/**
+	 * API控制器默认入口回显
+	 */
     public function index(){
         $result = array(
             'code'  =>  200,
@@ -9,7 +13,11 @@ class IndexController extends APIController {
             'requestId' =>  date('YmdHis',time())
         );
         APIController::api($result);
-    }
+	}
+	
+	/**
+	 * 用户登录过程
+	 */
     public function login(){
         $user = I('param.user','','htmlspecialchars');
         $pswd = I('param.pswd','','htmlspecialchars');
@@ -24,6 +32,8 @@ class IndexController extends APIController {
         $users = M('myalbum_users');
 		$userinfo = $users -> where('username="'.$user.'" AND userpwd="'.sha1($pswd).'"') -> select();
 		if($userinfo) {
+			session("myalbum_token",$userinfo[0]["usertoken"]);
+			cookie("myalbum_token",$userinfo[0]["usertoken"]);
 			$result = array(
 				'code'  =>  200,
 				'message'   =>  '用户登录成功！',
@@ -39,7 +49,11 @@ class IndexController extends APIController {
 			);
 			APIController::api($result);
 		}
-    }
+	}
+	
+	/**
+	 * 用户信息的注册登记
+	 */
 	public function register() {
 		$user = I('param.user','','htmlspecialchars');
 		$pswd = I('param.pswd','','htmlspecialchars');
@@ -85,5 +99,19 @@ class IndexController extends APIController {
             );
             APIController::api($result);
 		}
+	}
+
+	/**
+	 * 用户会话的退出
+	 */
+	public function logout() {
+		session("myalbum_token",null);
+		cookie("myalbum_token",null);
+		$result = array(
+			'code'  =>  200,
+			'message'   =>  '操作成功结束，当前用户会话已从本机注销！',
+			'requestId' =>  date('YmdHis',time())
+		);
+		APIController::api($result);
 	}
 }
