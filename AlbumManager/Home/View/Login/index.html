@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="ivu-form-item">
                                         <div class="ivu-form-item-content">
-                                            <button type="button" class="ivu-btn ivu-btn-primary ivu-btn-long" onclick="postlogin()" data-vivaldi-spatnav-clickable="1"><span>登录</span></button>
+                                            <button id="loginbutton" type="button" class="ivu-btn ivu-btn-primary ivu-btn-long" onclick="postlogin()" data-vivaldi-spatnav-clickable="1"><span>登录</span></button>
                                         </div>
                                     </div>
                                 </form>
@@ -58,5 +58,13 @@
             </div>
         </div>
         <script type="text/javascript" src="__PUBLIC__/Album-Admin/js/l&r.js"></script>
+        <script type="text/javascript" language=JavaScript charset="UTF-8">
+            document.onkeydown = function(event){
+                var listener = event || window.event || arguments.callee.caller.arguments[0];      
+                if(listener && listener.keyCode==13){
+                    document.getElementById("loginbutton").click();
+                }
+            }; 
+        </script>      
     </body>
 </html>
