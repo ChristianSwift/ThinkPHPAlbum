@@ -494,16 +494,17 @@ html,body{
 	background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509529121924&di=80bd03473202f909c36375e64440e6f6&imgtype=0&src=http%3A%2F%2Fimg.vip.xunlei.com%2Fimg%2Fbanner%2F201510141513428253.jpg");
 	background-size: cover;
 	background-position: 50%;
-	position: relative
+	position: relative;
 }
 
 .login-con {
 	position: absolute;
-	right: 160px;
+	left:50%;
 	top: 50%;
 	-webkit-transform: translateY(-60%);
 	transform: translateY(-60%);
-	width: 300px
+	width: 300px;
+	margin-left:-150px;
 }
 
 .login-con-header {
@@ -12836,7 +12837,7 @@ code,kbd,pre,samp {
 
 .transparent{
     background: rgba(255,255,255,0.5);
-	border-radius: 15px;
+	border-radius: 7px;
 }
 
 .card-head{
