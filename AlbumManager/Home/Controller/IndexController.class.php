@@ -1,7 +1,7 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class IndexController extends Controller {
+class IndexController extends WebAuthorityController {
   	public function index(){
 		//查询网站基础内容
 		$basicinfo = M('myalbum_basicinfo');
@@ -13,7 +13,6 @@ class IndexController extends Controller {
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
-
 		$this -> display();
     }
 }
