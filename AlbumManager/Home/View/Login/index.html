@@ -5,6 +5,7 @@
         <title>{$myalbum_name}-后台登录系统</title>
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
         <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/l&r.css">
+        <link rel="stylesheet" href="__PUBLIC__/FontAwesome/css/font-awesome.min.css">
         <script src="__PUBLIC__/Album-Admin/js/md5.js"></script>
         <script src="__PUBLIC__/Album-Admin/js/app.js"></script>
     </head>
@@ -14,8 +15,8 @@
                 <div class="login-con">
                     <div class="ivu-card transparent">
                         <div class="ivu-card-head">
-                            <p>
-                                <i class="ivu-icon ivu-icon-log-in"></i> 欢迎登录
+                            <p class="card-head">
+                                <i class="fa fa-id-card fa-fw card-head-icon"></i>{$myalbum_name}管理系统-登录
                             </p>
                         </div>
                         <div class="ivu-card-body">
@@ -24,8 +25,8 @@
                                     <div class="ivu-form-item ivu-form-item-required">
                                         <div class="ivu-form-item-content">
                                             <div class="ivu-input-wrapper ivu-input-type ivu-input-group ivu-input-group-with-prepend">
-                                                <div class="ivu-input-group-prepend" style="">
-                                                    <span><i class="ivu-icon ivu-icon-person" style="font-size: 16px;"></i></span>
+                                                <div class="ivu-input-group-prepend" style="width:20px">
+                                                    <span><i class="fa fa-user fa-fw"></i></span>
                                                 </div>
                                                 <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i><input id="user" autocomplete="off" type="text" placeholder="请输入用户名" class="ivu-input">
                                             </div>
@@ -34,8 +35,8 @@
                                     <div class="ivu-form-item ivu-form-item-required">
                                         <div class="ivu-form-item-content">
                                             <div class="ivu-input-wrapper ivu-input-type ivu-input-group ivu-input-group-with-prepend">
-                                                <div class="ivu-input-group-prepend" style="">
-                                                    <span><i class="ivu-icon ivu-icon-locked" style="font-size: 14px;"></i></span>
+                                                <div class="ivu-input-group-prepend">
+                                                    <span><i class="fa fa-key fa-fw"></i></i></span>
                                                 </div>
                                                 <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i><input id="pswd" autocomplete="off" type="password" placeholder="请输入密码" class="ivu-input">
                                             </div>
