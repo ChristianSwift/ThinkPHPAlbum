@@ -1,0 +1,115 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+        <title>{$myalbum_name}-系统初始化</title>
+        <link rel="shortcut icon" href="{$myalbum_icon}" />
+		<link rel="Bookmark" href="{$myalbum_icon}" />
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/iview.css" />
+        <script src="__PUBLIC__/Album-Admin/js/vue.min.js"></script>
+        <script src="__PUBLIC__/Album-Admin/js/iview.min.js"></script>
+        <script src="__PUBLIC__/Album-Admin/js/md5.js"></script>
+        <script src="__PUBLIC__/Album-Admin/js/app.js"></script>
+        <style>
+            #inhalt { 
+                position: absolute; 
+                height: 310px; 
+                width: 400px; 
+                margin: -100px 0px 0px -200px; 
+                top: 50%; 
+                left: 50%; 
+                text-align: left; 
+                padding: 0px; 
+                background-color: #f5f5f5; 
+                border: 1px dotted #000000; 
+                /*overflow: auto;*/
+            }
+            p, h1 { 
+                margin: 0px; 
+                padding: 10px; 
+            } 
+            h1 { 
+                font-size: 15px; 
+                text-transform: uppercase; 
+                text-align: center; 
+                color: #000000; 
+                background-color: #87CEFA; 
+            } 
+            a { 
+                color: #ff66cc; 
+                font-size: 11px; 
+                background-color: transparent; 
+                text-decoration: none; 
+            } 
+        </style>
+        <!--[if lte IE 8]>
+			<script src="__PUBLIC__/Album-Main/js/ie/html5shiv.js"></script>
+		<![endif]-->
+		<!--[if lte IE 9]>
+			<link rel="stylesheet" href="__PUBLIC__/Album-Main/css/ie9.css" />
+		<![endif]-->
+		<!--[if lte IE 8]>
+			<link rel="stylesheet" href="__PUBLIC__/Album-Main/css/ie8.css" />
+		<![endif]-->
+    </head>
+    <body>
+        <div id="inhalt">
+            <h1>后台管理-系统账号初始化</h1>
+            <br />
+            <center>
+                <form class="ivu-form ivu-form-label-right ivu-form-inline">
+                    <div class="ivu-form-item ivu-form-item-required">
+                        <div class="ivu-form-item-content">
+                            <div class="ivu-input-wrapper ivu-input-type ivu-input-group ivu-input-group-with-prepend">
+                                <div class="ivu-input-group-prepend">
+                                    <i class="ivu-icon ivu-icon-ios-person-outline"></i>
+                                </div>
+                                <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i>
+                                <input id="user" autocomplete="off" type="text" placeholder="键入用户帐号" class="ivu-input">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="ivu-form-item ivu-form-item-required">
+                        <div class="ivu-form-item-content">
+                            <div class="ivu-input-wrapper ivu-input-type ivu-input-group ivu-input-group-with-prepend">
+                                <div class="ivu-input-group-prepend">
+                                    <i class="ivu-icon ivu-icon-ios-locked-outline"></i>
+                                </div>
+                                <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i>
+                                <input id="pswd" autocomplete="off" type="password" placeholder="键入帐号密码" class="ivu-input">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="ivu-form-item ivu-form-item-required">
+                        <div class="ivu-form-item-content">
+                            <div class="ivu-input-wrapper ivu-input-type ivu-input-group ivu-input-group-with-prepend">
+                                <div class="ivu-input-group-prepend">
+                                    <i class="ivu-icon ivu-icon-email"></i>
+                                </div>
+                                <i class="ivu-icon ivu-icon-load-c ivu-load-loop ivu-input-icon ivu-input-icon-validate"></i>
+                                <input id="mail" autocomplete="off" type="text" placeholder="键入邮箱地址" class="ivu-input">
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="ivu-form-item">
+                        <div class="ivu-form-item-content">
+                            <button type="button" class="ivu-btn ivu-btn-success" onclick="postreg()">
+                                <span>立即注册</span>
+                            </button>
+                            <!--<button type="button" class="ivu-btn ivu-btn-primary" onclick="location.href='./admin.php?c=Login'">
+                                <span>已有账户</span>
+                            </button>-->
+                        </div>
+                        <div class="ivu-form-item-content">
+                            <a href="#reghelp" target="_self">注册遇到问题</a>
+                        </div>
+                    </div>
+                </form>
+            </center>
+        </div>
+    </body>
+</html>
