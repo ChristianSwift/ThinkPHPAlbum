@@ -1,6 +1,12 @@
 function postlogin() {
     if (document.getElementById('user').value == '' || document.getElementById('pswd').value == '') {
-        showError('登录失败，用户名和密码不能为空。请检查并补全后再次尝试！');
+        layer.alert('请输入用户名和密码！', 
+        {
+            title: '警告！',
+            icon: 2,
+            skin: 'layer-ext-moon',
+            anim: 6
+        });
         return false;
     }
     var user = document.getElementById('user').value;
@@ -20,20 +26,39 @@ function postlogin() {
             var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
             if (authcode == 200) {
                 //服务器返回注册成功
-                alert("用户登录成功！");
+                layer.alert('登录成功！', 
+                {
+                    title: '提示：！',
+                    icon: 1,
+                    skin: 'layer-ext-moon',
+                    anim: 6
+                });
                 location.href = "./admin.php";
                 return true;
             }
             else {
                 //注册被服务器拒绝
                 log("登录发生异常，可能是用户名或密码有误。错误代码：" + authcode + "，错误详情：" + message + "。此信息仅供技术人员鉴定系统运行状态！");
-                alert("登录失败！用户名或密码不正确，错误原因：" + message);
+                layer.alert('登录失败！' + message, 
+                {
+                    title: '警告！',
+                    icon: 2,
+                    skin: 'layer-ext-moon',
+                    anim: 6
+                });
+                //alert("登录失败！用户名或密码不正确，错误原因：" + message);
                 return authcode;
             }
         },
         fail: function (status) {
             log("登录发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：" + status);
-            alert("远程服务器处于忙碌状态，网络请求异常。");
+            layer.alert('连接服务器失败，请检查网络！', 
+            {
+                title: '警告！',
+                icon: 2,
+                skin: 'layer-ext-moon',
+                anim: 6
+            });
             return false;
         }
     });
@@ -41,7 +66,13 @@ function postlogin() {
 
 function postreg() {
     if (document.getElementById('user').value == '' || document.getElementById('pswd').value == '' || document.getElementById('mail').value == '') {
-        showError('用户名、密码或邮箱不能为空，请检查并补全后再次尝试。');
+        layer.alert('请检查表单项是否填充完整！', 
+        {
+            title: '警告！',
+            icon: 2,
+            skin: 'layer-ext-moon',
+            anim: 6
+        });
         return false;
     }
     var user = document.getElementById('user').value;

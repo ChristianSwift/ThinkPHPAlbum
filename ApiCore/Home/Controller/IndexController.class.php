@@ -44,7 +44,7 @@ class IndexController extends APIController {
 		else {
 			$result = array(
 				'code'  =>  403,
-				'message'   =>  '用户登录失败，用户名或密码不正确！',
+				'message'   =>  '用户名或密码不正确！',
 				'requestId' =>  date('YmdHis',time())
 			);
 			APIController::api($result);
