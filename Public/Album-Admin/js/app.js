@@ -15,7 +15,7 @@ function postlogin() {
         dataType: "xml",
         async: false,
         success: function (response, xml) {
-            console.log(response);
+            //console.log(response);
             var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
             var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
             if (authcode == 200) {
@@ -57,7 +57,7 @@ function postreg() {
         dataType: "xml",
         async: false,
         success: function (response, xml) {
-            console.log(response);
+            //console.log(response);
             var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
             var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
             if (authcode == 200) {
@@ -89,7 +89,7 @@ function logout() {
         dataType: "xml",
         async: false,
         success: function (response, xml) {
-            console.log(response);
+            //console.log(response);
             var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
             var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
             if (authcode == 200) {
