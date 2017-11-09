@@ -491,7 +491,7 @@ html,body{
 .login {
 	width: 100%;
 	height: 100%;
-	background-image: url("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1509529121924&di=80bd03473202f909c36375e64440e6f6&imgtype=0&src=http%3A%2F%2Fimg.vip.xunlei.com%2Fimg%2Fbanner%2F201510141513428253.jpg");
+	background-image: url("../images/login_bg.jpg");
 	background-size: cover;
 	background-position: 50%;
 	position: relative;
