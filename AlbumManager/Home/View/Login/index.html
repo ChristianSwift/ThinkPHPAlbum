@@ -6,13 +6,8 @@
         <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=0">
         <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/login.css">
         <link rel="stylesheet" href="__PUBLIC__/FontAwesome/css/font-awesome.min.css">
-        <!-- Alertify.js Require -->
-        <script src="__PUBLIC__/Album-Admin/js/alertify.min.js"></script>
         <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/alertify.min.css">
         <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/default.min.css">
-        
-        <script src="__PUBLIC__/Album-Admin/js/md5.js"></script>
-        <script src="__PUBLIC__/Album-Admin/js/app.js"></script>
     </head>
     <body>
         </script>
@@ -63,8 +58,16 @@
                 </div>
             </div>
         </div>
+        <!-- Import Login Page Support Library -->
         <script type="text/javascript" src="__PUBLIC__/Album-Admin/js/login.js"></script>
-        <script type="text/javascript" language=JavaScript charset="UTF-8">
+        <!-- Alertify.js Require -->
+        <script src="__PUBLIC__/Album-Admin/js/alertify.min.js"></script>
+        <!-- Import MD5 Encrypt Support -->
+        <script type="text/javascript" src="__PUBLIC__/Album-Admin/js/md5.js"></script>
+        <!-- Import AJAX Operator Logic -->
+        <script type="text/javascript" src="__PUBLIC__/Album-Admin/js/app.js"></script>
+        <!-- Onekey Login Support -->
+        <script type="text/javascript" language="javascript" charset="UTF-8">
             document.onkeydown = function(event){
                 var listener = event || window.event || arguments.callee.caller.arguments[0];
                 if(listener && listener.keyCode==13){
