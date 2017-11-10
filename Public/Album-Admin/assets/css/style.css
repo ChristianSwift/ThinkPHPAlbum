@@ -990,7 +990,14 @@ PANELS CONFIGURATIONS
 
 .pn:hover {
 	box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
-	
+}
+
+.pn-s{
+    box-shadow: 0 2px 1px rgba(0, 0, 0, 0.2);
+}
+
+.pn-s:hover{
+    box-shadow: 2px 3px 2px rgba(0, 0, 0, 0.3);
 }
 
 /*Grey Panel*/
@@ -2254,12 +2261,37 @@ label {
 }
 /*footer*/
 .site-footer {
-    bottom:0px;
     background: #68dff0;
     color: #fff;
-    padding: 10px 0;
+    padding: 7px 0;
 }
 
+.site-footer-m {
+    position: fixed;
+    bottom:0;
+    width:100%;
+    background: #68dff0;
+    color: #fff;
+    padding: 7px 0;
+}
+
+.site-footer-a {
+    position: fixed;
+    bottom:0;
+    width:calc(100vw - 210px);
+    background: #68dff0;
+    color: #fff;
+    padding: 7px 0;
+}
+
+.site-footer-d {
+    position: fixed;
+    bottom:0;
+    width:100%;
+    background: #68dff0;
+    color: #fff;
+    padding: 7px 0;
+}
 
 .go-top {
     margin-right: 1%;

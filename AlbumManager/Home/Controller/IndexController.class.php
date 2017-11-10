@@ -39,6 +39,8 @@ class IndexController extends WebAuthorityController {
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
+		//查询数据库中页面导航部分
+		$this -> userlist = M('myalbum_users') -> order("uid asc") -> select();
 		$this -> display('user');
 	}
 	public function album(){

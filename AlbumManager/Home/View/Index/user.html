@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Dashboard">
+        <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+        <meta name="theme-color" content="#FFD777">
+        <title>
+            {$myalbum_name}-用户管理
+        </title>
+        <!-- Bootstrap core CSS -->
+        <link href="__PUBLIC__/Album-Admin/assets/css/bootstrap.css" rel="stylesheet">
+        <!--external css-->
+        <link rel="stylesheet" href="__PUBLIC__/FontAwesome/css/font-awesome.min.css" rel="stylesheet">
+        <!-- Custom styles for this template -->
+        <link href="__PUBLIC__/Album-Admin/assets/css/style.css" rel="stylesheet">
+        <link href="__PUBLIC__/Album-Admin/assets/css/style-responsive.css" rel="stylesheet">
+        <link rel="stylesheet" href="__PUBLIC__/Album-Admin/assets/css/to-do.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media
+        queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js">
+            </script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js">
+            </script>
+        <![endif]-->
+    </head>
+    <body>
+        <section id="container">
+            <!--header start-->
+            <header class="header black-bg">
+                <div class="sidebar-toggle-box">
+                    <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation">
+                    </div>
+                </div>
+                <!--logo start-->
+                <a href="./admin.php" class="logo">
+                    <b style="line-height:36px">
+                        {$myalbum_name} 后台
+                    </b>
+                </a>
+                <!--logo end-->
+                <div class="top-menu">
+                    <ul class="nav pull-right top-menu">
+                        <li>
+                            <a class="logout" href="#/logout" onclick="logout()">
+                                注销
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <!--header end-->
+            <!--sidebar start-->
+            <aside>
+                <div id="sidebar" class="nav-collapse ">
+                    <!-- sidebar menu start-->
+                    <ul class="sidebar-menu" id="nav-accordion">
+                        <p class="centered">
+                            <a href="profile.html">
+                                <img src="__PUBLIC__/Album-Admin/assets/img/ui-sam.jpg" class="img-circle"
+                                width="60">
+                            </a>
+                        </p>
+                        <h5 class="centered">
+                            当前用户名
+                        </h5>
+                        <li class="mt">
+                            <a href="./admin.php">
+                                <i class="fa fa-gear">
+                                </i>
+                                <span>
+                                    仪表盘
+                                </span>
+                            </a>
+                        </li>
+                        <li class="sub-menu">
+                            <a class="active" href="javascript:;">
+                                <i class="fa fa-cogs"></i>
+                                <span>
+                                    基本管理
+                                </span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="./admin.php?a=navi">
+                                        导航管理
+                                    </a>
+                                </li>
+                                <li class="active">
+                                    <a href="./admin.php?a=user">
+                                        用户管理
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-cogs"></i>
+                                <span>
+                                    内容管理
+                                </span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="./admin.php?a=album">
+                                        相册管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="./admin.php?a=photo">
+                                        相片管理
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <!-- sidebar menu end-->
+                </div>
+            </aside>
+            <!--sidebar end-->
+
+            <!--main content start-->
+            <section id="main-content">
+                <section class="wrapper">
+                    <h3>
+                        <i class="fa fa-angle-right"></i>
+                        <a href="./admin.php">后台管理</a>
+                        <i class="fa fa-angle-right"></i>
+                        用户管理
+                    </h3>
+
+                    <!-- SORTABLE TO DO LIST -->
+                    <div class="row mt mb">
+                        <div class="col-md-12">
+                            <section class="task-panel tasks-widget pn-s">
+                            <table class="table table-bordered table-striped table-hover">
+                                <thead>
+                                <tr> 
+                                    <th class="numeric">序号</th>
+                                    <th>用户名</th>
+                                    <th>修改密码</th>
+                                    <th>E-mail</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <foreach name="userlist" item="vo">
+                                    <tr>
+                                        <td class="numeric">{$vo.uid}</td>
+                                        <td>{$vo.username}</td>
+                                        <td>********</td>
+                                        <td>{$vo.email}</td>
+                                    </tr>
+                                </foreach>
+                                
+                                </tbody>
+                            </table>
+                            </section>
+                        </div>
+                        <!--/col-md-12 -->
+                    </div>
+                    <!-- /row -->
+                </section>
+                <!--/wrapper -->
+
+                <!--footer start-->
+                <footer id="site-footer">
+                    <div class="text-center">
+                        Copyright &copy; {$myalbum_thisyear} {$myalbum_copyright} All rights reserved
+                    </div>
+                </footer>
+                <!--footer end-->
+            </section>
+            <!-- /MAIN CONTENT -->
+        </section>
+        <!-- js placed at the end of the document so the pages load faster -->
+        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.js">
+        </script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/bootstrap.min.js">
+        </script>
+        <script class="include" type="text/javascript" src="__PUBLIC__/Album-Admin/assets/js/jquery.dcjqaccordion.2.7.js">
+        </script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.scrollTo.min.js">
+        </script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.nicescroll.js" type="text/javascript">
+        </script>
+        <!-- Import AJAX Operator Logic -->
+        <script type="text/javascript" src="__PUBLIC__/Album-Admin/js/app.js">
+        </script>
+        <!-- Alertify.js Require -->
+        <script src="__PUBLIC__/Album-Admin/js/alertify.min.js">
+        </script>
+        <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/alertify.min.css">
+        <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/default.min.css">
+        <!--common script for all pages-->
+        <script src="__PUBLIC__/Album-Admin/assets/js/common-scripts.js">
+        </script>
+        <!--script for this page-->
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js">
+        </script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/tasks.js" type="text/javascript">
+        </script>
+        <script>
+            jQuery(document).ready(function() {
+                TaskList.initTaskWidget();
+            });
+
+            $(function() {
+                $("#sortable").sortable();
+                $("#sortable").disableSelection();
+            });
+        </script>
+        <script>
+            //custom select box
+            $(function() {
+                $('select.styled').customSelect();
+            });
+        </script>
+    </body>
+</html>
