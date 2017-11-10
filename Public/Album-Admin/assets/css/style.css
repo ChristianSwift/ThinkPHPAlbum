@@ -2213,8 +2213,48 @@ label {
     border-left: 3px solid #BEC3C7;
 }
 
+.ui-sortable li.list-0 {
+    border-left: 3px solid #CBCBCB;
+}
+
+.ui-sortable li.list-1 {
+    border-left: 3px solid #F39E96;
+}
+
+.ui-sortable li.list-2 {
+    border-left: 3px solid #F6BA87;
+}
+
+.ui-sortable li.list-3 {
+    border-left: 3px solid #F7DF7D;
+}
+
+.ui-sortable li.list-4 {
+    border-left: 3px solid #8AD3A9;
+}
+
+.ui-sortable li.list-5 {
+    border-left: 3px solid #9BD6CB;
+}
+
+.ui-sortable li.list-6 {
+    border-left: 3px solid #8BDAD9;
+}
+
+.ui-sortable li.list-7 {
+    border-left: 3px solid #C19AD4;
+}
+
+.ui-sortable li.list-8 {
+    border-left: 3px solid #FD96BA;
+}
+
+.ui-sortable li.list-9 {
+    border-left: 3px solid #757575;
+}
 /*footer*/
 .site-footer {
+    bottom:0px;
     background: #68dff0;
     color: #fff;
     padding: 10px 0;
