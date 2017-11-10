@@ -14,5 +14,17 @@ class IndexController extends WebAuthorityController {
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
 		$this -> display();
-    }
+	}
+	public function navi(){
+		$this -> display('navi');
+	}
+	public function user(){
+		$this -> display('user');
+	}
+	public function album(){
+		$this -> display('album');
+	}
+	public function photo(){
+		$this -> display('photo');
+	}
 }
