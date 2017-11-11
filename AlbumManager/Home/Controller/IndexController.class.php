@@ -14,8 +14,8 @@ class IndexController extends WebAuthorityController {
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
 		$this -> assign('session_name',session('myalbum_user'));
-		$this -> assign('session_avatar',getGravatar(session('myalbum-email')));
-		//trace(getGravatar(session('myalbum-email')),'提示');
+		$this -> assign('session_avatar',getGravatar(session('myalbum_email')));
+		//trace(getGravatar(session('myalbum-email')),'提示1');
 		$this -> display();
 	}
 	public function navi(){
