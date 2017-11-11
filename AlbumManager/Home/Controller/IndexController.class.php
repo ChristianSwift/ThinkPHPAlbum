@@ -13,6 +13,8 @@ class IndexController extends WebAuthorityController {
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
+		$this -> assign('session_name',session('myalbum_user'));
+		//trace(session('myalbum_user'),'提示');
 		$this -> display();
 	}
 	public function navi(){
@@ -25,6 +27,7 @@ class IndexController extends WebAuthorityController {
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
+		$this -> assign('session_name',session('myalbum_user'));
 		//查询数据库中页面导航部分
 		$this -> navibar = M('myalbum_navi') -> order("nid asc") -> select();
 		$this -> display('navi');
@@ -39,6 +42,7 @@ class IndexController extends WebAuthorityController {
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
+		$this -> assign('session_name',session('myalbum_user'));
 		//查询数据库中页面导航部分
 		$this -> userlist = M('myalbum_users') -> order("uid asc") -> select();
 		$this -> display('user');
@@ -53,6 +57,7 @@ class IndexController extends WebAuthorityController {
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
+		$this -> assign('session_name',session('myalbum_user'));
 		$this -> display('album');
 	}
 	public function photo(){
@@ -65,6 +70,7 @@ class IndexController extends WebAuthorityController {
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
+		$this -> assign('session_name',session('myalbum_user'));
 		$this -> display('photo');
 	}
 }
