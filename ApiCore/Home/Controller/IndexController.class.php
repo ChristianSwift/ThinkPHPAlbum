@@ -34,7 +34,8 @@ class IndexController extends APIController {
 		if($userinfo) {
 			session("myalbum_token",$userinfo[0]["usertoken"]);
 			cookie("myalbum_token",$userinfo[0]["usertoken"]);
-          	session("myalbum_user",$userinfo[0]["username"]);
+			session("myalbum_user",$userinfo[0]["username"]);
+			session("myalbum_email",$userinfo[0]["email"]);
 			$result = array(
 				'code'  =>  200,
 				'message'   =>  '用户登录成功！',
@@ -107,7 +108,8 @@ class IndexController extends APIController {
 	 */
 	public function logout() {
 		session("myalbum_token",null);
-      	session("myalbum_user",null);
+		session("myalbum_user",null);
+		session("myalbum_email",null);
 		cookie("myalbum_token",null);
 		$result = array(
 			'code'  =>  200,
