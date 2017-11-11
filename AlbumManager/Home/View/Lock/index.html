@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Dashboard">
+        <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+        <title>
+            后台锁定
+        </title>
+        <link href="__PUBLIC__/Album-Admin/assets/css/bootstrap.css" rel="stylesheet">
+        <link rel="stylesheet" href="__PUBLIC__/FontAwesome/css/font-awesome.min.css"
+        rel="stylesheet">
+        <link href="__PUBLIC__/Album-Admin/assets/css/style.css" rel="stylesheet">
+        <link href="__PUBLIC__/Album-Admin/assets/css/style-responsive.css" rel="stylesheet">
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js">
+            </script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js">
+            </script>
+        <![endif]-->
+    </head>
+    
+    <body onload="getTime()">
+        <div class="container">
+            <div id="showtime">
+            </div>
+            <div class="col-lg-4 col-lg-offset-4">
+                <div class="lock-screen">
+                    <h2>
+                        <a data-toggle="modal" href="./admin.php">
+                            <i class="fa fa-lock"></i>
+                        </a>
+                    </h2>
+                    <p>
+                        立即解锁
+                    </p>
+                </div>
+            </div>
+        </div>
+        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.js">
+        </script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/bootstrap.min.js">
+        </script>
+        <script type="text/javascript" src="__PUBLIC__/Album-Admin/assets/js/jquery.backstretch.min.js">
+        </script>
+        <script>
+            $.backstretch("__PUBLIC__/Album-Admin/images/login_bg.jpg", {
+                speed: 500
+            });
+        </script>
+        <script>
+            function getTime() {
+                var e = new Date,
+                n = e.getHours(),
+                i = e.getMinutes(),
+                c = e.getSeconds();
+                i = checkTime(i),
+                c = checkTime(c),
+                document.getElementById("showtime").innerHTML = n + ":" + i + ":" + c,
+                t = setTimeout(function() {
+                    getTime()
+                },
+                500)
+            }
+            function checkTime(e) {
+                return 10 > e && (e = "0" + e),
+                e
+            }
+        </script>
+    </body>
+</html>
