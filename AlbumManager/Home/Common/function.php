@@ -1,5 +1,5 @@
 <?php
-    function getGravatar( $email, $s = 80, $d = 'mm', $r = 'g', $img = false, $atts = array() ) {
+    function getGravatar($email,$s=128,$d='mm',$r='g',$img=false,$atts=array()){
         $url = 'https://www.gravatar.com/avatar/';
         $url .= md5( strtolower( trim( $email ) ) );
         $url .= "?s=$s&d=$d&r=$r";
