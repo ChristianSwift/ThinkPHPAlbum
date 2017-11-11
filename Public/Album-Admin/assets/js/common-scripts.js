@@ -37,6 +37,7 @@ var Script = function () {
             if (wSize <= 768) {
                 $('#container').addClass('sidebar-close');
                 $('#sidebar > ul').hide();
+                $("#site-footer").addClass("site-footer-m");
                 $('.fa-bars').click(function () {
                     if ($('#sidebar > ul').is(":visible") === true) {
                         $('#main-content').css({
@@ -72,6 +73,7 @@ var Script = function () {
             if (wSize > 768) {
                 $('#container').removeClass('sidebar-close');
                 $('#sidebar > ul').show();
+                $("#site-footer").addClass("site-footer-a");
                 $('.fa-bars').click(function () {
                     if ($('#sidebar > ul').is(":visible") === true) {
                         $('#main-content').css({
