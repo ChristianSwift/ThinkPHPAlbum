@@ -37,10 +37,6 @@ var Script = function () {
             if (wSize <= 768) {
                 $('#container').addClass('sidebar-close');
                 $('#sidebar > ul').hide();
-                $("#site-footer").removeClass("site-footer-a");
-                $("#site-footer").removeClass("site-footer-d");
-                $("#site-footer").removeClass("site-footer-m");
-                $("#site-footer").addClass("site-footer-m");
                 $('.fa-bars').click(function () {
                     if ($('#sidebar > ul').is(":visible") === true) {
                         $('#main-content').css({
@@ -51,6 +47,10 @@ var Script = function () {
                         });
                         $('#sidebar > ul').hide();
                         $("#container").addClass("sidebar-closed");
+                        $("#site-footer").removeClass("site-footer-a");
+                        $("#site-footer").removeClass("site-footer-d");
+                        $("#site-footer").removeClass("site-footer-m");
+                        $("#site-footer").addClass("site-footer-m");
                     }
                     else {
                         $('#main-content').css({
@@ -61,6 +61,10 @@ var Script = function () {
                             'margin-left': '0'
                         });
                         $("#container").removeClass("sidebar-closed");
+                        $("#site-footer").removeClass("site-footer-a");
+                        $("#site-footer").removeClass("site-footer-d");
+                        $("#site-footer").removeClass("site-footer-m");
+                        $("#site-footer").addClass("site-footer-m");
                     }
                 });
             }
@@ -68,10 +72,6 @@ var Script = function () {
             if (wSize > 768) {
                 $('#container').removeClass('sidebar-close');
                 $('#sidebar > ul').show();
-                $("#site-footer").removeClass("site-footer-a");
-                $("#site-footer").removeClass("site-footer-d");
-                $("#site-footer").removeClass("site-footer-m");
-                $("#site-footer").addClass("site-footer-a");
                 $('.fa-bars').click(function () {
                     if ($('#sidebar > ul').is(":visible") === true) {
                         $('#main-content').css({
