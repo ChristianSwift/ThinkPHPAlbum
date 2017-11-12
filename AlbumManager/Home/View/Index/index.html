@@ -8,7 +8,7 @@
         <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
         <meta name="theme-color" content="#FFD777">
         <title>
-            {$myalbum_name}-后台管理首页
+            {$myalbum_name}-后台管理
         </title>
         <!-- Bootstrap core CSS -->
         <link href="__PUBLIC__/Album-Admin/assets/css/bootstrap.css" rel="stylesheet">
@@ -58,9 +58,6 @@
                 </div>
             </header>
             <!--header end-->
-            <!-- **********************************************************************************************************************************************************
-            MAIN SIDEBAR MENU ***********************************************************************************************************************************************************
-            -->
             <!--sidebar start-->
             <aside>
                 <div id="sidebar" class="nav-collapse ">
@@ -76,7 +73,7 @@
                             {$session_name}
                         </h5>
                         <li class="mt">
-                            <a class="active" href="./admin.php">
+                            <a href="./admin.php">
                                 <i class="fa fa-gear">
                                 </i>
                                 <span>
@@ -85,7 +82,7 @@
                             </a>
                         </li>
                         <li class="sub-menu">
-                            <a href="javascript:;">
+                            <a class="active" href="javascript:;">
                                 <i class="fa fa-cogs"></i>
                                 <span>
                                     基本管理
@@ -97,7 +94,7 @@
                                         导航管理
                                     </a>
                                 </li>
-                                <li>
+                                <li class="active">
                                     <a href="./admin.php?a=user">
                                         用户管理
                                     </a>
@@ -134,410 +131,79 @@
             <section id="main-content">
                 <section class="wrapper">
                     <h3>
-                        <i class="fa fa-angle-right">
-                        </i>
-                        To-Do Lists
+                        <i class="fa fa-angle-right"></i>
+                        <a href="./admin.php">后台管理</a>
+                        <i class="fa fa-angle-right"></i>
+                        基本信息
                     </h3>
-                    <!-- SIMPLE TO DO LIST -->
-                    <div class="row mt">
-                        <div class="col-md-12">
-                            <div class="white-panel pn">
-                                <div class="panel-heading">
-                                    <div class="pull-left">
-                                        <h5>
-                                            <i class="fa fa-tasks">
-                                            </i>
-                                            Todo List - Basic Style
-                                        </h5>
-                                    </div>
-                                    <br>
-                                </div>
-                                <div class="custom-check goleft mt">
-                                    <table id="todo" class="table table-hover custom-check">
-                                        <tbody>
-                                            <tr>
-                                                <td>
-                                                    <span class="check">
-                                                        <input type="checkbox" class="checked">
-                                                    </span>
-                                                    <a href="index.html#">
-                                                        Send invoice
-                                                    </a>
-                                                    </span>
-                                                    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">
-                                                        ×
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="check">
-                                                        <input type="checkbox" class="checked">
-                                                    </span>
-                                                    <a href="index.html#">
-                                                        Check messages
-                                                    </a>
-                                                    </span>
-                                                    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">
-                                                        ×
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="check">
-                                                        <input type="checkbox" class="checked">
-                                                    </span>
-                                                    <a href="index.html#">
-                                                        Pay bills
-                                                    </a>
-                                                    </span>
-                                                    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">
-                                                        ×
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <span class="check">
-                                                        <input type="checkbox" class="checked">
-                                                    </span>
-                                                    <a href="index.html#">
-                                                        Schedule site
-                                                    </a>
-                                                    </span>
-                                                    <button class="close" aria-hidden="true" data-dismiss="alert" type="button">
-                                                        ×
-                                                    </button>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
-                                </div>
-                                <!-- /table-responsive -->
-                            </div>
-                            <!--/ White-panel -->
-                        </div>
-                        <! --/col-md-12 -->
-                    </div>
-                    <! -- row -->
-                    <!-- COMPLEX TO DO LIST -->
-                    <div class="row mt">
-                        <div class="col-md-12">
-                            <section class="task-panel tasks-widget">
-                                <div class="panel-heading">
-                                    <div class="pull-left">
-                                        <h5>
-                                            <i class="fa fa-tasks">
-                                            </i>
-                                            Todo List - Complex Style
-                                        </h5>
-                                    </div>
-                                    <br>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="task-content">
-                                        <ul class="task-list">
-                                            <li>
-                                                <div class="task-checkbox">
-                                                    <input type="checkbox" class="list-child" value="" />
-                                                </div>
-                                                <div class="task-title">
-                                                    <span class="task-title-sp">
-                                                        Dashgum - Admin Panel Theme
-                                                    </span>
-                                                    <span class="badge bg-theme">
-                                                        Done
-                                                    </span>
-                                                    <div class="pull-right hidden-phone">
-                                                        <button class="btn btn-success btn-xs">
-                                                            <i class=" fa fa-check">
-                                                            </i>
-                                                        </button>
-                                                        <button class="btn btn-primary btn-xs">
-                                                            <i class="fa fa-pencil">
-                                                            </i>
-                                                        </button>
-                                                        <button class="btn btn-danger btn-xs">
-                                                            <i class="fa fa-trash-o ">
-                                                            </i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="task-checkbox">
-                                                    <input type="checkbox" class="list-child" value="" />
-                                                </div>
-                                                <div class="task-title">
-                                                    <span class="task-title-sp">
-                                                        Extensive collection of plugins
-                                                    </span>
-                                                    <span class="badge bg-warning">
-                                                        Cool
-                                                    </span>
-                                                    <div class="pull-right hidden-phone">
-                                                        <button class="btn btn-success btn-xs">
-                                                            <i class=" fa fa-check">
-                                                            </i>
-                                                        </button>
-                                                        <button class="btn btn-primary btn-xs">
-                                                            <i class="fa fa-pencil">
-                                                            </i>
-                                                        </button>
-                                                        <button class="btn btn-danger btn-xs">
-                                                            <i class="fa fa-trash-o ">
-                                                            </i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="task-checkbox">
-                                                    <input type="checkbox" class="list-child" value="" />
-                                                </div>
-                                                <div class="task-title">
-                                                    <span class="task-title-sp">
-                                                        Free updates always, no extra fees.
-                                                    </span>
-                                                    <span class="badge bg-success">
-                                                        2 Days
-                                                    </span>
-                                                    <div class="pull-right hidden-phone">
-                                                        <button class="btn btn-success btn-xs">
-                                                            <i class=" fa fa-check">
-                                                            </i>
-                                                        </button>
-                                                        <button class="btn btn-primary btn-xs">
-                                                            <i class="fa fa-pencil">
-                                                            </i>
-                                                        </button>
-                                                        <button class="btn btn-danger btn-xs">
-                                                            <i class="fa fa-trash-o ">
-                                                            </i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="task-checkbox">
-                                                    <input type="checkbox" class="list-child" value="" />
-                                                </div>
-                                                <div class="task-title">
-                                                    <span class="task-title-sp">
-                                                        More features coming soon
-                                                    </span>
-                                                    <span class="badge bg-info">
-                                                        Tomorrow
-                                                    </span>
-                                                    <div class="pull-right hidden-phone">
-                                                        <button class="btn btn-success btn-xs">
-                                                            <i class=" fa fa-check">
-                                                            </i>
-                                                        </button>
-                                                        <button class="btn btn-primary btn-xs">
-                                                            <i class="fa fa-pencil">
-                                                            </i>
-                                                        </button>
-                                                        <button class="btn btn-danger btn-xs">
-                                                            <i class="fa fa-trash-o ">
-                                                            </i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li>
-                                                <div class="task-checkbox">
-                                                    <input type="checkbox" class="list-child" value="" />
-                                                </div>
-                                                <div class="task-title">
-                                                    <span class="task-title-sp">
-                                                        Hey, seriously, you should buy this Dashboard
-                                                    </span>
-                                                    <span class="badge bg-important">
-                                                        Now
-                                                    </span>
-                                                    <div class="pull-right">
-                                                        <button class="btn btn-success btn-xs">
-                                                            <i class=" fa fa-check">
-                                                            </i>
-                                                        </button>
-                                                        <button class="btn btn-primary btn-xs">
-                                                            <i class="fa fa-pencil">
-                                                            </i>
-                                                        </button>
-                                                        <button class="btn btn-danger btn-xs">
-                                                            <i class="fa fa-trash-o ">
-                                                            </i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class=" add-task-row">
-                                        <a class="btn btn-success btn-sm pull-left" href="todo_list.html#">
-                                            Add New Tasks
-                                        </a>
-                                        <a class="btn btn-default btn-sm pull-right" href="todo_list.html#">
-                                            See All Tasks
-                                        </a>
-                                    </div>
-                                </div>
-                            </section>
-                        </div>
-                        <!-- /col-md-12-->
-                    </div>
-                    <!-- /row -->
-                    <!-- SORTABLE TO DO LIST -->
                     <div class="row mt mb">
                         <div class="col-md-12">
-                            <section class="task-panel tasks-widget">
-                                <div class="panel-heading">
-                                    <div class="pull-left">
-                                        <h5>
-                                            <i class="fa fa-tasks">
-                                            </i>
-                                            Todo List - Sortable Style
-                                        </h5>
-                                    </div>
-                                    <br>
-                                </div>
-                                <div class="panel-body">
-                                    <div class="task-content">
-                                        <ul id="sortable" class="task-list">
-                                            <li class="list-primary">
-                                                <i class=" fa fa-ellipsis-v">
-                                                </i>
-                                                <div class="task-checkbox">
-                                                    <input type="checkbox" class="list-child" value="" />
-                                                </div>
-                                                <div class="task-title">
-                                                    <span class="task-title-sp">
-                                                        Dashgum - Admin Panel Theme
-                                                    </span>
-                                                    <span class="badge bg-theme">
-                                                        Done
-                                                    </span>
-                                                    <div class="pull-right hidden-phone">
-                                                        <button class="btn btn-success btn-xs fa fa-check">
-                                                        </button>
-                                                        <button class="btn btn-primary btn-xs fa fa-pencil">
-                                                        </button>
-                                                        <button class="btn btn-danger btn-xs fa fa-trash-o">
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="list-danger">
-                                                <i class=" fa fa-ellipsis-v">
-                                                </i>
-                                                <div class="task-checkbox">
-                                                    <input type="checkbox" class="list-child" value="" />
-                                                </div>
-                                                <div class="task-title">
-                                                    <span class="task-title-sp">
-                                                        Extensive collection of plugins
-                                                    </span>
-                                                    <span class="badge bg-warning">
-                                                        Cool
-                                                    </span>
-                                                    <div class="pull-right hidden-phone">
-                                                        <button class="btn btn-success btn-xs fa fa-check">
-                                                        </button>
-                                                        <button class="btn btn-primary btn-xs fa fa-pencil">
-                                                        </button>
-                                                        <button class="btn btn-danger btn-xs fa fa-trash-o">
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="list-success">
-                                                <i class=" fa fa-ellipsis-v">
-                                                </i>
-                                                <div class="task-checkbox">
-                                                    <input type="checkbox" class="list-child" value="" />
-                                                </div>
-                                                <div class="task-title">
-                                                    <span class="task-title-sp">
-                                                        Free updates always, no extra fees.
-                                                    </span>
-                                                    <span class="badge bg-success">
-                                                        2 Days
-                                                    </span>
-                                                    <div class="pull-right hidden-phone">
-                                                        <button class="btn btn-success btn-xs fa fa-check">
-                                                        </button>
-                                                        <button class="btn btn-primary btn-xs fa fa-pencil">
-                                                        </button>
-                                                        <button class="btn btn-danger btn-xs fa fa-trash-o">
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="list-warning">
-                                                <i class=" fa fa-ellipsis-v">
-                                                </i>
-                                                <div class="task-checkbox">
-                                                    <input type="checkbox" class="list-child" value="" />
-                                                </div>
-                                                <div class="task-title">
-                                                    <span class="task-title-sp">
-                                                        More features coming soon
-                                                    </span>
-                                                    <span class="badge bg-info">
-                                                        Tomorrow
-                                                    </span>
-                                                    <div class="pull-right hidden-phone">
-                                                        <button class="btn btn-success btn-xs fa fa-check">
-                                                        </button>
-                                                        <button class="btn btn-primary btn-xs fa fa-pencil">
-                                                        </button>
-                                                        <button class="btn btn-danger btn-xs fa fa-trash-o">
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="list-info">
-                                                <i class=" fa fa-ellipsis-v">
-                                                </i>
-                                                <div class="task-checkbox">
-                                                    <input type="checkbox" class="list-child" value="" />
-                                                </div>
-                                                <div class="task-title">
-                                                    <span class="task-title-sp">
-                                                        Hey, seriously, you should buy this Dashboard
-                                                    </span>
-                                                    <span class="badge bg-important">
-                                                        Now
-                                                    </span>
-                                                    <div class="pull-right hidden-phone">
-                                                        <button class="btn btn-success btn-xs fa fa-check">
-                                                        </button>
-                                                        <button class="btn btn-primary btn-xs fa fa-pencil">
-                                                        </button>
-                                                        <button class="btn btn-danger btn-xs fa fa-trash-o">
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                    <div class=" add-task-row">
-                                        <a class="btn btn-success btn-sm pull-left" href="todo_list.html#">
-                                            Add New Tasks
-                                        </a>
-                                        <a class="btn btn-default btn-sm pull-right" href="todo_list.html#">
-                                            See All Tasks
-                                        </a>
-                                    </div>
-                                </div>
+
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <tbody>
+                                        <th class="col-xs-1 text-center">相册名称</th>
+                                        <th>{$myalbum_name}</th>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <tbody>
+                                        <th class="col-xs-1 text-center">英文昵称</th>
+                                        <th>{$myalbum_nickname}</th>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <tbody>
+                                        <th class="col-xs-1 text-center">相册说明</th>
+                                        <th>{$myalbum_saying}</th>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <tbody>
+                                        <th class="col-xs-1 text-center">相册作者</th>
+                                        <th>{$myalbum_author}</th>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <tbody>
+                                        <th class="col-xs-1 text-center">相册版权</th>
+                                        <th>{$myalbum_copyright}</th>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <tbody>
+                                        <th class="col-xs-1 text-center">相册LOGO</th>
+                                        <th>{$myalbum_logo}</th>
+                                    </tbody>
+                                </table>
+                            </section>
+
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <tbody>
+                                        <th class="col-xs-1 text-center">相册ICON</th>
+                                        <th>{$myalbum_icon}</th>
+                                    </tbody>
+                                </table>
                             </section>
                         </div>
-                        <!--/col-md-12 -->
                     </div>
-                    <!-- /row -->
-                </section>
+            </section>
                 <!--/wrapper -->
 
                 <!--footer start-->
