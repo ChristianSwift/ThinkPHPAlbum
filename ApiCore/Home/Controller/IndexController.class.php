@@ -21,7 +21,7 @@ class IndexController extends APIController {
     public function login(){
         $user = I('param.user','','htmlspecialchars');
         $pswd = I('param.pswd','','htmlspecialchars');
-        if($user == '' || $pswd == '') {
+        if ($user == '' || $pswd == '') {
             $result = array(
                 'code'  =>  405,
                 'message'   =>  '用户名或密码不能为空，请重试。',
@@ -31,7 +31,7 @@ class IndexController extends APIController {
         }
         $users = M('myalbum_users');
 		$userinfo = $users -> where('username="'.$user.'" AND userpwd="'.sha1($pswd).'"') -> select();
-		if($userinfo) {
+		if ($userinfo) {
 			session("myalbum_token",$userinfo[0]["usertoken"]);
 			cookie("myalbum_token",$userinfo[0]["usertoken"]);
 			session("myalbum_user",$userinfo[0]["username"]);
@@ -60,7 +60,7 @@ class IndexController extends APIController {
 		$user = I('param.user','','htmlspecialchars');
 		$pswd = I('param.pswd','','htmlspecialchars');
 		$mail = I('param.mail','','htmlspecialchars');
-		if($user == '' || $pswd == '' || $mail == '') {
+		if ($user == '' || $pswd == '' || $mail == '') {
 			$result = array(
                 'code'  =>  405,
                 'message'   =>  '用户信息不完整，无法继续注册。请重试！',
@@ -70,7 +70,7 @@ class IndexController extends APIController {
 		}
 		$users = M('myalbum_users');
 		$ucheck = $users -> where('username="'.$user.'"') -> select();
-		if($ucheck) {
+		if ($ucheck) {
 			$result = array(
                 'code'  =>  502,
                 'message'   =>  '已有相同用户名的账号，请换一个更有创意的名字吧。',
@@ -85,7 +85,7 @@ class IndexController extends APIController {
 			'email'	=>	$mail
 		);
 		$op_result = $users -> data($udata) -> add();
-		if($op_result) {
+		if ($op_result) {
 			$result = array(
                 'code'  =>  200,
                 'message'   =>  '恭喜您，用户注册成功！',
@@ -117,5 +117,69 @@ class IndexController extends APIController {
 			'requestId' =>  date('YmdHis',time())
 		);
 		APIController::api($result);
+	}
+
+	public function operate() {
+		if (I('token','','htmlspecialchars') == '') {
+			$result = array(
+				'code'  =>  401,
+				'message'   =>  '会话密钥非法，请不要恶意攻击本系统。',
+				'requestId' =>  date('YmdHis',time())
+			);
+			APIController::api($result);
+		}
+		else if (I('token','','htmlspecialchars') != session('myalbum_token')) {
+			$result = array(
+				'code'  =>  403,
+				'message'   =>  '无效的密钥，可能您本次会话已经过期。请尝试重新登录！',
+				'requestId' =>  date('YmdHis',time())
+			);
+			APIController::api($result);
+		}
+		else {
+			switch(I('mod','','htmlspecialchars')) {
+				case "baseinfo":
+				if (I('type','','htmlspecialchars') != 'write') {
+					$baseinfo = M('myalbum_basicinfo');
+					$baseinfo = $baseinfo -> select();
+					APIController::api($baseinfo);
+				}
+				else {
+					if(I('data','','htmlspecialchars') == '') {
+						$result = array(
+							'code'  =>  -1,
+							'message'   =>  '没有传入任何配置参数，本次配置更新操作已被取消。',
+							'requestId' =>  date('YmdHis',time())
+						);
+						APIController::api($result);
+					}
+					/*
+					else {
+						$data_array = json_decode(@$_POST['data']);
+						
+						if($data_array['name'] == null || $data_array['nickname'] == null || $data_array['icon'] == null || $data_array['logo'] == null || $data_array['saying'] == null || $data_array['author'] == null || $data_array['copyright'] == null) {
+							$result = array(
+								'code'  =>  -2,
+								'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
+								'requestId' =>  date('YmdHis',time())
+							);
+							APIController::api($result);
+						}
+						print_r($data_array);
+						exit();
+					}
+					*/
+				}
+				break;
+				default:
+				$result = array(
+					'code'  =>  405,
+					'message'   =>  '无效的操作类，请确认是否传入了合法的mod。',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+				break;
+			}
+		}
 	}
 }
