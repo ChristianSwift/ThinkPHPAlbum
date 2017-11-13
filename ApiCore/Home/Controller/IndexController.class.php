@@ -232,7 +232,7 @@ class IndexController extends APIController {
 				APIController::api($result);
 			}
 			$data_array = json_decode($data);
-			if($data_array->navi == null || $data_array->link == null) {
+			if($data_array->m_navi == null || $data_array->m_link == null) {
 				$result = array(
 					'code'  =>  -2,
 					'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
@@ -274,7 +274,7 @@ class IndexController extends APIController {
 			}
 			else {
 				$data_array = json_decode($data);
-				if($data_array->navi == null || $data_array->link == null) {
+				if($data_array->m_navi == null || $data_array->m_link == null) {
 					$result = array(
 						'code'  =>  -2,
 						'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
