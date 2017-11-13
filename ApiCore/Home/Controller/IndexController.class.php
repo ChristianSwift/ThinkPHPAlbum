@@ -185,13 +185,13 @@ class IndexController extends APIController {
 
 	public function mainsubmit(){
 		$mainsubmit = M('myalbum_basicinfo');
-		$data['myalbum_name'] = I('param.myalbum_name','','htmlspecialchars');
-		$data['myalbum_nickname'] = I('param.myalbum_nickname','','htmlspecialchars');
-		$data['myalbum_saying'] = I('param.myalbum_saying','','htmlspecialchars');
-		$data['myalbum_author'] = I('param.myalbum_author','','htmlspecialchars');
-		$data['myalbum_copyright'] = I('param.myalbum_copyright','','htmlspecialchars');
-		$data['myalbum_icon'] = I('param.myalbum_icon','','htmlspecialchars');
-		$data['myalbum_logo'] = I('param.myalbum_logo','','htmlspecialchars');
+		$data['myalbum_name'] = I('param.myalbum_name',$mainsubmit[myalbum_name],'htmlspecialchars');
+		$data['myalbum_nickname'] = I('param.myalbum_nickname',$mainsubmit[myalbum_nickname],'htmlspecialchars');
+		$data['myalbum_saying'] = I('param.myalbum_saying',$mainsubmit[myalbum_saying],'htmlspecialchars');
+		$data['myalbum_author'] = I('param.myalbum_author',$mainsubmit[myalbum_author],'htmlspecialchars');
+		$data['myalbum_copyright'] = I('param.myalbum_copyright',$mainsubmit[myalbum_copyright],'htmlspecialchars');
+		$data['myalbum_icon'] = I('param.myalbum_icon',$mainsubmit[myalbum_icon],'htmlspecialchars');
+		$data['myalbum_logo'] = I('param.myalbum_logo',$mainsubmit[myalbum_logo],'htmlspecialchars');
 		$up_result = $mainsubmit->save($data);
 		if ($up_result) {
 			$result = array(
