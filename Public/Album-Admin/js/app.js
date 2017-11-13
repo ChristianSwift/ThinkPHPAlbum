@@ -142,8 +142,8 @@ function submit_main() {
                 return true;
             }
             else {
-                alertify.notify('提交失败', 'error', 5);
-                return authcode;
+                alertify.notify('提交失败', 'error', 5, function(){ console.log('Main info update failed!'); });
+                return true;
             }
         },
         fail: function (status) {
