@@ -111,6 +111,48 @@ function logout() {
     });
 }
 
+function submit_main() {
+    var myalbum_name = document.getElementById('myalbum_name').value;
+    var myalbum_nickname = document.getElementById('myalbum_nickname').value;
+    var myalbum_saying = document.getElementById('myalbum_saying').value;
+    var myalbum_author = document.getElementById('myalbum_author').value;
+    var myalbum_copyright = document.getElementById('myalbum_copyright').value;
+    var myalbum_icon = document.getElementById('myalbum_icon').value;
+    var myalbum_logo = document.getElementById('myalbum_logo').value;
+    ajax({
+        url: ".api.php?c=index&a=mainsubmit",
+        type: 'POST',
+        data: {
+            myalbum_name: myalbum_name,
+            myalbum_nickname: myalbum_nickname,
+            myalbum_saying: myalbum_saying,
+            myalbum_author: myalbum_author,
+            myalbum_copyright: myalbum_copyright,
+            myalbum_icon: myalbum_icon,
+            myalbum_logo: myalbum_logo
+        },
+        dataType: "xml",
+        async: false,
+        success: function (response, xml) {
+            //console.log(response);
+            var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+            var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
+            if (authcode == 200) {
+                alertify.notify('提交成功', 'success', 5, function(){ console.log('Main info update succeed!'); });
+                return true;
+            }
+            else {
+                alertify.notify('提交失败', 'error', 5);
+                return authcode;
+            }
+        },
+        fail: function (status) {
+            alertify.notify('远程服务器忙碌！', 'error', 5, function(){ console.log('注销发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
+            return false;
+        }
+    });
+    alert('提交成功');
+}
 /**
  * 原生JS AJAX封装
  * @param {any} options
