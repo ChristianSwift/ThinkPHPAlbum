@@ -120,7 +120,166 @@ class IndexController extends APIController {
 	}
 
 	public function operate() {
-		if (I('token','','htmlspecialchars') == '') {
+		switch(I('mod','','htmlspecialchars')) {
+			case "baseinfo":
+			if (I('type','','htmlspecialchars') != 'write') {
+				$baseinfo = M('myalbum_basicinfo');
+				$baseinfo = $baseinfo->select();
+				APIController::api($baseinfo);
+			}
+			else {
+				self::verifyTOKEN(I('token','','htmlspecialchars')); //写操作验证TOKEN
+				$data = @$_POST['data'];
+				self::updateBaseInformation($data);
+			}
+			break;
+			case "navinfo":
+			if (I('type','','htmlspecialchars') != 'write') {
+				$navinfo = M('myalbum_navi');
+				$navinfo = $navinfo->select();
+				APIController::api($navinfo);
+			}
+			else {
+				self::verifyTOKEN(I('token','','htmlspecialchars')); //写操作验证TOKEN
+				$m_nid = @$_POST['nid'];
+				$data = @$_POST['data'];
+				self::updateNavigation($m_nid, $data);
+			}
+			break;
+			default:
+			$result = array(
+				'code'  =>  405,
+				'message'   =>  '无效的操作类，请确认是否传入了合法的mod。',
+				'requestId' =>  date('YmdHis',time())
+			);
+			APIController::api($result);
+			break;
+		}
+	}
+
+	/**
+	 * 网站基础信息更新
+	 * @param string $data JSON数据字串
+	 * @return string XML处理结果
+	 */
+	private function updateBaseInformation($data) {
+		if($data == null || $data == '') {
+			$result = array(
+				'code'  =>  -1,
+				'message'   =>  '没有传入任何配置参数，本次配置更新操作已被取消。',
+				'requestId' =>  date('YmdHis',time())
+			);
+			APIController::api($result);
+		}
+		else {
+			$data_array = json_decode($data);
+			if($data_array->name == null || $data_array->nickname == null || $data_array->icon == null || $data_array->logo == null || $data_array->saying == null || $data_array->author == null || $data_array->copyright == null) {
+				$result = array(
+					'code'  =>  -2,
+					'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			$baseinfo = M('myalbum_basicinfo');
+			$basedata = array(
+				'myalbum_name'	=>	$data_array->name,
+				'myalbum_nickname'	=>	$data_array->nickname,
+				'myalbum_icon'	=>	$data_array->icon,
+				'myalbum_logo'	=>	$data_array->logo,
+				'myalbum_saying'	=>	$data_array->saying,
+				'myalbum_author'	=>	$data_array->author,
+				'myalbum_copyright'	=>	$data_array->copyright
+			);
+			$sitename = $baseinfo->select()[0]['myalbum_name'];
+			$up_result = $baseinfo->where('myalbum_name="'.$sitename.'"')->save($basedata);
+			if ($up_result) {
+				$result = array(
+					'code'  =>  200,
+					'message'   =>  '数据保存完毕，操作成功结束！',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			else {
+				$result = array(
+					'code'  =>  500,
+					'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+		}
+	}
+
+	/**
+	 * 页面导航更新
+	 * @param string $nid 导航ID
+	 * @param string $data JSON数据字串
+	 * @return string XML处理结果
+	 */
+	private function updateNavigation($nid = null, $data = null) {
+		if ($nid == null || $nid == '') {
+			$result = array(
+				'code'  =>  -1,
+				'message'   =>  '没有传入任何导航ID，本次配置更新操作已被取消。',
+				'requestId' =>  date('YmdHis',time())
+			);
+			APIController::api($result);
+		}
+		else {
+			if($data == null || $data == '') {
+				$result = array(
+					'code'  =>  -1,
+					'message'   =>  '没有传入任何配置参数，本次配置更新操作已被取消。',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			else {
+				$data_array = json_decode($data);
+				if($data_array->navi == null || $data_array->link == null) {
+					$result = array(
+						'code'  =>  -2,
+						'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+				$navinfo = M('myalbum_navi');
+				$navidata = array(
+					'nid'	=>	$nid,
+					'navi'	=>	$data_array->m_navi,
+					'link'	=>	$data_array->m_link
+				);
+				$up_result = $navinfo->where('nid='.$m_nid.'')->save($navidata);
+				if ($up_result) {
+					$result = array(
+						'code'  =>  200,
+						'message'   =>  '数据保存完毕，操作成功结束！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+				else {
+					$result = array(
+						'code'  =>  500,
+						'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+			}
+		}
+	}
+
+	/**
+	 * Token合法性验证
+	 * @param string $s_token 会话token
+	 * @return string XML处理结果
+	 */
+	private function verifyTOKEN($s_token = null) {
+		if ($s_token == null) {
 			$result = array(
 				'code'  =>  401,
 				'message'   =>  '会话密钥非法，请不要恶意攻击本系统。',
@@ -128,81 +287,13 @@ class IndexController extends APIController {
 			);
 			APIController::api($result);
 		}
-		else if (I('token','','htmlspecialchars') != session('myalbum_token')) {
+		else if ($s_token != session('myalbum_token')) {
 			$result = array(
 				'code'  =>  403,
 				'message'   =>  '无效的密钥，可能您本次会话已经过期。请尝试重新登录！',
 				'requestId' =>  date('YmdHis',time())
 			);
 			APIController::api($result);
-		}
-		else {
-			switch(I('mod','','htmlspecialchars')) {
-				case "baseinfo":
-				if (I('type','','htmlspecialchars') != 'write') {
-					$baseinfo = M('myalbum_basicinfo');
-					$baseinfo = $baseinfo->select();
-					APIController::api($baseinfo);
-				}
-				else {
-					if(I('data','','htmlspecialchars') == '') {
-						$result = array(
-							'code'  =>  -1,
-							'message'   =>  '没有传入任何配置参数，本次配置更新操作已被取消。',
-							'requestId' =>  date('YmdHis',time())
-						);
-						APIController::api($result);
-					}
-					else {
-						$data_array = json_decode(@$_POST['data']);
-						if($data_array->name == null || $data_array->nickname == null || $data_array->icon == null || $data_array->logo == null || $data_array->saying == null || $data_array->author == null || $data_array->copyright == null) {
-							$result = array(
-								'code'  =>  -2,
-								'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
-								'requestId' =>  date('YmdHis',time())
-							);
-							APIController::api($result);
-						}
-						$baseinfo = M('myalbum_basicinfo');
-						$basedata = array(
-							'myalbum_name'	=>	$data_array->name,
-							'myalbum_nickname'	=>	$data_array->nickname,
-							'myalbum_icon'	=>	$data_array->icon,
-							'myalbum_logo'	=>	$data_array->logo,
-							'myalbum_saying'	=>	$data_array->saying,
-							'myalbum_author'	=>	$data_array->author,
-							'myalbum_copyright'	=>	$data_array->copyright
-						);
-						$sitename = $baseinfo->select()[0]['myalbum_name'];
-						$up_result = $baseinfo->where('myalbum_name="'.$sitename.'"')->save($basedata);
-						if ($up_result) {
-							$result = array(
-								'code'  =>  200,
-								'message'   =>  '数据保存完毕，操作成功结束！',
-								'requestId' =>  date('YmdHis',time())
-							);
-							APIController::api($result);
-						}
-						else {
-							$result = array(
-								'code'  =>  500,
-								'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
-								'requestId' =>  date('YmdHis',time())
-							);
-							APIController::api($result);
-						}
-					}
-				}
-				break;
-				default:
-				$result = array(
-					'code'  =>  405,
-					'message'   =>  '无效的操作类，请确认是否传入了合法的mod。',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
-				break;
-			}
 		}
 	}
 }
