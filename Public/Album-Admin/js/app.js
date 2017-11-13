@@ -112,24 +112,22 @@ function logout() {
 }
 
 function submit_main() {
-    var myalbum_name = document.getElementById('myalbum_name').value;
-    var myalbum_nickname = document.getElementById('myalbum_nickname').value;
-    var myalbum_saying = document.getElementById('myalbum_saying').value;
-    var myalbum_author = document.getElementById('myalbum_author').value;
-    var myalbum_copyright = document.getElementById('myalbum_copyright').value;
-    var myalbum_icon = document.getElementById('myalbum_icon').value;
-    var myalbum_logo = document.getElementById('myalbum_logo').value;
+    var m_name = document.getElementById('myalbum_name').value;
+    var m_nickname = document.getElementById('myalbum_nickname').value;
+    var m_icon = document.getElementById('myalbum_icon').value;
+    var m_logo = document.getElementById('myalbum_logo').value;
+    var m_saying = document.getElementById('myalbum_saying').value;
+    var m_author = document.getElementById('myalbum_author').value;
+    var m_copyright = document.getElementById('myalbum_copyright').value;
+    var m_jsondata = '{"name":"' + m_name + '","nickname":"' + m_nickname + '","icon":"' + m_icon + '","logo":"' + m_logo + '","saying":"' + m_saying + '","author":"' + m_author + '","copyright":"' + m_copyright + '"}';
     ajax({
-        url: ".api.php?c=index&a=mainsubmit",
+        url: "./api.php?c=index&a=operate",
         type: 'POST',
         data: {
-            myalbum_name: myalbum_name,
-            myalbum_nickname: myalbum_nickname,
-            myalbum_saying: myalbum_saying,
-            myalbum_author: myalbum_author,
-            myalbum_copyright: myalbum_copyright,
-            myalbum_icon: myalbum_icon,
-            myalbum_logo: myalbum_logo
+            mod: 'baseinfo',
+            type: 'write',
+            token: operator_id,
+            data: m_jsondata
         },
         dataType: "xml",
         async: false,
