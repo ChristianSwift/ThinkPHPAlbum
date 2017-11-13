@@ -7,6 +7,8 @@
         <meta name="author" content="Dashboard">
         <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
         <meta name="theme-color" content="#FFD777">
+        <link rel="shortcut icon" href="{$myalbum_icon}" />
+		<link rel="Bookmark" href="{$myalbum_icon}" />
         <title>
             {$myalbum_name}-用户管理
         </title>
@@ -141,27 +143,69 @@
                     <div class="row mt mb">
                         <div class="col-md-12">
                             <section class="task-panel tasks-widget pn-s">
-                            <table class="table table-bordered table-striped table-hover">
-                                <thead>
-                                <tr> 
-                                    <th class="numeric">#</th>
-                                    <th>用户名</th>
-                                    <th>密码</th>
-                                    <th>E-mail</th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <foreach name="userlist" item="vo">
-                                    <tr>
-                                        <td class="numeric">{$vo.uid}</td>
-                                        <td>{$vo.username}</td>
-                                        <td>********</td>
-                                        <td>{$vo.email}</td>
-                                    </tr>
-                                </foreach>
-                                
-                                </tbody>
-                            </table>
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                        <th>新增权限用户</th>
+                                    </thead>
+                                </table>
+                            </section>
+
+                            <section class="task-panel tasks-widget pn-s">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <tbody>
+                                            <td>
+                                                <div class="add-task-row">
+                                                    <form>
+                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                            <input type="text" class="form-control"  id="add_username" placeholder="用户名">
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                            <input type="text" class="form-control" id="add_userpassword" placeholder="用户密码">
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                            <input type="text" class="form-control" id="add_useremail" placeholder="用户邮箱">
+                                                        </div>
+                                                        <div class="col-md-3 col-sm-6 col-xs-12">
+                                                            <button type="submit" class="btn btn-theme text-center" style="width:100%">添加用户</button>
+                                                        </div>
+                                                    </form>
+                                                </div>
+                                            </td>
+                                        </tbody>
+                                    </table>
+                            </section>
+
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                        <th>权限用户修改</th>
+                                    </thead>
+                                </table>
+                            </section>
+
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr> 
+                                            <th class="numeric text-center">#</th>
+                                            <th class="text-center">用户名</th>
+                                            <th class="text-center">密码</th>
+                                            <th class="text-center">E-mail</th>
+                                            <th class="numeric text-center">编辑</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <foreach name="userlist" item="vo">
+                                            <tr>
+                                                <td class="numeric text-center">{$vo.uid}</td>
+                                                <td id="uname_{$vo.uid}" contenteditable>{$vo.username}</td>
+                                                <td id="upass_{$vo.uid}" class="text-center" contenteditable>输入新密码以重置</td>
+                                                <td id="umail_{$vo.uid}" contenteditable>{$vo.email}</td>
+                                                <td id="usbmt_{$vo.uid}" class="text-center"><a href="#">保存</a></td>
+                                            </tr>
+                                        </foreach>
+                                    </tbody>
+                                </table>
                             </section>
                         </div>
                         <!--/col-md-12 -->

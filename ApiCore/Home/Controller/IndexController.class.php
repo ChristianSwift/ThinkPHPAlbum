@@ -125,37 +125,50 @@ class IndexController extends APIController {
 	public function operate() {
 		switch(I('mod','','htmlspecialchars')) {
 			case "baseinfo":
-			if (I('type','','htmlspecialchars') != 'write') {
-				$baseinfo = M('myalbum_basicinfo');
-				$baseinfo = $baseinfo->select();
-				APIController::api($baseinfo);
-			}
-			else {
-				self::verifyTOKEN(I('token','','htmlspecialchars')); //写操作验证TOKEN
-				$data = @$_POST['data'];
-				self::updateBaseInformation($data);
-			}
+				if (I('type','','htmlspecialchars') != 'write') {
+					$baseinfo = M('myalbum_basicinfo');
+					$baseinfo = $baseinfo->select();
+					APIController::api($baseinfo);
+				}
+				else {
+					self::verifyTOKEN(I('token','','htmlspecialchars')); //写操作验证TOKEN
+					$data = @$_POST['data'];
+					self::updateBaseInformation($data);
+				}
 			break;
 			case "navinfo":
-			if (I('type','','htmlspecialchars') != 'write') {
-				$navinfo = M('myalbum_navi');
-				$navinfo = $navinfo->select();
-				APIController::api($navinfo);
-			}
-			else {
-				self::verifyTOKEN(I('token','','htmlspecialchars')); //写操作验证TOKEN
-				$m_nid = @$_POST['nid'];
-				$data = @$_POST['data'];
-				self::updateNavigation($m_nid, $data);
-			}
+				if (I('type','','htmlspecialchars') != 'write') {
+					$navinfo = M('myalbum_navi');
+					$navinfo = $navinfo->select();
+					APIController::api($navinfo);
+				}
+				else {
+					self::verifyTOKEN(I('token','','htmlspecialchars')); //写操作验证TOKEN
+					$m_nid = @$_POST['nid'];
+					$data = @$_POST['data'];
+					self::updateNavigation($m_nid, $data);
+				}
+			break;
+			case "userinfo":
+				if(I('type','','htmlspecialchars') != 'write') {
+					$userinfo = M('myalbum_users');
+					$userinfo = $userinfo->select();
+					APIController::api($userinfo);
+				}
+				else {
+					self::verifyTOKEN(I('token','','htmlspecialchars')); //写操作验证TOKEN
+					$m_uid = @$_POST['uid'];
+					$data = @$_POST['data'];
+					self::updateNavigation($m_uid, $data);
+				}
 			break;
 			default:
-			$result = array(
-				'code'  =>  405,
-				'message'   =>  '无效的操作类，请确认是否传入了合法的mod。',
-				'requestId' =>  date('YmdHis',time())
-			);
-			APIController::api($result);
+				$result = array(
+					'code'  =>  405,
+					'message'   =>  '无效的操作类，请确认是否传入了合法的mod。',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
 			break;
 		}
 	}

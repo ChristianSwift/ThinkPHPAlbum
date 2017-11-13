@@ -150,6 +150,23 @@ function submit_main() {
         }
     });
 }
+
+function create_navi() {
+
+}
+
+function submit_navi() {
+
+}
+
+function create_navi() {
+    
+}
+
+function submit_navi() {
+    
+}
+
 /**
  * 原生JS AJAX封装
  * @param {any} options
