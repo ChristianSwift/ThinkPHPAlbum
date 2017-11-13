@@ -139,12 +139,11 @@
                     </h3>
                     <div class="row mt mb">
                         <div class="col-md-12">
-
                             <section class="task-panel tasks-widget pn-s">
                                 <table class="table table-bordered table-striped table-hover">
                                     <tbody>
                                         <th class="col-xs-1 text-center">相册名称</th>
-                                        <th>{$myalbum_name}</th>
+                                        <th id="myalbum_name" contenteditable>{$myalbum_name}</th>
                                     </tbody>
                                 </table>
                             </section>
@@ -153,7 +152,7 @@
                                 <table class="table table-bordered table-striped table-hover">
                                     <tbody>
                                         <th class="col-xs-1 text-center">英文昵称</th>
-                                        <th>{$myalbum_nickname}</th>
+                                        <th id="myalbum_nickname" contenteditable>{$myalbum_nickname}</th>
                                     </tbody>
                                 </table>
                             </section>
@@ -162,7 +161,7 @@
                                 <table class="table table-bordered table-striped table-hover">
                                     <tbody>
                                         <th class="col-xs-1 text-center">相册说明</th>
-                                        <th>{$myalbum_saying}</th>
+                                        <th id="myalbum_saying" contenteditable>{$myalbum_saying}</th>
                                     </tbody>
                                 </table>
                             </section>
@@ -171,7 +170,7 @@
                                 <table class="table table-bordered table-striped table-hover">
                                     <tbody>
                                         <th class="col-xs-1 text-center">相册作者</th>
-                                        <th>{$myalbum_author}</th>
+                                        <th id="myalbum_author" contenteditable>{$myalbum_author}</th>
                                     </tbody>
                                 </table>
                             </section>
@@ -180,7 +179,7 @@
                                 <table class="table table-bordered table-striped table-hover">
                                     <tbody>
                                         <th class="col-xs-1 text-center">相册版权</th>
-                                        <th>{$myalbum_copyright}</th>
+                                        <th id="myalbum_copyright" contenteditable>{$myalbum_copyright}</th>
                                     </tbody>
                                 </table>
                             </section>
@@ -189,7 +188,7 @@
                                 <table class="table table-bordered table-striped table-hover">
                                     <tbody>
                                         <th class="col-xs-1 text-center">相册ICON</th>
-                                        <th>{$myalbum_icon}</th>
+                                        <th id="myalbum_icon" contenteditable>{$myalbum_icon}</th>
                                     </tbody>
                                 </table>
                             </section>
@@ -198,20 +197,20 @@
                                 <table class="table table-bordered table-striped table-hover">
                                     <tbody>
                                         <th class="col-xs-1 text-center">相册LOGO</th>
-                                        <th>{$myalbum_logo}</th>
+                                        <th id="myalbum_logo" contenteditable>{$myalbum_logo}</th>
                                     </tbody>
                                 </table>
                             </section>
 
-                            <section class="task-panel tasks-widget pn-s">
-                                <table class="table table-bordered table-striped table-hover">
-                                    <tbody>
-                                        <th>
-                                            <button onclick="submit_main()" type="button" class="btn btn-default btn-xs btn-block">确认修改并提交</button>
-                                        </th>
-                                    </tbody>
-                                </table>
-                            </section>
+                            <a onclick="submit_main()" href="#">
+                                <section class="task-panel tasks-widget pn-s">
+                                    <table class="table table-bordered table-striped table-hover">
+                                        <tbody>
+                                            <th class="text-center">确认修改并提交</th>
+                                        </tbody>
+                                    </table>
+                                </section>
+                            </a>
                         </div>
                     </div>
             </section>
