@@ -136,11 +136,11 @@ function submit_main() {
             var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
             var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
             if (authcode == 200) {
-                alertify.notify('提交成功', 'success', 5, function(){ console.log('Main info update succeed!'); });
+                alertify.notify(message, 'success', 5, function(){ console.log('Main info update succeed!'); });
                 return true;
             }
             else {
-                alertify.notify('提交失败', 'error', 5, function(){ console.log('Main info update failed!'); });
+                alertify.notify('提交失败，错误详情：' + message, 'error', 5, function(){ console.log('Main info update failed!'); });
                 return true;
             }
         },
@@ -149,7 +149,6 @@ function submit_main() {
             return false;
         }
     });
-    alert('提交成功');
 }
 /**
  * 原生JS AJAX封装
