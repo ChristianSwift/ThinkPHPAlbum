@@ -223,12 +223,45 @@ class IndexController extends APIController {
 	 */
 	private function updateNavigation($nid = null, $data = null) {
 		if ($nid == null || $nid == '') {
-			$result = array(
-				'code'  =>  -1,
-				'message'   =>  '没有传入任何导航ID，本次配置更新操作已被取消。',
-				'requestId' =>  date('YmdHis',time())
+			if($data == null || $data == '') {
+				$result = array(
+					'code'  =>  -1,
+					'message'   =>  '没有传入任何配置参数，本次导航新增操作已被取消。',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			$data_array = json_decode($data);
+			if($data_array->navi == null || $data_array->link == null) {
+				$result = array(
+					'code'  =>  -2,
+					'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			$navinfo = M('myalbum_navi');
+			$navidata = array(
+				'navi'	=>	$data_array->m_navi,
+				'link'	=>	$data_array->m_link
 			);
-			APIController::api($result);
+			$op_result = $navinfo->data($navidata)->add();
+			if ($op_result) {
+				$result = array(
+					'code'  =>  200,
+					'message'   =>  '数据保存完毕，操作成功结束！',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			else {
+				$result = array(
+					'code'  =>  500,
+					'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
 		}
 		else {
 			if($data == null || $data == '') {
