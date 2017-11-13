@@ -30,7 +30,7 @@ class IndexController extends APIController {
             APIController::api($result);
         }
         $users = M('myalbum_users');
-		$userinfo = $users -> where('username="'.$user.'" AND userpwd="'.sha1($pswd).'"') -> select();
+		$userinfo = $users->where('username="'.$user.'" AND userpwd="'.sha1($pswd).'"')->select();
 		if ($userinfo) {
 			session("myalbum_token",$userinfo[0]["usertoken"]);
 			cookie("myalbum_token",$userinfo[0]["usertoken"]);
@@ -69,7 +69,7 @@ class IndexController extends APIController {
             APIController::api($result);
 		}
 		$users = M('myalbum_users');
-		$ucheck = $users -> where('username="'.$user.'"') -> select();
+		$ucheck = $users->where('username="'.$user.'"')->select();
 		if ($ucheck) {
 			$result = array(
                 'code'  =>  502,
@@ -84,7 +84,7 @@ class IndexController extends APIController {
 			'usertoken'	=>	sha1($user.$pswd),
 			'email'	=>	$mail
 		);
-		$op_result = $users -> data($udata) -> add();
+		$op_result = $users->data($udata)->add();
 		if ($op_result) {
 			$result = array(
                 'code'  =>  200,
@@ -141,7 +141,7 @@ class IndexController extends APIController {
 				case "baseinfo":
 				if (I('type','','htmlspecialchars') != 'write') {
 					$baseinfo = M('myalbum_basicinfo');
-					$baseinfo = $baseinfo -> select();
+					$baseinfo = $baseinfo->select();
 					APIController::api($baseinfo);
 				}
 				else {
@@ -153,11 +153,9 @@ class IndexController extends APIController {
 						);
 						APIController::api($result);
 					}
-					/*
 					else {
 						$data_array = json_decode(@$_POST['data']);
-						
-						if($data_array['name'] == null || $data_array['nickname'] == null || $data_array['icon'] == null || $data_array['logo'] == null || $data_array['saying'] == null || $data_array['author'] == null || $data_array['copyright'] == null) {
+						if($data_array->name == null || $data_array->nickname == null || $data_array->icon == null || $data_array->logo == null || $data_array->saying == null || $data_array->author == null || $data_array->copyright == null) {
 							$result = array(
 								'code'  =>  -2,
 								'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
@@ -165,10 +163,35 @@ class IndexController extends APIController {
 							);
 							APIController::api($result);
 						}
-						print_r($data_array);
-						exit();
+						$baseinfo = M('myalbum_basicinfo');
+						$basedata = array(
+							'myalbum_name'	=>	$data_array->name,
+							'myalbum_nickname'	=>	$data_array->nickname,
+							'myalbum_icon'	=>	$data_array->icon,
+							'myalbum_logo'	=>	$data_array->logo,
+							'myalbum_saying'	=>	$data_array->saying,
+							'myalbum_author'	=>	$data_array->author,
+							'myalbum_copyright'	=>	$data_array->copyright
+						);
+						$sitename = $baseinfo->select()[0]['myalbum_name'];
+						$up_result = $baseinfo->where('myalbum_name="'.$sitename.'"')->save($basedata);
+						if ($up_result) {
+							$result = array(
+								'code'  =>  200,
+								'message'   =>  '数据保存完毕，操作成功结束！',
+								'requestId' =>  date('YmdHis',time())
+							);
+							APIController::api($result);
+						}
+						else {
+							$result = array(
+								'code'  =>  500,
+								'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
+								'requestId' =>  date('YmdHis',time())
+							);
+							APIController::api($result);
+						}
 					}
-					*/
 				}
 				break;
 				default:
@@ -183,6 +206,7 @@ class IndexController extends APIController {
 		}
 	}
 
+	/*
 	public function mainsubmit(){
 		$mainsubmit = M('myalbum_basicinfo');
 		$data['myalbum_name'] = I('param.myalbum_name',$mainsubmit[myalbum_name],'htmlspecialchars');
@@ -208,4 +232,5 @@ class IndexController extends APIController {
             APIController::api($result);
 		}
 	}
+	*/
 }
