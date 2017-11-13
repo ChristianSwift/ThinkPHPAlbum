@@ -119,6 +119,9 @@ class IndexController extends APIController {
 		APIController::api($result);
 	}
 
+	/**
+	 * 后台操作者API主入口
+	 */
 	public function operate() {
 		switch(I('mod','','htmlspecialchars')) {
 			case "baseinfo":
