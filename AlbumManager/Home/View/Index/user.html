@@ -198,7 +198,7 @@
                                             <th class="text-center hidden-phone">
                                                 E-mail
                                             </th>
-                                            <th class="numeric text-center">
+                                            <th class="numeric text-center col-md-1 col-sm-2 col-xs-3">
                                                 编辑
                                             </th>
                                         </tr>
@@ -219,13 +219,8 @@
                                                     {$vo.email}
                                                 </td>
                                                 <td id="usbmt_{$vo.uid}" class="text-center">
-                                                    <a href="#" class="alert-info">
-                                                        保存
-                                                    </a>
-                                                    &nbsp;
-                                                    <a href="#" class="alert-danger">
-                                                        删除
-                                                    </a>
+                                                    <a class="btn btn-success btn-xs fa fa-check"></a>
+                                                    <a class="btn btn-danger btn-xs fa fa-trash-o"></a>
                                                 </td>
                                             </tr>
                                         </foreach>

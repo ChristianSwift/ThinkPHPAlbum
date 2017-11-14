@@ -68,6 +68,8 @@ class IndexController extends WebAuthorityController {
 		$this -> assign('session_name',session('myalbum_user'));
 		$this -> assign('session_id',session('myalbum_token'));
 		$this -> assign('session_avatar',getGravatar(session('myalbum_email')));
+		//查询数据库中页面导航部分
+		$this -> coverlist = M('myalbum_cover') -> order("cid asc") -> select();
 		$this -> display('album');
 	}
 	public function photo(){

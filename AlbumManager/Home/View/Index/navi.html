@@ -184,10 +184,6 @@
                                     <thead>
                                         <tr>
                                             <th class="numeric text-center col-md-1">
-                                                <i class="fa fa-ellipsis-v">
-                                                </i>
-                                            </th>
-                                            <th class="numeric text-center hidden-phone col-md-1">
                                                 #
                                             </th>
                                             <th class="text-center col-md-3">
@@ -196,7 +192,7 @@
                                             <th class="text-center col-md-6">
                                                 导航链接
                                             </th>
-                                            <th class="numeric text-center col-md-1">
+                                            <th class="numeric text-center col-md-1 col-sm-2 col-xs-3">
                                                 编辑
                                             </th>
                                         </tr>
@@ -204,27 +200,18 @@
                                     <tbody>
                                         <foreach name="navibar" item="vo">
                                             <tr>
-                                                <td class="numeric text-center">
-                                                    <i class="fa fa-ellipsis-v">
-                                                    </i>
-                                                </td>
-                                                <td id="uname_{$vo.uid}" class="text-center">
+                                                <td id="uname_{$vo.uid}" class="numeric text-center">
                                                     {$vo.nid}
                                                 </td>
                                                 <td id="upass_{$vo.uid}" class="text-center" contenteditable>
                                                     {$vo.navi}
                                                 </td>
-                                                <td id="umail_{$vo.uid}" class="hidden-phone" contenteditable>
+                                                <td id="umail_{$vo.uid}" contenteditable>
                                                     {$vo.link}
                                                 </td>
                                                 <td id="usbmt_{$vo.uid}" class="text-center">
-                                                    <a href="#" class="alert-info">
-                                                        保存
-                                                    </a>
-                                                    &nbsp;
-                                                    <a href="#" class="alert-danger">
-                                                        删除
-                                                    </a>
+                                                    <a class="btn btn-success btn-xs fa fa-check"></a>
+                                                    <a class="btn btn-danger btn-xs fa fa-trash-o"></a>
                                                 </td>
                                             </tr>
                                         </foreach>

@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+    
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width,initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="Dashboard">
+        <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+        <meta name="theme-color" content="#FFD777">
+        <link rel="shortcut icon" href="{$myalbum_icon}">
+        <link rel="Bookmark" href="{$myalbum_icon}">
+        <title>
+            {$myalbum_name}-相册管理
+        </title>
+        <link href="__PUBLIC__/Album-Admin/assets/css/bootstrap.css" rel="stylesheet">
+        <link rel="stylesheet" href="__PUBLIC__/FontAwesome/css/font-awesome.min.css"
+        rel="stylesheet">
+        <link href="__PUBLIC__/Album-Admin/assets/css/style.css" rel="stylesheet">
+        <link href="__PUBLIC__/Album-Admin/assets/css/style-responsive.css" rel="stylesheet">
+        <link rel="stylesheet" href="__PUBLIC__/Album-Admin/assets/css/to-do.css">
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js">
+            </script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js">
+            </script>
+        <![endif]-->
+    </head>
+    
+    <body>
+        <section id="container">
+            <header class="header black-bg">
+                <div class="sidebar-toggle-box">
+                    <div class="fa fa-bars tooltips" data-placement="right" data-original-title="点击呼出导航">
+                    </div>
+                </div>
+                <a href="./index.php" class="logo">
+                    <b style="line-height:36px">
+                        {$myalbum_name} 后台
+                    </b>
+                </a>
+                <div class="top-menu">
+                    <ul class="nav pull-right top-menu">
+                        <li>
+                            <a class="logout" href="./admin.php?c=lock">
+                                <i class="fa fa-lock">
+                                </i>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="logout" href="#/logout" onclick="logout()">
+                                注销
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </header>
+            <aside>
+                <div id="sidebar" class="nav-collapse">
+                    <ul class="sidebar-menu" id="nav-accordion">
+                        <p class="centered">
+                            <a href="https://cn.gravatar.com/profiles/edit/#about-you" title="点击去自定义你的头像">
+                                <img src="{$session_avatar}" class="img-circle" width="60">
+                            </a>
+                        </p>
+                        <h5 class="centered">
+                            {$session_name}
+                        </h5>
+                        <li class="mt">
+                            <a href="./admin.php">
+                                <i class="fa fa-gear">
+                                </i>
+                                <span>
+                                    仪表盘
+                                </span>
+                            </a>
+                        </li>
+                        <li class="sub-menu">
+                            <a href="javascript:;">
+                                <i class="fa fa-cogs">
+                                </i>
+                                <span>
+                                    基本管理
+                                </span>
+                            </a>
+                            <ul class="sub">
+                                <li>
+                                    <a href="./admin.php?a=navi">
+                                        导航管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="./admin.php?a=user">
+                                        用户管理
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="sub-menu">
+                            <a class="active" href="javascript:;">
+                                <i class="fa fa-cogs">
+                                </i>
+                                <span>
+                                    内容管理
+                                </span>
+                            </a>
+                            <ul class="sub">
+                                <li class="active">
+                                    <a href="./admin.php?a=album">
+                                        相册管理
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="./admin.php?a=photo">
+                                        相片管理
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </aside>
+            <section id="main-content">
+                <section class="wrapper">
+                    <h3>
+                        <i class="fa fa-angle-right">
+                        </i>
+                        <a href="./admin.php">
+                        后台管理
+                        </a>
+                        <i class="fa fa-angle-right">
+                        </i>
+                        相册管理
+                    </h3>
+                    <div class="row mt mb">
+                        <div class="col-md-12">
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th>
+                                            <i class="fa fa-plus">
+                                            </i>
+                                            添加相册
+                                        </th>
+                                    </thead>
+                                </table>
+                            </section>
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <tbody>
+                                        <td>
+                                            <div class="add-task-row" style="padding-top:-10px">
+                                                <form>
+                                                    <div class="col-md-2 col-sm-6 col-xs-12" style="margin-top: 1em">
+                                                        <input type="text" class="form-control" id="add_albumname" placeholder="相册名称">
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-6 col-xs-12" style="margin-top: 1em">
+                                                        <select class="form-control text-center" id="add_albumstyle">
+                                                            <option style="background-color:#CBCBCB">样式一</option>
+                                                            <option style="background-color:#F39E96">样式二</option>
+                                                            <option style="background-color:#F6BA87">样式三</option>
+                                                            <option style="background-color:#F7DF7D">样式四</option>
+                                                            <option style="background-color:#8AD3A9">样式五</option>
+                                                            <option style="background-color:#9BD6CB">样式六</option>
+                                                            <option style="background-color:#8BDAD9">样式七</option>
+                                                            <option style="background-color:#C19AD4">样式八</option>
+                                                            <option style="background-color:#FD96BA">样式九</option>
+                                                            <option style="background-color:#757575">样式十</option>
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-md-8 col-sm-6 col-xs-12" style="margin-top: 1em">
+                                                        <input type="text" class="form-control" id="add_albumcover" placeholder="相册封图">
+                                                    </div>
+                                                    <div class="col-md-10 col-sm-6 col-xs-12" style="margin-top: 1em">
+                                                        <input type="text" class="form-control" id="add_albuminst" placeholder="相册简介">
+                                                    </div>
+                                                    <div class="col-md-2 col-sm-12 col-xs-12" style="margin-top: 1em">
+                                                        <a type="submit" class="btn btn-theme text-center" onclick="create_cover()" style="width:100%">
+                                                            添加相册
+                                                        </a>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tbody>
+                                </table>
+                            </section>
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-striped">
+                                    <thead>
+                                        <th>
+                                            <i class="fa fa-list">
+                                            </i>
+                                            相册列表
+                                        </th>
+                                    </thead>
+                                </table>
+                            </section>
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                        <tr>
+                                            <th class="numeric text-center">#</th>
+                                            <th class="numeric text-center">是否隐藏</th>
+                                            <th class="text-center">相册名称</th>
+                                            <th class="text-center">相册主题</th>
+                                            <th class="text-center">相册封面</th>
+                                            <th class="text-center">相册简介</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <foreach name="coverlist" item="vo">
+                                            <tr>
+                                                <td class="numeric text-center">{$vo.cid}</td>
+                                                <td class="text-center">
+                                                    <input type="checkbox" />
+                                                </td>
+                                                <td class="text-center" contenteditable>{$vo.name}</td>
+                                                <td class="text-center" contenteditable>{$vo.style}</td>
+                                                <td class="text-center" contenteditable>{$vo.coveraddr}</td>
+                                                <td contenteditable>{$vo.inst}</td>
+                                            </tr>
+                                        </foreach>
+                                    </tbody>
+                                </table>
+                            </section>
+                        </div>
+                    </div>
+                    <a onclick="submit_cover()" href="#">
+                        <section class="task-panel tasks-widget pn-s">
+                            <table class="table table-bordered table-striped table-hover">
+                                <tbody>
+                                    <th class="text-center">
+                                        确认修改并提交
+                                    </th>
+                                </tbody>
+                            </table>
+                        </section>
+                    </a>
+                </section>
+                
+                <footer id="site-footer">
+                    <div class="text-center">
+                        Copyright &copy; {$myalbum_thisyear} {$myalbum_copyright} All rights reserved
+                    </div>
+                </footer>
+            </section>
+        </section>
+        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.js">
+        </script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/bootstrap.min.js">
+        </script>
+        <script class="include" type="text/javascript" src="__PUBLIC__/Album-Admin/assets/js/jquery.dcjqaccordion.2.7.js">
+        </script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.scrollTo.min.js">
+        </script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.nicescroll.js" type="text/javascript">
+        </script>
+        <script type="text/javascript" src="__PUBLIC__/Album-Admin/js/app.js">
+        </script>
+        <script src="__PUBLIC__/Album-Admin/js/alertify.min.js">
+        </script>
+        <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/alertify.min.css">
+        <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/default.min.css">
+        <script src="__PUBLIC__/Album-Admin/assets/js/common-scripts.js">
+        </script>
+        <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js">
+        </script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/tasks.js" type="text/javascript">
+        </script>      
+        <script>
+            jQuery(document).ready(function() {
+                TaskList.initTaskWidget()
+            }),
+            $(function() {
+                $("#sortable").sortable(),
+                $("#sortable").disableSelection()
+            });
+        </script>
+        <script>
+            $(function() {
+                $("select.styled").customSelect()
+            });
+        </script>
+    </body>
+
+</html>
