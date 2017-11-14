@@ -159,11 +159,11 @@ function submit_navi() {
 
 }
 
-function create_navi() {
+function create_user() {
     
 }
 
-function submit_navi() {
+function submit_user() {
     
 }
 
