@@ -159,15 +159,22 @@ class IndexController extends APIController {
 					self::verifyTOKEN(I('token','','htmlspecialchars')); //写操作验证TOKEN
 					$m_uid = @$_POST['uid'];
 					$data = @$_POST['data'];
-					self::updateNavigation($m_uid, $data);
+					self::updateUsers($m_uid, $data);
 				}
 			break;
 			case "coverinfo":
 				if(I('type','','htmlspecialchars') != 'write'){
 					$coverinfo = M('myalbum_cover');
 					$coverinfo = $coverinfo->select();
-					APIController::api(coverinfo)
+					APIController::api(coverinfo);
 				}
+				else {
+					self::verifyTOKEN(I('token','','htmlspecialchars'));
+					$m_cid = @$_POST['cid'];
+					$data = @$_POST['data'];
+					self::updateCovers($m_cid, $data);
+				}
+			break;
 			default:
 				$result = array(
 					'code'  =>  405,
