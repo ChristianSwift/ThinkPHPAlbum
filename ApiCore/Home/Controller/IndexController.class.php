@@ -162,6 +162,12 @@ class IndexController extends APIController {
 					self::updateNavigation($m_uid, $data);
 				}
 			break;
+			case "coverinfo":
+				if(I('type','','htmlspecialchars') != 'write'){
+					$coverinfo = M('myalbum_cover');
+					$coverinfo = $coverinfo->select();
+					APIController::api(coverinfo)
+				}
 			default:
 				$result = array(
 					'code'  =>  405,
