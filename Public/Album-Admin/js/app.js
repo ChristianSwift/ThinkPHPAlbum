@@ -269,7 +269,7 @@ function submit_user(type, uid) {
             var odata = '{"m_user":"' + m_user + '","m_mail":"' + m_mail + '"}';
         }
         else{
-            var odata = '{"m_user":"' + m_user + '","m_pswd":"' + m_pswd + '","m_mail":"' + m_mail + '"}';
+            var odata = '{"m_user":"' + m_user + '","m_pswd":"' + MD5(m_pswd) + '","m_mail":"' + m_mail + '"}';
         }
         var operation = '更新';
     }

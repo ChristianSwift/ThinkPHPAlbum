@@ -310,7 +310,7 @@ class IndexController extends APIController {
 					);
 					APIController::api($result);
 				}
-				if($data_array->m_passwd == null){
+				if($data_array->m_pswd == null){
 					$usrinfo = M('myalbum_users');
 					$usrdata = array(
 						'uid'	=>	$uid,
@@ -323,7 +323,7 @@ class IndexController extends APIController {
 					$usrdata = array(
 						'uid'	=>	$uid,
 						'username'	=>	$data_array->m_user,
-						'userpwd'	=>	$data_array->m_pswd,
+						'userpwd'	=>	sha1($data_array->m_pswd),
 						'email'	=>	$data_array->m_mail
 					);
 				}
