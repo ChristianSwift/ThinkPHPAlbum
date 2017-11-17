@@ -302,7 +302,7 @@ class IndexController extends APIController {
 			}
 			else {
 				$data_array = json_decode($data);
-				if($data_array->m_user == null || $data_array->m_pswd == null || $data_array->m_mail == null) {
+				if($data_array->m_user == null || $data_array->m_mail == null) {
 					$result = array(
 						'code'  =>  -2,
 						'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
@@ -310,13 +310,23 @@ class IndexController extends APIController {
 					);
 					APIController::api($result);
 				}
-				$usrinfo = M('myalbum_users');
-				$usrdata = array(
-					'uid'	=>	$uid,
-					'username'	=>	$data_array->m_user,
-					'userpwd'	=>	$data_array->m_pswd,
-					'email'	=>	$data_array->m_mail
-				);
+				if($data_array->m_passwd == null){
+					$usrinfo = M('myalbum_users');
+					$usrdata = array(
+						'uid'	=>	$uid,
+						'username'	=>	$data_array->m_user,
+						'email'	=>	$data_array->m_mail
+					);
+				}
+				else{
+					$usrinfo = M('myalbum_users');
+					$usrdata = array(
+						'uid'	=>	$uid,
+						'username'	=>	$data_array->m_user,
+						'userpwd'	=>	$data_array->m_pswd,
+						'email'	=>	$data_array->m_mail
+					);
+				}
 				$up_result = $usrinfo->where('uid='.$uid)->save($usrdata);
 				if ($up_result) {
 					$result = array(

@@ -265,7 +265,12 @@ function submit_user(type, uid) {
         var m_user = document.getElementById('uname_' + uid).innerText;
         var m_pswd = document.getElementById('upass_' + uid).value;
         var m_mail = document.getElementById('umail_' + uid).innerText;
-        var odata = '{"m_user":"' + m_user + '","m_pswd":"' + m_pswd + '","m_mail":"' + m_mail + '"}';
+        if(m_pswd == ''){
+            var odata = '{"m_user":"' + m_user + '","m_mail":"' + m_mail + '"}';
+        }
+        else{
+            var odata = '{"m_user":"' + m_user + '","m_pswd":"' + m_pswd + '","m_mail":"' + m_mail + '"}';
+        }
         var operation = '更新';
     }
     else if (type == 'del') {
