@@ -298,6 +298,26 @@ class IndexController extends APIController {
 				);
 				APIController::api($result);
 			}
+			else if ($data == 'del') {
+				$navinfo = M('myalbum_navi');
+				$up_result = $navinfo->where('nid='.$nid)->delete();
+				if ($up_result) {
+					$result = array(
+						'code'  =>  200,
+						'message'   =>  '数据移除完毕，操作成功结束！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+				else {
+					$result = array(
+						'code'  =>  500,
+						'message'   =>  '数据移除失败，可能系统处于忙碌状态或数据库处于只读封禁模式。如果此情况多次出现，请联系系统管理员！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+			}
 			else {
 				$data_array = json_decode($data);
 				if($data_array->m_navi == null || $data_array->m_link == null) {
@@ -314,7 +334,7 @@ class IndexController extends APIController {
 					'navi'	=>	$data_array->m_navi,
 					'link'	=>	$data_array->m_link
 				);
-				$up_result = $navinfo->where('nid='.$m_nid.'')->save($navidata);
+				$up_result = $navinfo->where('nid='.$nid)->save($navidata);
 				if ($up_result) {
 					$result = array(
 						'code'  =>  200,

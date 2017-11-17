@@ -25,6 +25,7 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js">
             </script>
         <![endif]-->
+        <script>var operator_id = "{$session_id}";</script>
     </head>
     
     <body>
@@ -212,15 +213,15 @@
                                                 <td id="uname_{$vo.uid}" contenteditable>
                                                     {$vo.username}
                                                 </td>
-                                                <td id="upass_{$vo.uid}" class="text-center" contenteditable>
-                                                    输入新密码以重置
+                                                <td class="text-center" contenteditable>
+                                                    <input type="password" name="upass_{$vo.uid}" placeholder="输入新密码以重置" />
                                                 </td>
                                                 <td id="umail_{$vo.uid}" class="hidden-phone" contenteditable>
                                                     {$vo.email}
                                                 </td>
                                                 <td id="usbmt_{$vo.uid}" class="text-center">
-                                                    <a class="btn btn-success btn-xs fa fa-check"></a>
-                                                    <a class="btn btn-danger btn-xs fa fa-trash-o"></a>
+                                                    <a class="btn btn-success btn-xs fa fa-check" onclick="submit_user('save',{$vo.uid})"></a>
+                                                    <a class="btn btn-danger btn-xs fa fa-trash-o" onclick="submit_user('del',{$vo.uid})"></a>
                                                 </td>
                                             </tr>
                                         </foreach>

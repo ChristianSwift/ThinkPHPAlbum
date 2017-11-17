@@ -32,7 +32,7 @@ function postlogin() {
             }
         },
         fail: function (status) {
-            alertify.notify('链接服务器失败，请检查！', 'error', 5, function(){ console.log('登录发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
+            alertify.notify('链接服务器失败，请检查！', 'error', 5, function(){ console.log('发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
             return false;
         }
     });
@@ -73,7 +73,7 @@ function postreg() {
             }
         },
         fail: function (status) {
-            alertify.notify('远程服务器忙碌' + message, 'error', 5, function(){ console.log('注册发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status)} );
+            alertify.notify('远程服务器忙碌' + message, 'error', 5, function(){ console.log('发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status)} );
             return false;
         }
     });
@@ -105,7 +105,7 @@ function logout() {
             }
         },
         fail: function (status) {
-            alertify.notify('远程服务器忙碌！', 'error', 5, function(){ console.log('注销发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
+            alertify.notify('远程服务器忙碌！', 'error', 5, function(){ console.log('发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
             return false;
         }
     });
@@ -145,18 +145,105 @@ function submit_main() {
             }
         },
         fail: function (status) {
-            alertify.notify('远程服务器忙碌！', 'error', 5, function(){ console.log('注销发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
+            alertify.notify('远程服务器忙碌！', 'error', 5, function(){ console.log('发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
             return false;
         }
     });
 }
 
 function create_navi() {
-
+    if (document.getElementById('add_navname').value == '' || document.getElementById('add_navlink').value == '') {
+        alertify.notify('表单内容存在空白，请重试！', 'error', 5, function(){ console.log('Form something empty!'); });
+        return false;
+    }
+    var m_navi = document.getElementById('add_navname').value;
+    var m_link = document.getElementById('add_navlink').value;
+    var reg = /^([hH][tT]{2}[pP]:\/\/|[hH][tT]{2}[pP][sS]:\/\/)(([A-Za-z0-9-~]+)\.)+([A-Za-z0-9-~\/])+$/;
+    if (!reg.test(m_link)) {
+        alertify.notify('网址链接不符合HTTP规范，请使用“http://”或“https://”为前缀的标准URL。', 'error', 5, function(){ console.log('Get form infomation failed!'); });
+        return false;
+    }
+    var m_jsondata = '{"m_navi":"' + m_navi + '","m_link":"' + m_link + '"}';
+    ajax({
+        url: "./api.php?c=index&a=operate",
+        type: 'POST',
+        data: {
+            mod: 'navinfo',
+            type: 'write',
+            token: operator_id,
+            data: m_jsondata
+        },
+        dataType: "xml",
+        async: false,
+        success: function (response, xml) {
+            //console.log(response);
+            var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+            var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
+            if (authcode == 200) {
+                alertify.notify(message + '<br>页面将在3秒后自动重新载入！', 'success', 5, function(){ console.log('Navigation info create succeed!'); });
+                var autoReload = window.setTimeout('location.reload()',3000);
+                return true;
+            }
+            else {
+                alertify.notify('提交失败，错误详情：' + message, 'error', 5, function(){ console.log('Navigation info update failed!'); });
+                return true;
+            }
+        },
+        fail: function (status) {
+            alertify.notify('远程服务器忙碌！', 'error', 5, function(){ console.log('发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
+            return false;
+        }
+    });
 }
 
-function submit_navi() {
-
+function submit_navi(type, nid) {
+    if (type == 'save') {
+        var m_navi = document.getElementById('navname_' + nid).innerText;
+        var m_link = document.getElementById('navlink_' + nid).innerText;
+        var odata = '{"m_navi":"' + m_navi + '","m_link":"' + m_link + '"}';
+        var operation = '更新';
+    }
+    else if (type == 'del') {
+        var odata = 'del';
+        var operation = '移除';
+    }
+    else {
+        alertify.notify('非法操作类型：' + type, 'error', 5, function(){ console.log('Illegal operation.'); });
+    }
+    if (!confirm('您确认继续' + operation + 'ID为：' + nid + '的导航信息么？')) {
+        return false;
+    }
+    ajax({
+        url: "./api.php?c=index&a=operate",
+        type: 'POST',
+        data: {
+            mod: 'navinfo',
+            type: 'write',
+            nid: nid,
+            token: operator_id,
+            data: odata
+        },
+        dataType: "xml",
+        async: false,
+        success: function (response, xml) {
+            //console.log(response);
+            var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+            var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
+            if (authcode == 200) {
+                alertify.notify(message + '<br>页面将在3秒后自动重新载入！', 'success', 2, function(){ console.log('Navigation info create succeed!'); });
+                var autoReload = window.setTimeout('location.reload()',3000);
+                return true;
+            }
+            else {
+                alertify.notify(operation + '失败，错误详情：' + message, 'error', 5, function(){ console.log('Navigation info update failed!'); });
+                return true;
+            }
+        },
+        fail: function (status) {
+            alertify.notify('远程服务器忙碌！', 'error', 5, function(){ console.log('发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
+            return false;
+        }
+    });
 }
 
 function create_user() {

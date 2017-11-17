@@ -25,6 +25,7 @@
             <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js">
             </script>
         <![endif]-->
+        <script>var operator_id = "{$session_id}";</script>
     </head>
     
     <body>
@@ -152,10 +153,10 @@
                                             <div class="add-task-row">
                                                 <form>
                                                     <div class="col-sm-3">
-                                                        <input type="text" class="form-control" id="add_username" placeholder="导航名称">
+                                                        <input type="text" class="form-control" id="add_navname" placeholder="导航名称">
                                                     </div>
                                                     <div class="col-sm-7">
-                                                        <input type="text" class="form-control" id="add_userpassword" placeholder="导航链接">
+                                                        <input type="text" class="form-control" id="add_navlink" placeholder="导航链接">
                                                     </div>
                                                     <div class="col-sm-2">
                                                         <a type="submit" class="btn btn-theme text-center" onclick="create_navi()" style="width:100%">
@@ -200,18 +201,18 @@
                                     <tbody>
                                         <foreach name="navibar" item="vo">
                                             <tr>
-                                                <td id="uname_{$vo.uid}" class="numeric text-center">
+                                                <td id="navid_{$vo.nid}" class="numeric text-center">
                                                     {$vo.nid}
                                                 </td>
-                                                <td id="upass_{$vo.uid}" class="text-center" contenteditable>
+                                                <td id="navname_{$vo.nid}" class="text-center" contenteditable>
                                                     {$vo.navi}
                                                 </td>
-                                                <td id="umail_{$vo.uid}" contenteditable>
+                                                <td id="navlink_{$vo.nid}" contenteditable>
                                                     {$vo.link}
                                                 </td>
-                                                <td id="usbmt_{$vo.uid}" class="text-center">
-                                                    <a class="btn btn-success btn-xs fa fa-check"></a>
-                                                    <a class="btn btn-danger btn-xs fa fa-trash-o"></a>
+                                                <td class="text-center">
+                                                    <a class="btn btn-success btn-xs fa fa-check" onclick="submit_navi('save',{$vo.nid})"></a>
+                                                    <a class="btn btn-danger btn-xs fa fa-trash-o" onclick="submit_navi('del',{$vo.nid})"></a>
                                                 </td>
                                             </tr>
                                         </foreach>
@@ -257,11 +258,6 @@
             $(function() {
                 $("#sortable").sortable(),
                 $("#sortable").disableSelection()
-            });
-        </script>
-        <script>
-            $(function() {
-                $("select.styled").customSelect()
             });
         </script>
     </body>
