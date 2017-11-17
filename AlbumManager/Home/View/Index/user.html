@@ -153,16 +153,16 @@
                                             <div class="add-task-row">
                                                 <form>
                                                     <div class="col-md-3 col-sm-6 col-xs-12">
-                                                        <input type="text" class="form-control" id="add_username" placeholder="用户名">
+                                                        <input type="text" class="form-control" id="user" placeholder="用户名">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 col-xs-12">
-                                                        <input type="text" class="form-control" id="add_userpassword" placeholder="用户密码">
+                                                        <input type="password" class="form-control" id="pswd" placeholder="用户密码">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 col-xs-12">
-                                                        <input type="text" class="form-control" id="add_useremail" placeholder="用户邮箱">
+                                                        <input type="text" class="form-control" id="mail" placeholder="用户邮箱">
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 col-xs-12">
-                                                        <a type="submit" class="btn btn-theme text-center" onclick="create_navi()" style="width:100%">
+                                                        <a type="submit" class="btn btn-theme text-center" onclick="create_user()" style="width:100%">
                                                             添加用户
                                                         </a>
                                                     </div>
@@ -214,7 +214,7 @@
                                                     {$vo.username}
                                                 </td>
                                                 <td class="text-center" contenteditable>
-                                                    <input type="password" name="upass_{$vo.uid}" placeholder="输入新密码以重置" />
+                                                    <input type="password" id="upass_{$vo.uid}" placeholder="输入新密码以重置" />
                                                 </td>
                                                 <td id="umail_{$vo.uid}" class="hidden-phone" contenteditable>
                                                     {$vo.email}
@@ -248,6 +248,7 @@
         </script>
         <script src="__PUBLIC__/Album-Admin/assets/js/jquery.nicescroll.js" type="text/javascript">
         </script>
+        <script src="__PUBLIC__/Album-Admin/js/md5.js"></script>
         <script type="text/javascript" src="__PUBLIC__/Album-Admin/js/app.js">
         </script>
         <script src="__PUBLIC__/Album-Admin/js/alertify.min.js">

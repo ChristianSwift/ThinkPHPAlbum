@@ -57,6 +57,12 @@ class IndexController extends APIController {
 	 * 用户信息的注册登记
 	 */
 	public function register() {
+		//检测用户数据库是否被初始化
+		$users = M('myalbum_users');
+		$userinfo = $users->select();
+		if($userinfo != null) { //如果已被初始化，则关闭匿名注册功能。仅放行有token的请求继续进行注册！
+			self::verifyTOKEN(I('token','','htmlspecialchars'));
+		}
 		$user = I('param.user','','htmlspecialchars');
 		$pswd = I('param.pswd','','htmlspecialchars');
 		$mail = I('param.mail','','htmlspecialchars');
@@ -131,7 +137,7 @@ class IndexController extends APIController {
 					APIController::api($baseinfo);
 				}
 				else {
-					self::verifyTOKEN(I('token','','htmlspecialchars')); //写操作验证TOKEN
+					self::verifyTOKEN(I('token','','htmlspecialchars'));
 					$data = @$_POST['data'];
 					self::updateBaseInformation($data);
 				}
@@ -143,20 +149,21 @@ class IndexController extends APIController {
 					APIController::api($navinfo);
 				}
 				else {
-					self::verifyTOKEN(I('token','','htmlspecialchars')); //写操作验证TOKEN
+					self::verifyTOKEN(I('token','','htmlspecialchars'));
 					$m_nid = @$_POST['nid'];
 					$data = @$_POST['data'];
 					self::updateNavigation($m_nid, $data);
 				}
 			break;
 			case "userinfo":
+				//由于用户数据的特殊性，这里读写操作均需要token认证。
+				self::verifyTOKEN(I('token','','htmlspecialchars'));
 				if(I('type','','htmlspecialchars') != 'write') {
 					$userinfo = M('myalbum_users');
 					$userinfo = $userinfo->select();
 					APIController::api($userinfo);
 				}
 				else {
-					self::verifyTOKEN(I('token','','htmlspecialchars')); //写操作验证TOKEN
 					$m_uid = @$_POST['uid'];
 					$data = @$_POST['data'];
 					self::updateUsers($m_uid, $data);
@@ -237,6 +244,96 @@ class IndexController extends APIController {
 					'requestId' =>  date('YmdHis',time())
 				);
 				APIController::api($result);
+			}
+		}
+	}
+
+	/**
+	 * 用户信息更新
+	 * @param integer $uid 用户ID
+	 * @param string $data JSON数据字串
+	 * @return string XML处理结果
+	 */
+	private function updateUsers($uid = null, $data = null) {
+		if ($uid == null || $uid == '') {
+			$result = array(
+				'code'  =>  -1,
+				'message'   =>  '没有有效的UID，本次用户信息更新操作已被取消。',
+				'requestId' =>  date('YmdHis',time())
+			);
+			APIController::api($result);
+		}
+		else {
+			if ($data == null || $data == '') {
+				$result = array(
+					'code'  =>  -1,
+					'message'   =>  '没有传入任何配置参数，本次导航新增操作已被取消。',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			else if ($data == 'del') {
+				if ($uid == '1') {
+					$result = array(
+						'code'  =>  -3,
+						'message'   =>  '由于系统核心策略，您不能删除UID为1的初始账户。',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+				$usrinfo = M('myalbum_users');
+				$up_result = $usrinfo->where('uid='.$uid)->delete();
+				if ($up_result) {
+					$result = array(
+						'code'  =>  200,
+						'message'   =>  '用户移除完毕，操作成功结束！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+				else {
+					$result = array(
+						'code'  =>  500,
+						'message'   =>  '用户移除失败，可能系统处于忙碌状态或数据库处于只读封禁模式。如果此情况多次出现，请联系系统管理员！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+			}
+			else {
+				$data_array = json_decode($data);
+				if($data_array->m_user == null || $data_array->m_pswd == null || $data_array->m_mail == null) {
+					$result = array(
+						'code'  =>  -2,
+						'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+				$usrinfo = M('myalbum_users');
+				$usrdata = array(
+					'uid'	=>	$uid,
+					'username'	=>	$data_array->m_user,
+					'userpwd'	=>	$data_array->m_pswd,
+					'email'	=>	$data_array->m_mail
+				);
+				$up_result = $usrinfo->where('uid='.$uid)->save($usrdata);
+				if ($up_result) {
+					$result = array(
+						'code'  =>  200,
+						'message'   =>  '用户数据更新完毕，操作成功结束！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+				else {
+					$result = array(
+						'code'  =>  500,
+						'message'   =>  '用户数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
 			}
 		}
 	}
@@ -356,7 +453,7 @@ class IndexController extends APIController {
 	}
 
 	/**
-	 * Token合法性验证
+	 * 涉及高危交互操作时的Token合法性验证
 	 * @param string $s_token 会话token
 	 * @return string XML处理结果
 	 */

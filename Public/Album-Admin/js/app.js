@@ -38,7 +38,11 @@ function postlogin() {
     });
 }
 
-function postreg() {
+/**
+ * 用户注册公用逻辑
+ * @param {string} s_token 会话密钥
+ */
+function postreg(s_token = '0') {
     if (document.getElementById('user').value == '' || document.getElementById('pswd').value == '' || document.getElementById('mail').value == '') {
         alertify.notify('表单内容存在空白，请重试！', 'error', 5, function(){ console.log('Form something empty!'); });
         return false;
@@ -52,6 +56,7 @@ function postreg() {
         data: {
             user: user,
             pswd: MD5(pswd),
+            token: s_token,
             mail: mail
         },
         dataType: "xml",
@@ -63,8 +68,13 @@ function postreg() {
             if (authcode == 200) {
                 //服务器返回注册成功
                 alertify.notify('注册成功！', 'success', 5, function(){ console.log('Regist successed'); });
-                location.href = "./admin.php?c=Login";
-                return true;
+                if (s_token != 0) {
+                    return true;
+                }
+                else {
+                    location.href = "./admin.php?c=Login";
+                    return true;
+                }
             }
             else {
                 //注册被服务器拒绝
@@ -247,11 +257,58 @@ function submit_navi(type, nid) {
 }
 
 function create_user() {
-    
+    postreg(operator_id);
 }
 
-function submit_user() {
-    
+function submit_user(type, uid) {
+    if (type == 'save') {
+        var m_user = document.getElementById('uname_' + uid).innerText;
+        var m_pswd = document.getElementById('upass_' + uid).value;
+        var m_mail = document.getElementById('umail_' + uid).innerText;
+        var odata = '{"m_user":"' + m_user + '","m_pswd":"' + m_pswd + '","m_mail":"' + m_mail + '"}';
+        var operation = '更新';
+    }
+    else if (type == 'del') {
+        var odata = 'del';
+        var operation = '移除';
+    }
+    else {
+        alertify.notify('非法操作类型：' + type, 'error', 5, function(){ console.log('Illegal operation.'); });
+    }
+    if (!confirm('您确认继续' + operation + 'ID为：' + uid + '的用户信息么？')) {
+        return false;
+    }
+    ajax({
+        url: "./api.php?c=index&a=operate",
+        type: 'POST',
+        data: {
+            mod: 'userinfo',
+            type: 'write',
+            uid: uid,
+            token: operator_id,
+            data: odata
+        },
+        dataType: "xml",
+        async: false,
+        success: function (response, xml) {
+            //console.log(response);
+            var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+            var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
+            if (authcode == 200) {
+                alertify.notify(message + '<br>页面将在3秒后自动重新载入！', 'success', 2, function(){ console.log('Navigation info create succeed!'); });
+                var autoReload = window.setTimeout('location.reload()',3000);
+                return true;
+            }
+            else {
+                alertify.notify(operation + '失败，错误详情：' + message, 'error', 5, function(){ console.log('Navigation info update failed!'); });
+                return true;
+            }
+        },
+        fail: function (status) {
+            alertify.notify('远程服务器忙碌！', 'error', 5, function(){ console.log('发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
+            return false;
+        }
+    });
 }
 
 /**
