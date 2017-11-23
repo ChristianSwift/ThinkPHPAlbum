@@ -208,9 +208,10 @@ function create_navi() {
 
 function submit_navi(type, nid) {
     if (type == 'save') {
+        var m_nsid = document.getElementById('navsort_' + nid).innerText;
         var m_navi = document.getElementById('navname_' + nid).innerText;
         var m_link = document.getElementById('navlink_' + nid).innerText;
-        var odata = '{"m_navi":"' + m_navi + '","m_link":"' + m_link + '"}';
+        var odata = '{"m_nsid":"' + m_nsid + '","m_navi":"' + m_navi + '","m_link":"' + m_link + '"}';
         var operation = '更新';
     }
     else if (type == 'del') {
@@ -236,7 +237,7 @@ function submit_navi(type, nid) {
         dataType: "xml",
         async: false,
         success: function (response, xml) {
-            //console.log(response);
+            //console.log(data);
             var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
             var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
             if (authcode == 200) {

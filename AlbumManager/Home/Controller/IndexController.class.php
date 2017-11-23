@@ -35,7 +35,7 @@ class IndexController extends WebAuthorityController {
 		$this -> assign('session_id',session('myalbum_token'));
 		$this -> assign('session_avatar',getGravatar(session('myalbum_email')));
 		//查询数据库中页面导航部分
-		$this -> navibar = M('myalbum_navi') -> order("nid asc") -> select();
+		$this -> navibar = M('myalbum_navi') -> order("nid asc") -> order("nsid asc") -> select();
 		$this -> display('navi');
 	}
 	public function user(){

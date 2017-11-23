@@ -187,10 +187,13 @@
                                             <th class="numeric text-center col-md-1">
                                                 #
                                             </th>
+                                            <th class="numeric text-center col-md-1">
+                                                SORT
+                                            </th>
                                             <th class="text-center col-md-3">
                                                 导航名
                                             </th>
-                                            <th class="text-center col-md-6">
+                                            <th class="text-center col-md-5">
                                                 导航链接
                                             </th>
                                             <th class="numeric text-center col-md-1 col-sm-2 col-xs-3">
@@ -201,8 +204,11 @@
                                     <tbody>
                                         <foreach name="navibar" item="vo">
                                             <tr>
-                                                <td id="navid_{$vo.nid}" class="numeric text-center">
+                                                <td id="navid_{$vo.nid}" class="numeric text-center" contenteditable>
                                                     {$vo.nid}
+                                                </td>
+                                                <td id="navsort_{$vo.nid}" class="numeric text-center" contenteditable>
+                                                    {$vo.nsid}
                                                 </td>
                                                 <td id="navname_{$vo.nid}" class="text-center" contenteditable>
                                                     {$vo.navi}
@@ -222,7 +228,7 @@
                         </div>
                     </div>
                 </section>
-                <footer id="site-footer">
+                <footer id="site-footer"
                     <div class="text-center">
                         Copyright &copy; {$myalbum_thisyear} {$myalbum_copyright} All rights reserved
                     </div>
@@ -250,15 +256,6 @@
         <script src="http://code.jquery.com/ui/1.10.3/jquery-ui.js">
         </script>
         <script src="__PUBLIC__/Album-Admin/assets/js/tasks.js" type="text/javascript">
-        </script>
-        <script>
-            jQuery(document).ready(function() {
-                TaskList.initTaskWidget()
-            }),
-            $(function() {
-                $("#sortable").sortable(),
-                $("#sortable").disableSelection()
-            });
         </script>
     </body>
 

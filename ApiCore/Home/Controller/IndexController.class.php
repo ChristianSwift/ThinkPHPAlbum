@@ -375,6 +375,7 @@ class IndexController extends APIController {
 			}
 			$navinfo = M('myalbum_navi');
 			$navidata = array(
+				'nid'	=>	$data_array->m_nid,
 				'navi'	=>	$data_array->m_navi,
 				'link'	=>	$data_array->m_link
 			);
@@ -438,8 +439,9 @@ class IndexController extends APIController {
 				$navinfo = M('myalbum_navi');
 				$navidata = array(
 					'nid'	=>	$nid,
-					'navi'	=>	$data_array->m_navi,
-					'link'	=>	$data_array->m_link
+					'nsid'	=>	$data_array	->m_nsid,
+					'navi'	=>	$data_array	->m_navi,
+					'link'	=>	$data_array	->m_link
 				);
 				$up_result = $navinfo->where('nid='.$nid)->save($navidata);
 				if ($up_result) {
