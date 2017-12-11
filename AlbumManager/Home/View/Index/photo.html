@@ -151,20 +151,21 @@
                                     <tbody>
                                         <td>
                                             <div class="add-task-row" style="padding-top:-10px">
-                                                <form>
+                                                <form method="post" action="./api.php?c=index&a=operate" enctype="multipart/form-data">
+                                                    <input type="hidden" name="mod" id="mod" value="UploadPic" />
+                                                    <input type="hidden" name="token" id="token" value="{$session_id}" />
+                                                    <input type="hidden" name="current_cid" id="current_cid" value="{$myalbum_cid}" />
                                                     <div class="col-md-3 col-sm-6 col-xs-12" style="margin-top: 1em">
-                                                        <input type="text" class="form-control" id="add_photoname" placeholder="相片名字">
+                                                        <input type="text" class="form-control" name="add_photoname" id="add_photoname" placeholder="相片名字" />
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 col-xs-12" style="margin-top: 1em">
-                                                        <input type="text" class="form-control" id="add_photoinst" placeholder="相片简介">
+                                                        <input type="text" class="form-control" name="add_photoinst" id="add_photoinst" placeholder="相片简介" />
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 col-xs-12" style="margin-top: 1em">
-                                                        <input type="text" class="form-control" id="add_upload" placeholder="上传相片">
+                                                        <input type="file" class="form-control" name="add_upload" id="add_upload" placeholder="上传相片" />
                                                     </div>
                                                     <div class="col-md-3 col-sm-6 col-xs-12" style="margin-top: 1em">
-                                                        <a type="submit" class="btn btn-theme text-center" onclick="create_cover()" style="width:100%">
-                                                            添加相片
-                                                        </a>
+                                                        <input type="submit" class="btn btn-theme text-center" style="width:100%" value="添加相片" /> 
                                                     </div>
                                                 </form>
                                             </div>

@@ -182,6 +182,18 @@ class IndexController extends APIController {
 					self::updateCovers($m_cid, $data);
 				}
 			break;
+			case "UploadPic":
+			if($_SERVER['REQUEST_METHOD']!="POST") {
+				$result = array(
+					'code'  =>  405,
+					'message'   =>  '该接口必须使用POST方式请求，请重试。',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			self::verifyTOKEN(I('token','','htmlspecialchars'));
+			self::PicUploader();
+			break;
 			default:
 				$result = array(
 					'code'  =>  405,
@@ -245,6 +257,42 @@ class IndexController extends APIController {
 				);
 				APIController::api($result);
 			}
+		}
+	}
+
+	/**
+	 * 相片上传接口
+	 * @return null
+	 */
+	private function PicUploader() {
+		if (!isset($_POST['add_photoname']) || !isset($_POST['add_photoinst']) || !isset($_POST['current_cid']) || @$_POST['add_photoname'] == '' || @$_POST['add_photoinst'] == '' || @$_POST['current_cid'] == '') {
+			$this->error('抱歉，请先完善必填表单项目后再次尝试提交！');
+		}
+		$upload = new \Think\Upload();
+        $upload->maxSize = 8388608;
+        $upload->exts = array('jpg', 'gif', 'png', 'jpeg');
+        $upload->rootPath = './Public/';
+        $upload->savePath = 'Uploads/';
+        $upload->replace = true;
+		$upload_result = $upload->upload();
+		if (!$upload_result) {
+			$this->error($upload->getError());
+		}
+		$upload_urlpath = $upload->rootPath.$upload_result['add_upload']['savepath'].$upload_result['add_upload']['savename'];
+		$picinfo = M('myalbum_photo');
+		$picdata = array(
+			'cid'	=>	$_POST['current_cid'],
+			'name'	=>	$_POST['add_photoname'],
+			'inst'	=>	$_POST['add_photoinst'],
+			'preimg'	=>	$upload_urlpath,
+			'bigimg'	=>	$upload_urlpath
+		);
+		$op_result = $picinfo->data($picdata)->add();
+		if ($op_result) {
+			$this->success('恭喜您，相片上传成功！');
+		}
+		else {
+			$this->error('抱歉，文件上传成功但数据库写入失败！请与您的服务器提供者联系。');
 		}
 	}
 

@@ -87,6 +87,7 @@ class IndexController extends WebAuthorityController {
 		$this -> assign('session_name',session('myalbum_user'));
 		$this -> assign('session_id',session('myalbum_token'));
 		$this -> assign('session_avatar',getGravatar(session('myalbum_email')));
+		$this -> assign('myalbum_cid',$cid);
 		
 		if($cid != ''){
 			//查询数据库中相册封面部分
