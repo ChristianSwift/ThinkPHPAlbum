@@ -249,6 +249,126 @@ class IndexController extends APIController {
 	}
 
 	/**
+	 * 相册管理接口
+	 * @param integer $m_cid 相册ID
+	 * @param string $data JSON数据字串
+	 * @return string XML处理结果
+	 */
+	private function updateCovers($m_cid = null, $data = null) {
+		if ($m_cid == null || $m_cid == '') {
+			if($data == null || $data == '') {
+				$result = array(
+					'code'  =>  -1,
+					'message'   =>  '没有传入任何配置参数，本次导航新增操作已被取消。',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			$data_array = json_decode($data);
+			if($data_array->m_cname == null || $data_array->m_copen == null || $data_array->m_cstyle == null || $data_array->m_cimg == null || $data_array->m_cdetail == null) {
+				$result = array(
+					'code'  =>  -2,
+					'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			$coverinfo = M('myalbum_cover');
+			$coverdata = array(
+				'style'	=>	$data_array->m_cstyle,
+				'open'	=>	$data_array->m_copen,
+				'name'	=>	$data_array->m_cname,
+				'inst'	=>	$data_array->m_cdetail,
+				'coveraddr'	=>	$data_array->m_cimg
+			);
+			$op_result = $coverinfo->data($coverdata)->add();
+			if ($op_result) {
+				$result = array(
+					'code'  =>  200,
+					'message'   =>  '数据保存完毕，操作成功结束！',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			else {
+				$result = array(
+					'code'  =>  500,
+					'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+		}
+		else {
+			if($data == null || $data == '') {
+				$result = array(
+					'code'  =>  -1,
+					'message'   =>  '没有传入任何配置参数，本次配置更新操作已被取消。',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			else if ($data == 'del') {
+				$coverinfo = M('myalbum_cover');
+				$up_result = $coverinfo->where('cid='.$m_cid)->delete();
+				if ($up_result) {
+					$result = array(
+						'code'  =>  200,
+						'message'   =>  '数据移除完毕，操作成功结束！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+				else {
+					$result = array(
+						'code'  =>  500,
+						'message'   =>  '数据移除失败，可能系统处于忙碌状态或数据库处于只读封禁模式。如果此情况多次出现，请联系系统管理员！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+			}
+			else {
+				$data_array = json_decode($data);
+				if($data_array->m_cname == null || !isset($data_array->m_copen) || $data_array->m_cstyle == null || $data_array->m_cimg == null || $data_array->m_cdetail == null) {
+					$result = array(
+						'code'  =>  -2,
+						'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+				$coverinfo = M('myalbum_cover');
+				$coverdata = array(
+					'cid'	=>	$m_cid,
+					'style'	=>	$data_array->m_cstyle,
+					'open'	=>	$data_array->m_copen,
+					'name'	=>	$data_array->m_cname,
+					'inst'	=>	$data_array->m_cdetail,
+					'coveraddr'	=>	$data_array->m_cimg
+				);
+				$up_result = $coverinfo->where('cid='.$m_cid)->save($coverdata);
+				if ($up_result) {
+					$result = array(
+						'code'  =>  200,
+						'message'   =>  '数据保存完毕，操作成功结束！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+				else {
+					$result = array(
+						'code'  =>  500,
+						'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
+						'requestId' =>  date('YmdHis',time())
+					);
+					APIController::api($result);
+				}
+			}
+		}
+	}
+
+	/**
 	 * 用户信息更新
 	 * @param integer $uid 用户ID
 	 * @param string $data JSON数据字串
@@ -439,9 +559,9 @@ class IndexController extends APIController {
 				$navinfo = M('myalbum_navi');
 				$navidata = array(
 					'nid'	=>	$nid,
-					'nsid'	=>	$data_array	->m_nsid,
-					'navi'	=>	$data_array	->m_navi,
-					'link'	=>	$data_array	->m_link
+					'nsid'	=>	$data_array->m_nsid,
+					'navi'	=>	$data_array->m_navi,
+					'link'	=>	$data_array->m_link
 				);
 				$up_result = $navinfo->where('nid='.$nid)->save($navidata);
 				if ($up_result) {

@@ -157,16 +157,16 @@
                                                     </div>
                                                     <div class="col-md-2 col-sm-6 col-xs-12" style="margin-top: 1em">
                                                         <select class="form-control text-center" id="add_albumstyle">
-                                                            <option style="background-color:#CBCBCB">样式一</option>
-                                                            <option style="background-color:#F39E96">样式二</option>
-                                                            <option style="background-color:#F6BA87">样式三</option>
-                                                            <option style="background-color:#F7DF7D">样式四</option>
-                                                            <option style="background-color:#8AD3A9">样式五</option>
-                                                            <option style="background-color:#9BD6CB">样式六</option>
-                                                            <option style="background-color:#8BDAD9">样式七</option>
-                                                            <option style="background-color:#C19AD4">样式八</option>
-                                                            <option style="background-color:#FD96BA">样式九</option>
-                                                            <option style="background-color:#757575">样式十</option>
+                                                            <option style="background-color:#CBCBCB" value="1">样式一</option>
+                                                            <option style="background-color:#F39E96" value="2">样式二</option>
+                                                            <option style="background-color:#F6BA87" value="3">样式三</option>
+                                                            <option style="background-color:#F7DF7D" value="4">样式四</option>
+                                                            <option style="background-color:#8AD3A9" value="5">样式五</option>
+                                                            <option style="background-color:#9BD6CB" value="6">样式六</option>
+                                                            <option style="background-color:#8BDAD9" value="7">样式七</option>
+                                                            <option style="background-color:#C19AD4" value="8">样式八</option>
+                                                            <option style="background-color:#FD96BA" value="9">样式九</option>
+                                                            <option style="background-color:#757575" value="10">样式十</option>
                                                         </select>
                                                     </div>
                                                     <div class="col-md-8 col-sm-6 col-xs-12" style="margin-top: 1em">
@@ -213,18 +213,22 @@
                                     <tbody>
                                         <foreach name="coverlist" item="vo">
                                             <tr>
-                                                <td class="numeric text-center">{$vo.cid}</td>
+                                                <td id="cid_{$vo.cid}" class="numeric text-center">{$vo.cid}</td>
                                                 <td class="text-center">
-                                                    <input type="checkbox" />
+                                                    <if condition="$vo.open == 1">
+                                                    <input type="checkbox" id="visiable_{$vo.cid}" />
+                                                    <else />
+                                                    <input type="checkbox" id="visiable_{$vo.cid}" checked />
+                                                    </if>
                                                 </td>
-                                                <td class="text-center" contenteditable>{$vo.name}</td>
-                                                <td class="text-center" contenteditable>{$vo.style}</td>
-                                                <td class="text-center" contenteditable>{$vo.coveraddr}</td>
-                                                <td contenteditable>{$vo.inst}</td>
+                                                <td id="cname_{$vo.cid}" class="text-center" contenteditable>{$vo.name}</td>
+                                                <td id="cstyle_{$vo.cid}" class="text-center" contenteditable>{$vo.style}</td>
+                                                <td id="cimg_{$vo.cid}" class="text-center" contenteditable>{$vo.coveraddr}</td>
+                                                <td id="cdetail_{$vo.cid}" contenteditable>{$vo.inst}</td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-success btn-xs fa fa-check"></a>
+                                                    <a class="btn btn-success btn-xs fa fa-check" onclick="submit_cover('save',{$vo.cid})"></a>
                                                     <a class="btn btn-primary btn-xs fa fa-pencil" href="./admin.php?a=photo&cid={$vo.cid}"></a>
-                                                    <a class="btn btn-danger btn-xs fa fa-trash-o"></a>
+                                                    <a class="btn btn-danger btn-xs fa fa-trash-o" onclick="submit_cover('del',{$vo.cid})"></a>
                                                 </td>
                                             </tr>
                                         </foreach>
@@ -233,17 +237,6 @@
                             </section>
                         </div>
                     </div>
-                    <a onclick="submit_cover()" href="#">
-                        <section class="task-panel tasks-widget pn-s">
-                            <table class="table table-bordered table-striped table-hover">
-                                <tbody>
-                                    <th class="text-center">
-                                        确认修改并提交
-                                    </th>
-                                </tbody>
-                            </table>
-                        </section>
-                    </a>
                 </section>
                 
                 <footer id="site-footer">

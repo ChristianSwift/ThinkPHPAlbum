@@ -195,7 +195,7 @@ function create_navi() {
                 return true;
             }
             else {
-                alertify.notify('提交失败，错误详情：' + message, 'error', 5, function(){ console.log('Navigation info update failed!'); });
+                alertify.notify('提交失败，错误详情：' + message, 'error', 5, function(){ console.log('Navigation info create failed!'); });
                 return true;
             }
         },
@@ -241,7 +241,7 @@ function submit_navi(type, nid) {
             var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
             var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
             if (authcode == 200) {
-                alertify.notify(message + '<br>页面将在3秒后自动重新载入！', 'success', 2, function(){ console.log('Navigation info create succeed!'); });
+                alertify.notify(message + '<br>页面将在3秒后自动重新载入！', 'success', 2, function(){ console.log('Navigation info update succeed!'); });
                 var autoReload = window.setTimeout('location.reload()',3000);
                 return true;
             }
@@ -301,12 +301,117 @@ function submit_user(type, uid) {
             var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
             var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
             if (authcode == 200) {
-                alertify.notify(message + '<br>页面将在3秒后自动重新载入！', 'success', 2, function(){ console.log('Navigation info create succeed!'); });
+                alertify.notify(message + '<br>页面将在3秒后自动重新载入！', 'success', 2, function(){ console.log('User info update succeed!'); });
                 var autoReload = window.setTimeout('location.reload()',3000);
                 return true;
             }
             else {
-                alertify.notify(operation + '失败，错误详情：' + message, 'error', 5, function(){ console.log('Navigation info update failed!'); });
+                alertify.notify(operation + '失败，错误详情：' + message, 'error', 5, function(){ console.log('User info update failed!'); });
+                return true;
+            }
+        },
+        fail: function (status) {
+            alertify.notify('远程服务器忙碌！', 'error', 5, function(){ console.log('发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
+            return false;
+        }
+    });
+}
+
+function create_cover() {
+    if (document.getElementById('add_albumname').value == '' || document.getElementById('add_albumstyle').value == '' || document.getElementById('add_albumcover').value == '' || document.getElementById('add_albuminst').value == '') {
+        alertify.notify('表单内容存在空白，请重试！', 'error', 5, function(){ console.log('Form something empty!'); });
+        return false;
+    }
+    var m_cname = document.getElementById('add_albumname').value;
+    var m_cstyle = document.getElementById('add_albumstyle').value;
+    var m_cimg = document.getElementById('add_albumcover').value;
+    var m_cdetail = document.getElementById('add_albuminst').value;
+    var RegUrl = new RegExp();
+    RegUrl.compile('^[A-Za-z]+://[A-Za-z0-9-_]+\\.[A-Za-z0-9-_%&\?\/.=]+$');
+    if (!RegUrl.test(m_cimg)) {
+        alertify.notify('图片链接不符合HTTP规范，请使用“http://”或“https://”为前缀的标准URL。', 'error', 5, function(){ console.log('Get form infomation failed!'); });
+        return false;
+    }
+    var m_jsondata = '{"m_cname":"' + m_cname + '","m_cstyle":"' + parseInt(m_cstyle) + '","m_cimg":"' + m_cimg + '","m_cdetail":"' + m_cdetail + '","m_copen":1}';
+    ajax({
+        url: "./api.php?c=index&a=operate",
+        type: 'POST',
+        data: {
+            mod: 'coverinfo',
+            type: 'write',
+            token: operator_id,
+            data: m_jsondata
+        },
+        dataType: "xml",
+        async: false,
+        success: function (response, xml) {
+            //console.log(response);
+            var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+            var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
+            if (authcode == 200) {
+                alertify.notify(message + '<br>页面将在3秒后自动重新载入！', 'success', 5, function(){ console.log('Cover info create succeed!'); });
+                var autoReload = window.setTimeout('location.reload()',3000);
+                return true;
+            }
+            else {
+                alertify.notify('提交失败，错误详情：' + message, 'error', 5, function(){ console.log('Cover info create failed!'); });
+                return true;
+            }
+        },
+        fail: function (status) {
+            alertify.notify('远程服务器忙碌！', 'error', 5, function(){ console.log('发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
+            return false;
+        }
+    });
+}
+
+function submit_cover(type, cid) {
+    if (type == 'save') {
+        var m_cname = document.getElementById('cname_' + cid).innerText;
+        var m_cstyle = document.getElementById('cstyle_' + cid).innerText;
+        var m_cimg = document.getElementById('cimg_' + cid).innerText;
+        var m_cdetail = document.getElementById('cdetail_' + cid).innerText;
+        if (document.getElementById('visiable_' + cid).checked) {
+            var odata = '{"m_cid":' + cid + ',"m_cname":"' + m_cname + '","m_cstyle":"' + parseInt(m_cstyle) + '","m_cimg":"' + m_cimg + '","m_cdetail":"' + m_cdetail + '","m_copen":0}';
+        }
+        else {
+            var odata = '{"m_cid":' + cid + ',"m_cname":"' + m_cname + '","m_cstyle":"' + parseInt(m_cstyle) + '","m_cimg":"' + m_cimg + '","m_cdetail":"' + m_cdetail + '","m_copen":1}';
+        }
+        var operation = '更新';
+    }
+    else if (type == 'del') {
+        var odata = 'del';
+        var operation = '移除';
+    }
+    else {
+        alertify.notify('非法操作类型：' + type, 'error', 5, function(){ console.log('Illegal operation.'); });
+    }
+    if (!confirm('您确认继续' + operation + 'ID为：' + cid + '的相册信息么？')) {
+        return false;
+    }
+    ajax({
+        url: "./api.php?c=index&a=operate",
+        type: 'POST',
+        data: {
+            mod: 'coverinfo',
+            type: 'write',
+            cid: cid,
+            token: operator_id,
+            data: odata
+        },
+        dataType: "xml",
+        async: false,
+        success: function (response, xml) {
+            //console.log(response);
+            var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+            var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
+            if (authcode == 200) {
+                alertify.notify(message + '<br>页面将在3秒后自动重新载入！', 'success', 2, function(){ console.log('Cover info update succeed!'); });
+                var autoReload = window.setTimeout('location.reload()',3000);
+                return true;
+            }
+            else {
+                alertify.notify(operation + '失败，错误详情：' + message, 'error', 5, function(){ console.log('Cover info update failed!'); });
                 return true;
             }
         },
