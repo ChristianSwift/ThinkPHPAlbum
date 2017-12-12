@@ -141,7 +141,7 @@
                                         <th>
                                             <i class="fa fa-plus">
                                             </i>
-                                            添加相册
+                                            添加相片
                                         </th>
                                     </thead>
                                 </table>
@@ -200,13 +200,13 @@
                                         <foreach name="content" item="vo">
                                             <tr>
                                                 <td class="numeric text-center">{$vo.pid}</td>
-                                                <td class="text-center" contenteditable>{$vo.name}</td>
-                                                <td class="text-center hidden-phone" contenteditable>{$vo.inst}</td>
-                                                <td contenteditable>{$vo.bigimg}</td>
-                                                <td class="hidden-phone" contenteditable>{$vo.preimg}</td>
+                                                <td id="picname_{$vo.pid}" class="text-center" contenteditable>{$vo.name}</td>
+                                                <td id="picinst_{$vo.pid}" class="text-center hidden-phone" contenteditable>{$vo.inst}</td>
+                                                <td id="bigimg_{$vo.pid}" contenteditable>{$vo.bigimg}</td>
+                                                <td id="preimg_{$vo.pid}" class="hidden-phone" contenteditable>{$vo.preimg}</td>
                                                 <td class="text-center">
-                                                    <a class="btn btn-success btn-xs fa fa-check"></a>
-                                                    <a class="btn btn-danger btn-xs fa fa-trash-o"></a>
+                                                    <a class="btn btn-success btn-xs fa fa-check" onclick="update_photo('save',{$vo.pid})"></a>
+                                                    <a class="btn btn-danger btn-xs fa fa-trash-o" onclick="update_photo('del',{$vo.pid})"></a>
                                                 </td>
                                             </tr>
                                         </foreach>
@@ -215,17 +215,6 @@
                             </section>
                         </div>
                     </div>
-                    <a onclick="submit_cover()" href="#">
-                        <section class="task-panel tasks-widget pn-s">
-                            <table class="table table-bordered table-striped table-hover">
-                                <tbody>
-                                    <th class="text-center">
-                                        确认修改并提交
-                                    </th>
-                                </tbody>
-                            </table>
-                        </section>
-                    </a>
                 </section>
                 
                 <footer id="site-footer">

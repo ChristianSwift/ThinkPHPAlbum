@@ -173,7 +173,7 @@ class IndexController extends APIController {
 				if(I('type','','htmlspecialchars') != 'write'){
 					$coverinfo = M('myalbum_cover');
 					$coverinfo = $coverinfo->select();
-					APIController::api(coverinfo);
+					APIController::api($coverinfo);
 				}
 				else {
 					self::verifyTOKEN(I('token','','htmlspecialchars'));
@@ -194,6 +194,19 @@ class IndexController extends APIController {
 			self::verifyTOKEN(I('token','','htmlspecialchars'));
 			self::PicUploader();
 			break;
+			case "picinfo":
+				if(I('type','','htmlspecialchars') != 'write'){
+					$picinfo = M('myalbum_photo');
+					$picinfo = $picinfo->select();
+					APIController::api($picinfo);
+				}
+				else {
+					self::verifyTOKEN(I('token','','htmlspecialchars'));
+					$m_pid = @$_POST['pid'];
+					$data = @$_POST['data'];
+					self::updatePhoto($m_pid, $data);
+				}
+			break;
 			default:
 				$result = array(
 					'code'  =>  405,
@@ -212,22 +225,12 @@ class IndexController extends APIController {
 	 */
 	private function updateBaseInformation($data) {
 		if($data == null || $data == '') {
-			$result = array(
-				'code'  =>  -1,
-				'message'   =>  '没有传入任何配置参数，本次配置更新操作已被取消。',
-				'requestId' =>  date('YmdHis',time())
-			);
-			APIController::api($result);
+			self::showError(-1);
 		}
 		else {
 			$data_array = json_decode($data);
 			if($data_array->name == null || $data_array->nickname == null || $data_array->icon == null || $data_array->logo == null || $data_array->saying == null || $data_array->author == null || $data_array->copyright == null) {
-				$result = array(
-					'code'  =>  -2,
-					'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
+				self::showError(-2);
 			}
 			$baseinfo = M('myalbum_basicinfo');
 			$basedata = array(
@@ -250,12 +253,7 @@ class IndexController extends APIController {
 				APIController::api($result);
 			}
 			else {
-				$result = array(
-					'code'  =>  500,
-					'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
+				self::showError(500);
 			}
 		}
 	}
@@ -297,6 +295,63 @@ class IndexController extends APIController {
 	}
 
 	/**
+	 * 相片更新接口
+	 * @param integer $m_pid 相片ID
+	 * @param string $data JSON数据字串
+	 * @return string XML处理结果
+	 */
+	private function updatePhoto($m_pid = null, $data = null) {
+		if ($m_pid == null || $m_pid == '' || $data == null || $data == '') {
+			$result = array(
+				'code'  =>  -1,
+				'message'   =>  '没有传入任何配置参数，本次相片更新操作已被取消。',
+				'requestId' =>  date('YmdHis',time())
+			);
+			APIController::api($result);
+		}
+		else if ($data == 'del') {
+			$picinfo = M('myalbum_photo');
+			$up_result = $picinfo->where('pid='.$m_pid)->delete();
+			if ($up_result) {
+				$result = array(
+					'code'  =>  200,
+					'message'   =>  '数据移除完毕，操作成功结束！',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			else {
+				self::showError(500);
+			}
+		}
+		else {
+			$data_array = json_decode($data);
+			if ($data_array->m_picname == null || $data_array->m_picinst == null || $data_array->m_preimg == null || $data_array->m_bigimg == null) {
+				self::showError(-2);
+			}
+			$picinfo = M('myalbum_photo');
+			$picdata = array(
+				'name'	=>	$data_array->m_picname,
+				'inst'	=>	$data_array->m_picinst,
+				'preimg'	=>	$data_array->m_preimg,
+				'bigimg'	=>	$data_array->m_bigimg
+			);
+			$up_result = $picinfo->where('pid='.$m_pid)->save($picdata);
+			if ($up_result) {
+				$result = array(
+					'code'  =>  200,
+					'message'   =>  '数据保存完毕，操作成功结束！',
+					'requestId' =>  date('YmdHis',time())
+				);
+				APIController::api($result);
+			}
+			else {
+				self::showError(500);
+			}
+		}
+	}
+
+	/**
 	 * 相册管理接口
 	 * @param integer $m_cid 相册ID
 	 * @param string $data JSON数据字串
@@ -305,21 +360,11 @@ class IndexController extends APIController {
 	private function updateCovers($m_cid = null, $data = null) {
 		if ($m_cid == null || $m_cid == '') {
 			if($data == null || $data == '') {
-				$result = array(
-					'code'  =>  -1,
-					'message'   =>  '没有传入任何配置参数，本次导航新增操作已被取消。',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
+				self::showError(-1);
 			}
 			$data_array = json_decode($data);
-			if($data_array->m_cname == null || $data_array->m_copen == null || $data_array->m_cstyle == null || $data_array->m_cimg == null || $data_array->m_cdetail == null) {
-				$result = array(
-					'code'  =>  -2,
-					'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
+			if ($data_array->m_cname == null || $data_array->m_copen == null || $data_array->m_cstyle == null || $data_array->m_cimg == null || $data_array->m_cdetail == null) {
+				self::showError(-2);
 			}
 			$coverinfo = M('myalbum_cover');
 			$coverdata = array(
@@ -339,22 +384,12 @@ class IndexController extends APIController {
 				APIController::api($result);
 			}
 			else {
-				$result = array(
-					'code'  =>  500,
-					'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
+				self::showError(500);
 			}
 		}
 		else {
 			if($data == null || $data == '') {
-				$result = array(
-					'code'  =>  -1,
-					'message'   =>  '没有传入任何配置参数，本次配置更新操作已被取消。',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
+				self::showError(-1);
 			}
 			else if ($data == 'del') {
 				$coverinfo = M('myalbum_cover');
@@ -368,23 +403,13 @@ class IndexController extends APIController {
 					APIController::api($result);
 				}
 				else {
-					$result = array(
-						'code'  =>  500,
-						'message'   =>  '数据移除失败，可能系统处于忙碌状态或数据库处于只读封禁模式。如果此情况多次出现，请联系系统管理员！',
-						'requestId' =>  date('YmdHis',time())
-					);
-					APIController::api($result);
+					self::showError(500);
 				}
 			}
 			else {
 				$data_array = json_decode($data);
 				if($data_array->m_cname == null || !isset($data_array->m_copen) || $data_array->m_cstyle == null || $data_array->m_cimg == null || $data_array->m_cdetail == null) {
-					$result = array(
-						'code'  =>  -2,
-						'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
-						'requestId' =>  date('YmdHis',time())
-					);
-					APIController::api($result);
+					self::showError(-2);
 				}
 				$coverinfo = M('myalbum_cover');
 				$coverdata = array(
@@ -405,12 +430,7 @@ class IndexController extends APIController {
 					APIController::api($result);
 				}
 				else {
-					$result = array(
-						'code'  =>  500,
-						'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
-						'requestId' =>  date('YmdHis',time())
-					);
-					APIController::api($result);
+					self::showError(500);
 				}
 			}
 		}
@@ -433,12 +453,7 @@ class IndexController extends APIController {
 		}
 		else {
 			if ($data == null || $data == '') {
-				$result = array(
-					'code'  =>  -1,
-					'message'   =>  '没有传入任何配置参数，本次导航新增操作已被取消。',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
+				self::showError(-1);
 			}
 			else if ($data == 'del') {
 				if ($uid == '1') {
@@ -460,23 +475,13 @@ class IndexController extends APIController {
 					APIController::api($result);
 				}
 				else {
-					$result = array(
-						'code'  =>  500,
-						'message'   =>  '用户移除失败，可能系统处于忙碌状态或数据库处于只读封禁模式。如果此情况多次出现，请联系系统管理员！',
-						'requestId' =>  date('YmdHis',time())
-					);
-					APIController::api($result);
+					self::showError(500);
 				}
 			}
 			else {
 				$data_array = json_decode($data);
 				if($data_array->m_user == null || $data_array->m_mail == null) {
-					$result = array(
-						'code'  =>  -2,
-						'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
-						'requestId' =>  date('YmdHis',time())
-					);
-					APIController::api($result);
+					self::showError(-2);
 				}
 				if($data_array->m_pswd == null){
 					$usrinfo = M('myalbum_users');
@@ -505,12 +510,7 @@ class IndexController extends APIController {
 					APIController::api($result);
 				}
 				else {
-					$result = array(
-						'code'  =>  500,
-						'message'   =>  '用户数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
-						'requestId' =>  date('YmdHis',time())
-					);
-					APIController::api($result);
+					self::showError(500);
 				}
 			}
 		}
@@ -525,21 +525,11 @@ class IndexController extends APIController {
 	private function updateNavigation($nid = null, $data = null) {
 		if ($nid == null || $nid == '') {
 			if($data == null || $data == '') {
-				$result = array(
-					'code'  =>  -1,
-					'message'   =>  '没有传入任何配置参数，本次导航新增操作已被取消。',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
+				self::showError(-1);
 			}
 			$data_array = json_decode($data);
 			if($data_array->m_navi == null || $data_array->m_link == null) {
-				$result = array(
-					'code'  =>  -2,
-					'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
+				self::showError(-2);
 			}
 			$navinfo = M('myalbum_navi');
 			$navidata = array(
@@ -557,22 +547,12 @@ class IndexController extends APIController {
 				APIController::api($result);
 			}
 			else {
-				$result = array(
-					'code'  =>  500,
-					'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
+				self::showError(500);
 			}
 		}
 		else {
 			if($data == null || $data == '') {
-				$result = array(
-					'code'  =>  -1,
-					'message'   =>  '没有传入任何配置参数，本次配置更新操作已被取消。',
-					'requestId' =>  date('YmdHis',time())
-				);
-				APIController::api($result);
+				self::showError(-1);
 			}
 			else if ($data == 'del') {
 				$navinfo = M('myalbum_navi');
@@ -586,23 +566,13 @@ class IndexController extends APIController {
 					APIController::api($result);
 				}
 				else {
-					$result = array(
-						'code'  =>  500,
-						'message'   =>  '数据移除失败，可能系统处于忙碌状态或数据库处于只读封禁模式。如果此情况多次出现，请联系系统管理员！',
-						'requestId' =>  date('YmdHis',time())
-					);
-					APIController::api($result);
+					self::showError(500);
 				}
 			}
 			else {
 				$data_array = json_decode($data);
 				if($data_array->m_navi == null || $data_array->m_link == null) {
-					$result = array(
-						'code'  =>  -2,
-						'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
-						'requestId' =>  date('YmdHis',time())
-					);
-					APIController::api($result);
+					self::showError(-2);
 				}
 				$navinfo = M('myalbum_navi');
 				$navidata = array(
@@ -621,12 +591,7 @@ class IndexController extends APIController {
 					APIController::api($result);
 				}
 				else {
-					$result = array(
-						'code'  =>  500,
-						'message'   =>  '数据写入失败，可能是您没有修改任何内容或系统忙碌。如果此情况多次出现，请联系系统管理员！',
-						'requestId' =>  date('YmdHis',time())
-					);
-					APIController::api($result);
+					self::showError(500);
 				}
 			}
 		}
@@ -639,20 +604,68 @@ class IndexController extends APIController {
 	 */
 	private function verifyTOKEN($s_token = null) {
 		if ($s_token == null) {
+			self::showError(401);
+		}
+		else if ($s_token != session('myalbum_token')) {
+			self::showError(403);
+		}
+	}
+
+	/**
+	 * 预定义异常处理
+	 * @param integer $code 错误码
+	 * @return string XML处理结果
+	 */
+	private function showError($code = null) {
+		switch ($code) {
+			case -1:
+			$result = array(
+				'code'  =>  -1,
+				'message'   =>  '没有传入任何配置参数，本次配置更新操作已被取消。',
+				'requestId' =>  date('YmdHis',time())
+			);
+			APIController::api($result);
+			break;
+			case -2:
+			$result = array(
+				'code'  =>  -2,
+				'message'   =>  '配置参数字符串无效，请联系站点管理员获取正确的配置信息格式。',
+				'requestId' =>  date('YmdHis',time())
+			);
+			APIController::api($result);
+			break;
+			case 401:
 			$result = array(
 				'code'  =>  401,
 				'message'   =>  '会话密钥非法，请不要恶意攻击本系统。',
 				'requestId' =>  date('YmdHis',time())
 			);
 			APIController::api($result);
-		}
-		else if ($s_token != session('myalbum_token')) {
+			break;
+			case 403:
 			$result = array(
 				'code'  =>  403,
 				'message'   =>  '无效的密钥，可能您本次会话已经过期。请尝试重新登录！',
 				'requestId' =>  date('YmdHis',time())
 			);
 			APIController::api($result);
+			break;
+			case 500:
+			$result = array(
+				'code'  =>  500,
+				'message'   =>  '用户移除失败，可能系统处于忙碌状态或数据库处于只读封禁模式。如果此情况多次出现，请联系系统管理员！',
+				'requestId' =>  date('YmdHis',time())
+			);
+			APIController::api($result);
+			break;
+			default:
+			$result = array(
+				'code'  =>  null,
+				'message'   =>  '未定义的程序异常，请联系管理员！',
+				'requestId' =>  date('YmdHis',time())
+			);
+			APIController::api($result);
+			break;
 		}
 	}
 }

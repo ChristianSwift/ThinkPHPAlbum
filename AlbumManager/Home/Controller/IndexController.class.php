@@ -93,6 +93,9 @@ class IndexController extends WebAuthorityController {
 			//查询数据库中相册封面部分
 			$cover = M('myalbum_cover');
 			$cover = $cover->where("cid='%d'",array($cid))->select();
+			if (!$cover) {
+				$this->error('抱歉，无法找到当前访问ID所对应的相册。');
+			}
 			$cover = $cover[0];
 			$this -> assign('cover_name',$cover[name]);
 			$this -> assign('cover_inst',$cover[inst]);

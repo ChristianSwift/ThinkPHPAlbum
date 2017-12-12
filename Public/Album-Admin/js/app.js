@@ -1,3 +1,6 @@
+/**
+ * 异步登录逻辑
+ */
 function postlogin() {
     if (document.getElementById('user').value == '' || document.getElementById('pswd').value == '') {
         alertify.notify('请输入用户名和密码！', 'error', 5, function(){ console.log('Get form infomation failed!'); });
@@ -20,8 +23,10 @@ function postlogin() {
             var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
             if (authcode == 200) {
                 //服务器返回注册成功
-                alertify.notify('登录成功！', 'success', 5, function(){ console.log('Login successed'); });
-                location.href = "./admin.php";
+                alertify.notify('登录成功！3秒后自动跳转。', 'success', 3, function(){ console.log('Login successed'); });
+                window.setTimeout(function(){
+                    location.href = "./admin.php";
+                },3000);
                 return true;
             }
             else {
@@ -89,6 +94,9 @@ function postreg(s_token = '0') {
     });
 }
 
+/**
+ * 异步注销逻辑
+ */
 function logout() {
     ajax({
         url: "./api.php?c=index&a=logout",
@@ -104,8 +112,10 @@ function logout() {
             var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
             if (authcode == 200) {
                 //服务器返回注册成功
-                alertify.notify('注销成功！', 'success', 5, function(){ console.log('Logout successed'); });
-                location.href = "./admin.php?c=Login";
+                alertify.notify('注销成功！5秒后自动跳转。', 'success', 5, function(){ console.log('Logout successed'); });
+                window.setTimeout(function(){
+                    location.href = "./admin.php?c=Login";
+                },5000);
                 return true;
             }
             else {
@@ -365,6 +375,58 @@ function create_cover() {
     });
 }
 
+function update_photo(type, pid) {
+    if (type == 'save') {
+        var m_picname = document.getElementById('picname_' + pid).innerText;
+        var m_picinst = document.getElementById('picinst_' + pid).innerText;
+        var m_bigimg = document.getElementById('bigimg_' + pid).innerText;
+        var m_preimg = document.getElementById('preimg_' + pid).innerText;
+        var odata = '{"m_picname":"' + m_picname + '","m_picinst":"' + m_picinst + '","m_bigimg":"' + m_bigimg + '","m_preimg":"' + m_preimg + '"}';
+        var operation = '更新';
+    }
+    else if (type == 'del') {
+        var odata = 'del';
+        var operation = '移除';
+    }
+    else {
+        alertify.notify('非法操作类型：' + type, 'error', 5, function(){ console.log('Illegal operation.'); });
+    }
+    if (!confirm('您确认继续' + operation + 'ID为：' + pid + '的相片信息么？')) {
+        return false;
+    }
+    ajax({
+        url: "./api.php?c=index&a=operate",
+        type: 'POST',
+        data: {
+            mod: 'picinfo',
+            type: 'write',
+            pid: pid,
+            token: operator_id,
+            data: odata
+        },
+        dataType: "xml",
+        async: false,
+        success: function (response, xml) {
+            //console.log(response);
+            var authcode = xml.getElementsByTagName("code")[0].firstChild.nodeValue;
+            var message = xml.getElementsByTagName("message")[0].firstChild.nodeValue;
+            if (authcode == 200) {
+                alertify.notify(message + '<br>页面将在3秒后自动重新载入！', 'success', 2, function(){ console.log('Cover info update succeed!'); });
+                var autoReload = window.setTimeout('location.reload()',3000);
+                return true;
+            }
+            else {
+                alertify.notify(operation + '失败，错误详情：' + message, 'error', 5, function(){ console.log('Cover info update failed!'); });
+                return true;
+            }
+        },
+        fail: function (status) {
+            alertify.notify('远程服务器忙碌！', 'error', 5, function(){ console.log('发生异常，系统无法正常请求远程服务器。请检查本地网络情况！如果网络一切正常，可能是由于远程服务器正在维护或处于忙碌状态，请稍候再次尝试或联系技术人员！错误信息：' + status); });
+            return false;
+        }
+    });
+}
+
 function submit_cover(type, cid) {
     if (type == 'save') {
         var m_cname = document.getElementById('cname_' + cid).innerText;
@@ -504,7 +566,7 @@ function getParams(data) {
         arr.push(encodeURIComponent(param) + '=' + encodeURIComponent(data[param]));
     }
     //console.log(arr); //输出加入随机数参数之前的arr
-    arr.push(('randomNumber=' + Math.random()).replace('.'));
+    arr.push(('randomNumber=' + new Date().getTime()));
     //console.log(arr); //输出加入随机数参数之后的arr
     return arr.join('&');
 }
