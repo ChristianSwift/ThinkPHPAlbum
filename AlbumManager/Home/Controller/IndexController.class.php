@@ -74,7 +74,6 @@ class IndexController extends WebAuthorityController {
 	}
 	public function photo(){
 		$cid = I('get.cid','','/^[0-9]*$/');
-
 		$basicinfo = M('myalbum_basicinfo');
 		$basicinfo = $basicinfo->select();
 		$basicinfo = $basicinfo[0];
