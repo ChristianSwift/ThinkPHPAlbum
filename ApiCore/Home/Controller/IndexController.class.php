@@ -277,12 +277,15 @@ class IndexController extends APIController {
 			$this->error($upload->getError());
 		}
 		$upload_urlpath = $upload->rootPath.$upload_result['add_upload']['savepath'].$upload_result['add_upload']['savename'];
+		$image = new \Think\Image(); 
+		$image->open($upload_urlpath);
+		$image->thumb(1024, 683)->save($upload_urlpath.'.thumb.jpg');
 		$picinfo = M('myalbum_photo');
 		$picdata = array(
 			'cid'	=>	$_POST['current_cid'],
 			'name'	=>	$_POST['add_photoname'],
 			'inst'	=>	$_POST['add_photoinst'],
-			'preimg'	=>	$upload_urlpath,
+			'preimg'	=>	$upload_urlpath.'.thumb.jpg',
 			'bigimg'	=>	$upload_urlpath
 		);
 		$op_result = $picinfo->data($picdata)->add();
