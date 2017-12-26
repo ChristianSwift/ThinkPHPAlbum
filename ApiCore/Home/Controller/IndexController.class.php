@@ -277,7 +277,7 @@ class IndexController extends APIController {
 			$this->error($upload->getError());
 		}
 		$upload_urlpath = $upload->rootPath.$upload_result['add_upload']['savepath'].$upload_result['add_upload']['savename'];
-		if (C('FILE_UPLOAD_TYPE') != 'Local') {
+		if (C('FILE_UPLOAD_TYPE') != 'Local') { //云存储逻辑判断
 			$upload_urlpath = C('STATIC_SRV').'/'.$upload_urlpath;
 			$picinfo = M('myalbum_photo');
 			$picdata = array(
