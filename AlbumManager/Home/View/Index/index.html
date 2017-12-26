@@ -140,7 +140,7 @@
                                     <thead>
                                         <th>
                                             <i class="fa fa-list"></i>
-                                            点击表格项修改后提交
+                                            点击表格项修改后提交 - 当前登录IP：{$current_ipaddr}
                                         </th>
                                     </thead>
                                 </table>
@@ -229,6 +229,30 @@
                                     </tbody>
                                 </table>
                             </section>
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <tbody class="autoenter">
+                                        <th class="col-xs-1 text-center">
+                                            上传驱动
+                                        </th>
+                                        <th>
+                                            当前正在使用：<span style="color: rgb(255, 0, 0)">{$upload_driver_current}</span> --- 如需修改，请进入服务器编辑<span style="color: rgb(255, 0, 0)">config.php</span>
+                                        </th>
+                                    </tbody>
+                                </table>
+                            </section>
+                            <section class="task-panel tasks-widget pn-s">
+                                <table class="table table-bordered table-striped table-hover">
+                                    <tbody class="autoenter">
+                                        <th class="col-xs-1 text-center">
+                                            数据中心
+                                        </th>
+                                        <th>
+                                            当前正在使用：<span style="color: rgb(255, 0, 0)">{$static_host}</span> --- 如需修改，请进入服务器编辑<span style="color: rgb(255, 0, 0)">config.php</span>
+                                        </th>
+                                    </tbody>
+                                </table>
+                            </section>
                             <a onclick="submit_main()" href="#">
                                 <section class="task-panel tasks-widget pn-s">
                                     <table class="table table-bordered table-striped table-hover">
@@ -250,24 +274,16 @@
                 </footer>
             </section>
         </section>
-        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.js">
-        </script>
-        <script src="__PUBLIC__/Album-Admin/assets/js/bootstrap.min.js">
-        </script>
-        <script class="include" type="text/javascript" src="__PUBLIC__/Album-Admin/assets/js/jquery.dcjqaccordion.2.7.js">
-        </script>
-        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.scrollTo.min.js">
-        </script>
-        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.nicescroll.js" type="text/javascript">
-        </script>
-        <script type="text/javascript" src="__PUBLIC__/Album-Admin/js/app.js">
-        </script>
-        <script src="__PUBLIC__/Album-Admin/js/alertify.min.js">
-        </script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.js"></script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/bootstrap.min.js"></script>
+        <script class="include" type="text/javascript" src="__PUBLIC__/Album-Admin/assets/js/jquery.dcjqaccordion.2.7.js"></script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.scrollTo.min.js"></script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/jquery.nicescroll.js" type="text/javascript"></script>
+        <script type="text/javascript" src="__PUBLIC__/Album-Admin/js/app.js"></script>
+        <script src="__PUBLIC__/Album-Admin/js/alertify.min.js"></script>
         <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/alertify.min.css">
         <link rel="stylesheet" href="__PUBLIC__/Album-Admin/css/default.min.css">
-        <script src="__PUBLIC__/Album-Admin/assets/js/common-scripts.js">
-        </script>
+        <script src="__PUBLIC__/Album-Admin/assets/js/common-scripts.js"></script>
     </body>
 
 </html>

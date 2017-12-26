@@ -15,10 +15,17 @@ class IndexController extends WebAuthorityController {
       	$this -> assign('myalbum_author',$basicinfo[myalbum_author]);
       	$this -> assign('myalbum_copyright',$basicinfo[myalbum_copyright]);
 		$this -> assign('myalbum_thisyear',date('Y'));
+		$this -> assign('current_ipaddr',get_client_ip());
 		$this -> assign('session_name',session('myalbum_user'));
 		$this -> assign('session_id',session('myalbum_token'));
 		$this -> assign('session_avatar',getGravatar(session('myalbum_email')));
-		//trace(getGravatar(session('myalbum-email')),'提示1');
+		$this -> assign('upload_driver_current',C('FILE_UPLOAD_TYPE'));
+		if (C('FILE_UPLOAD_TYPE') == 'Local') {
+			$this -> assign('static_host','localhost');
+		}
+		else {
+			$this -> assign('static_host',C('STATIC_SRV'));
+		}
 		$this -> display();
 	}
 	public function navi(){
@@ -89,6 +96,8 @@ class IndexController extends WebAuthorityController {
 		$this -> assign('myalbum_cid',$cid);
 		
 		if($cid != ''){
+			$this -> assign('displayStatus','block');
+			$this -> assign('upload_notice','（当前正在管理的相册ID为：'.$cid.'）');
 			//查询数据库中相册封面部分
 			$cover = M('myalbum_cover');
 			$cover = $cover->where("cid='%d'",array($cid))->select();
@@ -103,7 +112,9 @@ class IndexController extends WebAuthorityController {
 			$content = $content->where("cid='%d'",array($cid))->select();
 			$this -> assign('content',$content);
 		}
-		else{
+		else {
+			$this -> assign('displayStatus','none');
+			$this -> assign('upload_notice','（相片全局管理模式下无法上传，请进入子相册操作。）');
 			//查询数据库中相册封面部分
 			$this -> assign('cover_name','所有相册');
 			$this -> assign('cover_inst','');

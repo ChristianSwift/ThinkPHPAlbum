@@ -131,6 +131,9 @@ function logout() {
     });
 }
 
+/**
+ * 基础信息提交
+ */
 function submit_main() {
     var m_name = document.getElementById('myalbum_name').innerText;
     var m_nickname = document.getElementById('myalbum_nickname').innerText;
@@ -171,6 +174,9 @@ function submit_main() {
     });
 }
 
+/**
+ * 创建导航
+ */
 function create_navi() {
     if (document.getElementById('add_navname').value == '' || document.getElementById('add_navlink').value == '') {
         alertify.notify('表单内容存在空白，请重试！', 'error', 5, function(){ console.log('Form something empty!'); });
@@ -216,6 +222,11 @@ function create_navi() {
     });
 }
 
+/**
+ * 导航数据更新
+ * @param {string} type 操作类型
+ * @param {integer} nid 导航ID
+ */
 function submit_navi(type, nid) {
     if (type == 'save') {
         var m_nsid = document.getElementById('navsort_' + nid).innerText;
@@ -267,10 +278,18 @@ function submit_navi(type, nid) {
     });
 }
 
+/**
+ * 后台账号创建（直接调用操作注册逻辑）
+ */
 function create_user() {
     postreg(operator_id);
 }
 
+/**
+ * 用户信息更新
+ * @param {string} type 操作类型
+ * @param {integer} uid 用户ID
+ */
 function submit_user(type, uid) {
     if (type == 'save') {
         var m_user = document.getElementById('uname_' + uid).innerText;
@@ -327,6 +346,9 @@ function submit_user(type, uid) {
     });
 }
 
+/**
+ * 相册的新建
+ */
 function create_cover() {
     if (document.getElementById('add_albumname').value == '' || document.getElementById('add_albumstyle').value == '' || document.getElementById('add_albumcover').value == '' || document.getElementById('add_albuminst').value == '') {
         alertify.notify('表单内容存在空白，请重试！', 'error', 5, function(){ console.log('Form something empty!'); });
@@ -375,6 +397,11 @@ function create_cover() {
     });
 }
 
+/**
+ * 相片信息的更新
+ * @param {string} type 操作类型
+ * @param {integer} pid 相片ID
+ */
 function update_photo(type, pid) {
     if (type == 'save') {
         var m_picname = document.getElementById('picname_' + pid).innerText;
@@ -427,6 +454,11 @@ function update_photo(type, pid) {
     });
 }
 
+/**
+ * 相册信息的更新
+ * @param {string} type 操作类型
+ * @param {integer} cid 相册ID
+ */
 function submit_cover(type, cid) {
     if (type == 'save') {
         var m_cname = document.getElementById('cname_' + cid).innerText;
